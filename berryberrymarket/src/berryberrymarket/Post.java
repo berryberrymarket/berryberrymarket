@@ -72,13 +72,15 @@ public class Post {
 	}
 
 	public void printInfo() {
+		System.out.println("=================================================\r\n"
+				+ "                게시글 상세 보기\r\n"
+				+ "=================================================");
 		System.out.println("Title: " + title);
 		System.out.println("Nickname: " + nickname);
 		System.out.println("Content: " + content);
 		System.out.println("Price: " + price);
 		System.out.println("Place: " + place);
 		System.out.println("Date: " + date);
-		System.out.println("-----------------------------------");
 	}
 
 }
