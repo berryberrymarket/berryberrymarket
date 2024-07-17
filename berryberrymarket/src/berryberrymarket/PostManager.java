@@ -20,7 +20,7 @@ public class PostManager {
 	        post.printInfo();
 	    }
 	}
-	public void printPostListByCateogry(String category) {
+	public void printPostListByCategory(String category) {
 		 List<Post> filteredPosts = postList.stream()
 		            .filter(post -> post.getTitle().contains(category) || post.getContent().contains(category))
 		            .collect(Collectors.toList());
