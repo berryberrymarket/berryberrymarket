@@ -24,9 +24,10 @@ public class PrintPage {
 			return 1;
 		case ">":
 			return 1;
-		case" s":
-//			String category = sc.nextLine();
-//			pm.printPostListByCateogry(category);
+		case "s": //앞에 " s" 공백 없앰//수현
+			 System.out.print("검색할 카테고리를 입력하세요: ");
+			String category = sc.nextLine();
+			pm.printPostListByCategory(category);// 카테고리 별 게시글 출력 //cateogry//go수정// 수현
 			return 1;
 		case "c":
 			return 7;
@@ -86,16 +87,51 @@ public class PrintPage {
 		return 7;
 	}
 	
-	public int printChatListPage(Scanner sc) {
+	public int printChatListPage(Scanner sc) { //////////수현
 		printHead("채팅목록페이지");
-		return 8;
+	        // 여기에 채팅 목록을 출력하는 코드를 작성합니다.
+	        // 예를 들어, 채팅 목록을 가져오고 출력하는 코드를 작성할 수 있습니다.
+	        // 사용자가 선택할 채팅 방 번호나 기타 작업을 처리하는 로직을 추가합니다.
+
+	        System.out.println("1. 채팅방 입장");
+	        System.out.println("0. 메인 메뉴로 돌아가기");
+	        System.out.print("원하는 작업을 선택하세요: ");
+	        int choice = sc.nextInt();
+	        sc.nextLine(); // 버퍼 비우기
+
+	        return choice == 1 ? 8 : 1; // 채팅방 입장 선택 시 8 반환, 그 외에는 메인 페이지로 돌아가기
+	  
 	}
 	
-	public int printChatRoomPage(Scanner sc) {
+	public int printChatRoomPage(Scanner sc) {//////////수현
 		printHead("채팅방페이지");
-		return 0;
-	}
+		 // 여기에 채팅 방의 메시지를 출력하고 입력을 받는 코드를 작성합니다.
+        // 예를 들어, 채팅 메시지를 출력하고 사용자로부터 메시지를 입력받아 처리하는 코드를 작성할 수 있습니다.
+		System.out.println("채팅을 시작합니다...");
+		
+		while (true) {
+	            // 사용자 입력을 받아 채팅 메시지 전송
+	            System.out.print("나: ");
+	            String myMessage = sc.nextLine();
 
+	            // 채팅을 그만두기 버튼 확인
+	            if (myMessage.equals("그만두기")) {
+	                System.out.println("상대방과의 채팅을 종료합니다.");
+	                break;
+	            }
+
+	            // 여기서는 상대방의 메시지를 대신하는 예시로 나의 메시지를 출력합니다.
+	            System.out.println("상대방: " + myMessage);
+	        }
+
+	        System.out.println("0. 채팅 나가기");
+	        System.out.print("원하는 작업을 선택하세요: ");
+	        int choice = sc.nextInt();
+	        sc.nextLine(); // 버퍼 비우기
+
+	        return choice == 0 ? 7 : 8; // 채팅 나가기 선택 시 7 반환, 그 외에는 채팅 방 페이지로 남기
+	    }
+	
 	private void printHead(String str) {
 		System.out.println("==========="+str+"===========");
 	}
