@@ -15,6 +15,11 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+// 경로 처리 관련 import
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 // 엑셀 처리 관련 추가 import
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -29,11 +34,16 @@ import org.xml.sax.SAXException;
 
 public class UserList {
 	private List<User> userList;
-	String nowPath = System.getProperty("user.dir");
+	public static String nowPath = System.getProperty("user.dir");
+	public static File path = new File(nowPath, "userList");
+//	public static String path = nowPath+"\\userList";
 	
-	/*
-	 * 구현중
-	 */
+	public static void getUser() {
+//		List<User>
+		
+		System.out.println(path);
+//		File[] fileList = path.listFiles();
+	}
 	
 	public void addUser() {
 		

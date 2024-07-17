@@ -1,8 +1,7 @@
 package user;
 
 import java.util.Scanner;
-
-import user.SignUpPage;
+import berryberrymarket.PostManager;
 
 public class PrintPage {
 
@@ -71,7 +70,11 @@ public class PrintPage {
 	public int printSignUpPage(Scanner sc) {
 		printHead("회원가입페이지");
 		SignUpPage sp = new SignUpPage();
-		sp.SignUp();
+		try {
+			sp.SignUp();
+		} catch (Exception e) {
+			
+		}
 		return 1;
 	}
 	
