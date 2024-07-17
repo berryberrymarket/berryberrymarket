@@ -30,6 +30,10 @@ public class BerryBerrymarketApp {
 				pageCase = PrintPage.printChatRoomPage(sc);
 			}
 		}
+		
+	
+		
+		
 	}
 
 	
