@@ -1,5 +1,6 @@
 package berryberrymarket;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class PrintPage {
@@ -81,9 +82,21 @@ public class PrintPage {
 		return 6;
 	}
 	
-	public int printAddPostPage(Scanner sc) {
+	public int printAddPostPage(Scanner sc) throws FileNotFoundException {
 		printHead("게시글등록페이지");
-		return 7;
+		System.out.print("제목을 입력하세요: ");
+		String title = sc.nextLine();
+		System.out.print("내용을 입력하세요: ");
+		String content = sc.nextLine();
+		System.out.print("가격을 입력하세요: ");
+		int price = sc.nextInt();
+		sc.nextLine();
+		System.out.print("거래 희망 장소를 입력하세요: ");
+		String place = sc.nextLine();
+		
+		pm.addPost(new Post(title,"user1",content,price,place));
+		
+		return 1;
 	}
 	
 	public int printChatListPage(Scanner sc) {

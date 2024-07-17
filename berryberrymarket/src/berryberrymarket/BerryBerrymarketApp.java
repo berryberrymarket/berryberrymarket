@@ -1,10 +1,11 @@
 package berryberrymarket;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class BerryBerrymarketApp {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 
 		PrintPage pm = new PrintPage();
 		int pageCase = 1;
