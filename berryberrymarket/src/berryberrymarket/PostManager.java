@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class PostManager {
 
 	private List<Post> postList = new ArrayList<>();
-	///////////////////////////////////////////
+	
 	public void printPost(Post post) { // 게시글 상세페이지
 		 post.printInfo();
 	}
@@ -18,28 +18,29 @@ public class PostManager {
 	        } else {
 	            System.out.println("전체 게시글 목록:");
 	            for (Post post : postList) {
-	                post.printInfo();
+	                post.printSimpleInfo();
 	            }
 	        }
 	    }
 	public void printPostListByCategory(String category) {
-		 List<Post> filteredPosts = postList.stream()
-		            .filter(post -> post.getTitle().contains(category) || post.getContent().contains(category))
-		            .collect(Collectors.toList());
+		
+		List<Post> filteredPosts = postList.stream()
+			    .filter(post -> post.getTitle().contains(category) || post.getContent().contains(category))
+			    .collect(Collectors.toList());
 
-		    if (filteredPosts.isEmpty()) {
-		        System.out.println("해당 카테고리에 해당하는 게시글이 없습니다.");
-		    } else {
-		        System.out.println("카테고리 '" + category + "' 검색 결과:");
-		        for (Post post : filteredPosts) {
-		            post.printInfo();
-		        }
-		    }
+			if (filteredPosts.isEmpty()) {
+			    System.out.println("필터링된 결과가 없습니다.");
+			} else {
+			    filteredPosts.forEach(post -> {
+			        post.printSimpleInfo();
+			    });
+			}
 		}
 	
 	public void addPost(Post post) {
 		 postList.add(post);
 	}
+	
 	public void removePost(String title) {
 		boolean removed = postList.removeIf(post -> post.getTitle().equals(title));
         if (removed) {
@@ -48,6 +49,7 @@ public class PostManager {
             System.out.println("게시글 '" + title + "'이(가) 존재하지 않습니다.");
         }
     }
+	
 	public void updatePost(Post updatedPost) {
 		 for (Post post : postList) {
 	            if (post.getTitle().equals(updatedPost.getTitle())) {

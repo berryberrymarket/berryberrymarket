@@ -1,5 +1,7 @@
 package berryberrymarket;
 
+import java.time.LocalDateTime;
+
 public class Post {
 
 	private String title;
@@ -7,20 +9,20 @@ public class Post {
 	private String content;
 	private int price;
 	private String place;
-	private String date;
+	private LocalDateTime date;
 
 	public Post() {
 
 	}
 
-	public Post(String title, String nickname, String content, int price, String place, String date) {
+	public Post(String title, String nickname, String content, int price, String place) {
 		super();
 		this.title = title;
 		this.nickname = nickname;
 		this.content = content;
 		this.price = price;
 		this.place = place;
-		this.date = date;
+		this.date = LocalDateTime.now();
 	}
 
 	public String getTitle() {
@@ -63,18 +65,15 @@ public class Post {
 		this.place = place;
 	}
 
-	public String getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
 	public void printInfo() {
-		System.out.println("=================================================\r\n"
-				+ "                게시글 상세 보기\r\n"
-				+ "=================================================");
 		System.out.println("Title: " + title);
 		System.out.println("Nickname: " + nickname);
 		System.out.println("Content: " + content);
@@ -83,4 +82,7 @@ public class Post {
 		System.out.println("Date: " + date);
 	}
 
+	public void printSimpleInfo() {
+		System.out.println("\t"+title+"\t"+nickname+"\t"+date);
+	}
 }
