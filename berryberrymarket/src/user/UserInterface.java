@@ -1,4 +1,4 @@
-package berryberrymarket;
+package user;
 
 public interface UserInterface {
 	void printInfo();
