@@ -1,4 +1,4 @@
-package berryberrymarket;
+package user;
 
 import java.util.List;
 import java.util.Scanner;
@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class SignUpPage {
 	private List<User> userList;
+	Scanner sc = new Scanner(System.in);
 
 	public SignUpPage() {
 		this.userList = userList;
@@ -14,11 +15,13 @@ public class SignUpPage {
 	
 	
 	
-	public void SignUp(Scanner sc) {
+	public void SignUp() {
 		//아이디 유효성 검사
+		String id;
+		
 		while (true) {
 			System.out.print("가입하실 아이디를 입력하세요: ");
-			String id = sc.nextLine();
+			id = sc.nextLine();
 			boolean idExists = false;
 
 			for (User user : userList) {
@@ -57,9 +60,10 @@ public class SignUpPage {
 		String name = sc.nextLine();
 
 		//닉네임 유효성 검사
+		String nick;
 		while (true) {
 			System.out.print("닉네임을 입력하세요: ");
-			String nick = sc.nextLine();
+			nick = sc.nextLine();
 			boolean nickExists = false;
 
 			for (User user : userList) {
@@ -87,10 +91,11 @@ public class SignUpPage {
 		String address = sc.nextLine();
 		
 		
+		
 		User u = new User(id, pw1, name, nick, phoneNumber, address);
 		userList.add(u);
 
-		return 1;
+		//return 1;
 	}
 
 }

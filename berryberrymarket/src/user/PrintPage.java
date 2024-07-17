@@ -1,4 +1,4 @@
-package berryberrymarket;
+package user;
 
 import java.util.Scanner;
 
