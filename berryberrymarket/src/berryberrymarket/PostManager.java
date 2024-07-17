@@ -3,10 +3,12 @@ package berryberrymarket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class PostManager {
@@ -18,13 +20,25 @@ public class PostManager {
 	}
 	
 	public void printPostList() { // 게시글 리스트 목록 쫙~
-		 if (postList.isEmpty()) {
-	            System.out.println("등록된 게시글이 없습니다.");
-	        } else {
-	            System.out.println("전체 게시글 목록:");
-	            for (Post post : postList) {
-	                post.printSimpleInfo();
-	            }
+		try {
+		FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        
+        Post post = (Post) ois.readObject();
+
+        postList.add(post);
+        
+        ois.close(); fis.close();
+        
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		if (postList.isEmpty()) {
+			System.out.println("등록된 게시글이 없습니다.");
+	    } else {
+	    	System.out.println("전체 게시글 목록:");
+	            
+	        postList.stream().forEach(n->n.printSimpleInfo());
 	        }
 	    }
 	public void printPostListByCategory(String category) {
@@ -44,7 +58,7 @@ public class PostManager {
 	
 	public void addPost(Post post) throws FileNotFoundException {
 		try {
-			OutputStream os = new FileOutputStream("C:/Edu/Temp");
+			OutputStream os = new FileOutputStream("C:/Edu/Temp/Post.dat");
 			ObjectOutputStream oos = new ObjectOutputStream(os);
 			
 			oos.writeObject(post);
@@ -52,7 +66,7 @@ public class PostManager {
 			oos.close();
 			os.close();
 		} catch(Exception e) {
-			System.out.print("Exception");
+			e.printStackTrace();
 		}
 	}
 	

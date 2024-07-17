@@ -1,9 +1,14 @@
 package berryberrymarket;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Post {
+public class Post implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4520338998642408106L;
 	private String title;
 	private String nickname;
 	private String content;
