@@ -1,10 +1,11 @@
-package user;
+package user.test;
 
 public class InputTest {
 
 	public static void main(String[] args) {
-		UserList ul = new UserList();
-		ul.getUserListFromFile();
+		/*
+		 * 테스트용 실행 파일
+		 */
 	}
 
 }
