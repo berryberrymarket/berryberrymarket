@@ -3,6 +3,11 @@ package berryberrymarket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class PostManager {
 
@@ -37,8 +42,18 @@ public class PostManager {
 			}
 		}
 	
-	public void addPost(Post post) {
-		 postList.add(post);
+	public void addPost(Post post) throws FileNotFoundException {
+		try {
+			OutputStream os = new FileOutputStream("C:/Edu/Temp");
+			ObjectOutputStream oos = new ObjectOutputStream(os);
+			
+			oos.writeObject(post);
+			oos.flush();
+			oos.close();
+			os.close();
+		} catch(Exception e) {
+			System.out.print("Exception");
+		}
 	}
 	
 	public void removePost(String title) {
