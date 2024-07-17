@@ -43,7 +43,27 @@ public class PrintPage {
 		System.out.println("(1)로그인");
 		System.out.println("(2)회원가입");
 		printTail();
-		return 3;
+		String in = sc.nextLine();
+		switch(in) {
+		case "1":
+			while(true) {
+				System.out.print("아이디를 입력하세요: ");
+				String id = sc.nextLine();
+				System.out.print("비밀번호를 입력하세요: ");
+				String password = sc.nextLine();
+//				아이디패스워드 확인 메소드
+				boolean loginEx = true;
+				if(loginEx) {
+					return 1;
+				} else {
+					System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");
+				}
+			}
+		case "2":
+			return 3;
+		default:
+			return 2;
+		} 
 	}
 	
 	public int printSignUpPage(Scanner sc) {
