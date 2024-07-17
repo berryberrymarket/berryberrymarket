@@ -3,14 +3,14 @@ package berryberrymarket;
 public class PtintTest_suhyeon {
 
 	public static void main(String[] args) {
-
-		Post post = new Post();
-		post.printInfo();
-		
+//PostManager 테스트 클래스
 		 PostManager postManager = new PostManager();
 		 Post post1 = new Post("제목1", "사용자1", "내용1", 10000, "서울", "2024-07-17");
 	     Post post2 = new Post("제목2", "사용자2", "내용2", 15000, "부산", "2024-07-18");
-		
+	  
+	     	postManager.addPost(post1);
+	        postManager.addPost(post2);
+	     
 	     	// 모든 게시글 출력
 	        System.out.println("전체 게시글 목록:");
 	        postManager.printPostList();
@@ -30,7 +30,4 @@ public class PtintTest_suhyeon {
 	        System.out.println("\n게시글 삭제 후 목록:");
 	        postManager.printPostList();
 	    }
-
-	}}
-
 }

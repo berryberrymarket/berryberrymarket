@@ -13,6 +13,7 @@ public class BerryBerrymarketApp {
 		while(true) {
 			if(pageCase==0) { //시스템 종료
 				System.out.println("시스템을 종료합니다.");
+				break;
 			} else if (pageCase==1) { //메인페이지 출력
 				pageCase = pm.printMainPage(sc);
 			} else if (pageCase==2) { //로그인페이지 출력
