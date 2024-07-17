@@ -25,9 +25,9 @@ public class PrintPage {
 			return 1;
 		case ">":
 			return 1;
-		case" s":
-//			String category = sc.nextLine();
-//			pm.printPostListByCateogry(category);
+		case "s":
+			String category = sc.nextLine();
+			pm.printPostListByCategory(category);
 			return 1;
 		case "c":
 			return 7;
