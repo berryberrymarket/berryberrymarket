@@ -68,7 +68,7 @@ public class PrintPage {
 	
 	public int printSignUpPage(Scanner sc) {
 		printHead("회원가입페이지");
-		return 4;
+		return 1;
 	}
 	
 	public int printMyPage(Scanner sc) {
