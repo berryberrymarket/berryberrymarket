@@ -20,6 +20,24 @@ import java.nio.file.Paths;
 
 
 public class SignUpPage {
+//	화면
+//	System.out.println("----------회원가입----------");
+//	System.out.print("1.아이디를 입력하세요: ");
+//	String id = sc.nextLine();
+//	System.out.print("2.비밀번호를 입력하세요: ");
+//	String pw1 = sc.nextLine();
+//	System.out.print("3.비밀번호를 한번 더 입력하세요: ");
+//	String pw2 = sc.nextLine();
+//	System.out.print("4.이름을 입력하세요: ");
+//	String name = sc.nextLine();
+//	System.out.print("5.닉네임을 입력하세요: ");
+//	String nick = sc.nextLine();
+//	System.out.print("6.전화번호를 입력하세요: ");
+//	String phoneNumber = sc.nextLine();
+//	System.out.print("7.주소를 입력하세요: ");
+//	String address = sc.nextLine();
+//	System.out.println("--------------------------");
+//	System.out.println("        (r)가입하기         ");	
 	private List<User> userList;
 	Scanner sc = new Scanner(System.in);
 
