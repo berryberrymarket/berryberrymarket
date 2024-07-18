@@ -16,9 +16,10 @@ public class BerryBerrymarketApp {
 	
 	public static void main(String[] args) {
 
-		PrintPage pm = new PrintPage();
-		int pageCase = 1;
+		PrintPage pp = new PrintPage();
+		int pageCase = 2;
 		Scanner sc = new Scanner(System.in);
+
 		try {
 			while(true) {
 				if(pageCase==0) { //시스템 종료
@@ -41,7 +42,6 @@ public class BerryBerrymarketApp {
 				} else if (pageCase==8) { //채팅방페이지 출력
 					pageCase = pm.printChatRoomPage(sc);
 				}
-					
 			}
 	    
 		} catch (FileNotFoundException e) {
