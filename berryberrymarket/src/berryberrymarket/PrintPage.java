@@ -54,7 +54,7 @@ public class PrintPage {
 //				String id = sc.nextLine();
 //				System.out.print("비밀번호를 입력하세요: ");
 //				String password = sc.nextLine();
-////				아이디패스워드 확인 메소드
+//				아이디패스워드 확인 메소드
 //				boolean loginEx = true;
 //				if(loginEx) {
 //					return 1;
@@ -83,10 +83,8 @@ public class PrintPage {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		sp.SignUp();
 		
-		return 1;
+		return 2;
 	}
 	
 	public int printMyPage(Scanner sc) {

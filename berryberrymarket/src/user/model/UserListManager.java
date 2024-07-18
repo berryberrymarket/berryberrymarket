@@ -27,9 +27,9 @@ public class UserListManager {
 	
 	// 경로는 아래와 같아야 함
 	// C:/Github/pjt-team-kosa/berryberrymarket/berryberrymarket/userList
-	private String userFilePath = "C:/Github/pjt-team-kosa/berryberrymarket/berryberrymarket/userList";
-//	public String nowPath = System.getProperty("user.dir");
-//	public File path = new File(nowPath, "userList");
+//	private String userFilePath = "C:/Github/pjt-team-kosa/berryberrymarket/berryberrymarket/userList";
+	public String nowPath = System.getProperty("user.dir");
+	public File path = new File(nowPath, "user");
 	
 	private UserListManager() {
 		// UserList 클래스의 객체 생성과 동시에 유저 리스트가 생성됨.
@@ -53,7 +53,10 @@ public class UserListManager {
 	private void initializeUserList() {
 		// 폴더 목록에 있는 모든 user.dat를 가져와서 userList로 담는 메서드
 		// 즉 프로그램 초기화 작업의 일부임.
-		File path = new File(userFilePath);
+//		File path = new File(userFilePath);
+        if (!path.exists()) {
+        	path.mkdirs();
+        }
 //		File[] fileArray = UserList.path.listFiles();
 		File[] fileArray = path.listFiles();
 		System.out.printf("현재 가입된 유저 수: %d\n", fileArray.length);
@@ -92,7 +95,8 @@ public class UserListManager {
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 		try {
-			fos = new FileOutputStream(userFilePath+"/user_"+idx+"_"+id+".dat");
+//			fos = new FileOutputStream(userFilePath+"/user_"+idx+"_"+id+".dat");
+			fos = new FileOutputStream(path+"/user_"+idx+"_"+id+".dat");
 			oos = new ObjectOutputStream(fos);
 			User user = new User(id, pw1, name, nick, phoneNumber, address);
 			userList.add(user);

@@ -3,6 +3,7 @@ package berryberrymarket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,26 +22,31 @@ public class PostManager {
 	
 	public void printPostList() { // 게시글 리스트 목록 쫙~
 		try {
-		FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        
-        Post post = (Post) ois.readObject();
-
-        postList.add(post);
-        
-        ois.close(); fis.close();
-        
+	//		FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat"); -> 경로 관련 논의 필요
+			String nowPath = System.getProperty("user.dir");
+			File postListFile = new File(nowPath, "/Post.dat");
+			if (!postListFile.exists()) {
+				System.out.println("등록된 게시글이 없습니다.");
+				return;
+			} else {
+				FileInputStream fis = new FileInputStream(postListFile);
+		        ObjectInputStream ois = new ObjectInputStream(fis);
+		        
+		        Post post = (Post) ois.readObject();
+	
+		        postList.add(post);
+		        
+		        ois.close(); fis.close();
+		        
+		        System.out.println("전체 게시글 목록:");
+		        postList.stream().forEach(n->n.printSimpleInfo());
+			}
+	    
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		if (postList.isEmpty()) {
-			System.out.println("등록된 게시글이 없습니다.");
-	    } else {
-	    	System.out.println("전체 게시글 목록:");
-	            
-	        postList.stream().forEach(n->n.printSimpleInfo());
-	        }
-	    }
+	}
+	
 	public void printPostListByCategory(String category) {
 		
 		List<Post> filteredPosts = postList.stream()
