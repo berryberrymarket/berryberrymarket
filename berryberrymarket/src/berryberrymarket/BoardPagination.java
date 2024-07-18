@@ -10,7 +10,7 @@ public class BoardPagination extends Pagination{
 
 	public static List<Post> currentPage(List<Post> board){
 		int startIndex = (curPage-1)*10;
-		int endIndex = curPage*10-1;
+		int endIndex = curPage*10;
 		if(endIndex>board.size()) {
 			return board.subList(startIndex, board.size());
 		}
@@ -19,13 +19,12 @@ public class BoardPagination extends Pagination{
 
 	@Override
 	void getNextPage() {
-		// TODO Auto-generated method stub
-		
+		curPage++;
 	}
 
 	@Override
 	void getPrevPage() {
-		// TODO Auto-generated method stub
+		curPage--;
 		
 	}
 }
