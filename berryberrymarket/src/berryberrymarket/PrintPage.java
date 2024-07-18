@@ -3,7 +3,7 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import user.account.SignUpPage;
+import user.account.*;
 
 public class PrintPage {
 
@@ -94,6 +94,7 @@ public class PrintPage {
 		String in = sc.nextLine();
 		switch (in) {
 		case "1":
+
 			while (true) {
 				System.out.print("아이디를 입력하세요: ");
 				String id = sc.nextLine();
@@ -118,12 +119,14 @@ public class PrintPage {
 	public int printSignUpPage(Scanner sc) {
 		printHead("회원가입페이지");
 		SignUpPage sp = new SignUpPage();
+
 		try {
 			sp.SignUp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 1;
+		
+		return 2;
 	}
 
 	public int printMyPage(Scanner sc) {
