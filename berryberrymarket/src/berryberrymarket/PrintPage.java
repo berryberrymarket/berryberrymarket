@@ -2,7 +2,7 @@ package berryberrymarket;
 
 import java.util.Scanner;
 
-import user.SignUpPage;
+import user.account.SignUpPage;
 
 public class PrintPage {
 
@@ -71,7 +71,11 @@ public class PrintPage {
 	public int printSignUpPage(Scanner sc) {
 		printHead("회원가입페이지");
 		SignUpPage sp = new SignUpPage();
-		sp.SignUp();
+		try {
+			sp.SignUp();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return 1;
 	}
 	

@@ -1,4 +1,4 @@
-package user;
+package user.model;
 
 public interface UserInterface {
 	void printInfo();
