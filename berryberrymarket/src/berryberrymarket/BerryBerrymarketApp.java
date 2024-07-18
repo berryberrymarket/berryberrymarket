@@ -2,6 +2,7 @@ package berryberrymarket;
 
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 import user.model.User;
 import user.model.UserListManager;
@@ -18,8 +19,8 @@ public class BerryBerrymarketApp {
 		PrintPage pm = new PrintPage();
 		int pageCase = 1;
 		Scanner sc = new Scanner(System.in);
-		
-		while(true) {
+	try {
+    while(true) {
 			if(pageCase==0) { //시스템 종료
 				System.out.println("시스템을 종료합니다.");
 				break;
@@ -42,7 +43,9 @@ public class BerryBerrymarketApp {
 			}
 			
 		}
-		
-	}
+    
+  } catch (FileNotFoundException e) {
+    e.printStackTrace();
+  }
 	
 }
