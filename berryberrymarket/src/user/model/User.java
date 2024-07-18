@@ -1,4 +1,4 @@
-package user;
+package user.model;
 
 import java.io.Serializable;
 
@@ -106,7 +106,7 @@ public class User implements UserInterface, Serializable {
 	// printManager에서 사용
 	@Override
 	public void printInfo() {
-		System.out.printf("ID=%s | 비밀번호=%s | 닉네임=%s | 주소=%s | 전화번호=%s | 레벨=%d | 거래횟수=%d\n", this.id, this.pw1, this.nick, this.address, this.phoneNumber, this.userLevel, this.transactionsCnt);
+		System.out.printf("ID=%s | 비밀번호=%s | 이름=%s | 닉네임=%s | 주소=%s | 전화번호=%s | 레벨=%d | 거래횟수=%d\n", this.id, this.pw1, this.name, this.nick, this.address, this.phoneNumber, this.userLevel, this.transactionsCnt);
 	};
 	
 	@Override
