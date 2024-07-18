@@ -1,17 +1,26 @@
 package berryberrymarket;
 
-import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+
+import user.model.User;
+import user.model.UserListManager;
 
 public class BerryBerrymarketApp {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	// 유저 리스트 초기화.
+	// 정적 영역에 생성하고 여기저기서 호출함.
+	public static UserListManager ulm = UserListManager.getUserListMagener();
+	public static List<User> ul = ulm.getUserList();
+	
+	public static void main(String[] args) {
 
 		PrintPage pm = new PrintPage();
 		int pageCase = 1;
 		Scanner sc = new Scanner(System.in);
-		
-		while(true) {
+	try {
+    while(true) {
 			if(pageCase==0) { //시스템 종료
 				System.out.println("시스템을 종료합니다.");
 				break;
@@ -32,13 +41,11 @@ public class BerryBerrymarketApp {
 			} else if (pageCase==8) { //채팅방페이지 출력
 				pageCase = pm.printChatRoomPage(sc);
 			}
+			
 		}
-		
+    
+  } catch (FileNotFoundException e) {
+    e.printStackTrace();
+  }
 	
-		
-		
-	}
-
-	
-
 }

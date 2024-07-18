@@ -3,6 +3,8 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import user.account.SignUpPage;
+
 public class PrintPage {
 
 	PostManager pm = new PostManager();
@@ -69,6 +71,12 @@ public class PrintPage {
 	
 	public int printSignUpPage(Scanner sc) {
 		printHead("회원가입페이지");
+		SignUpPage sp = new SignUpPage();
+		try {
+			sp.SignUp();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return 1;
 	}
 	
