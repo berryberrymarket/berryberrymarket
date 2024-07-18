@@ -1,9 +1,18 @@
 package berryberrymarket;
 
+import java.util.List;
 import java.util.Scanner;
+
+import user.model.User;
+import user.model.UserListManager;
 
 public class BerryBerrymarketApp {
 
+	// 유저 리스트 초기화.
+	// 정적 영역에 생성하고 여기저기서 호출함.
+	public static UserListManager ulm = UserListManager.getUserListMagener();
+	public static List<User> ul = ulm.getUserList();
+	
 	public static void main(String[] args) {
 
 		PrintPage pm = new PrintPage();
@@ -31,13 +40,9 @@ public class BerryBerrymarketApp {
 			} else if (pageCase==8) { //채팅방페이지 출력
 				pageCase = pm.printChatRoomPage(sc);
 			}
+			
 		}
 		
-	
-		
-		
 	}
-
 	
-
 }

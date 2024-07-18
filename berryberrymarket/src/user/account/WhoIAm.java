@@ -1,4 +1,4 @@
-package user;
+package user.account;
 
 public class WhoIAm {
 	private String self;
