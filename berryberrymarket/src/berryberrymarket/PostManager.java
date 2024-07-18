@@ -12,10 +12,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class PostManager {
-	private static List<Post> postList = new ArrayList<>();
+	private List<Post> board = new ArrayList<>();
 	int opCount = 1;
 	
-	public static void initGetPostList() {
+	public void initGetBoard() {
 		try {
 
 			FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat");
@@ -24,7 +24,7 @@ public class PostManager {
 			while (true) {
                 try {
                     Post post = (Post) ois.readObject();
-                    postList.add(post);
+                    board.add(post);
                 } catch (IOException e) {
                     // End of file reached
                     break;
@@ -44,17 +44,19 @@ public class PostManager {
 		post.printInfo();
 	}
 
-	public void printPostList() { // 게시글 리스트 목록 쫙~
-		if (postList.isEmpty()) {
+	public void printBoard() { // 게시글 리스트 목록 쫙~
+		
+		if (board.isEmpty()) {
 			System.out.println("등록된 게시글이 없습니다.");
 		} else {
-			postList.stream().forEach(n->n.printSimpleInfo());
+			List<Post> subBoard = BoardPagination.currentPage(board);
+			subBoard.stream().forEach(n->n.printSimpleInfo());
 		}
 	}
 
-	public void printPostListByCategory(String category) {
+	public void printBoardByCategory(String category) {
 
-		List<Post> filteredPosts = postList.stream()
+		List<Post> filteredPosts = board.stream()
 				.filter(post -> post.getTitle().contains(category) || post.getContent().contains(category))
 				.collect(Collectors.toList());
 
@@ -73,8 +75,8 @@ public class PostManager {
 			OutputStream os = new FileOutputStream("C:/Edu/Temp/Post.dat");
 			ObjectOutputStream oos = new ObjectOutputStream(os);
 
-			postList.add(post);
-			postList.stream().forEach(n->{
+			board.add(post);
+			board.stream().forEach(n->{
 				try {
 					oos.writeObject(n);
 				} catch (IOException e) {
@@ -91,7 +93,7 @@ public class PostManager {
 	}
 
 	public void removePost(String title) {
-		boolean removed = postList.removeIf(post -> post.getTitle().equals(title));
+		boolean removed = board.removeIf(post -> post.getTitle().equals(title));
 		if (removed) {
 			System.out.println("게시글 '" + title + "'이(가) 삭제되었습니다.");
 		} else {
@@ -100,7 +102,7 @@ public class PostManager {
 	}
 
 	public void updatePost(Post updatedPost) {
-		for (Post post : postList) {
+		for (Post post : board) {
 			if (post.getTitle().equals(updatedPost.getTitle())) {
 				// 예시로 제목을 기준으로 업데이트 처리
 				post.setContent(updatedPost.getContent());

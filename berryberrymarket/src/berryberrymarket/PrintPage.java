@@ -11,7 +11,7 @@ public class PrintPage {
 		printHead("메인페이지");
 		System.out.println("(m)마이페이지         (o)로그아웃");
 		printSmallHead("게시글");
-		pm.printPostList();
+		pm.printBoard();
 		System.out.println("(<)이전페이지         (>)다음페이지");
 		System.out.println("(s)검색   (c)채팅목록  (p)등록");
 		printTail();
@@ -45,7 +45,7 @@ public class PrintPage {
 		printHead("메인페이지");
 		System.out.println("(m)마이페이지         (o)로그아웃");
 		printSmallHead("게시글");
-		pm.printPostListByCategory(category);
+		pm.printBoardByCategory(category);
 		System.out.println("(<)이전페이지         (>)다음페이지");
 		System.out.println("(s)검색   (c)채팅목록  (p)등록");
 		printTail();
@@ -100,6 +100,7 @@ public class PrintPage {
 //				아이디패스워드 확인 메소드
 				boolean loginEx = true;
 				if (loginEx) {
+					pm.initGetBoard();
 					return 1;
 				} else {
 					System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");

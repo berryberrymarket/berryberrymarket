@@ -8,9 +8,8 @@ public class BerryBerrymarketApp {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		PrintPage pp = new PrintPage();
-		int pageCase = 1;
+		int pageCase = 2;
 		Scanner sc = new Scanner(System.in);
-		PostManager.initGetPostList();
 		
 		while(true) {
 			if(pageCase==0) { //시스템 종료
