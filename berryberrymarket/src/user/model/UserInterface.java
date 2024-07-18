@@ -1,4 +1,4 @@
-package berryberrymarket;
+package user.model;
 
 public interface UserInterface {
 	void printInfo();
