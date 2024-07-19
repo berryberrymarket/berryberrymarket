@@ -4,11 +4,13 @@ import java.util.List;
 
 public class BoardPagination{
 	
+	private int curPage = 1;
+	
 	public BoardPagination() {
 		super();
 	}
 
-	public static List<Post> currentPage(List<Post> board){
+	public List<Post> currentPage(List<Post> board){
 		int startIndex = (curPage-1)*10;
 		int endIndex = curPage*10;
 		if(endIndex>board.size()) {
@@ -17,14 +19,20 @@ public class BoardPagination{
 		return board.subList(startIndex, endIndex);
 	}
 
-	@Override
-	void getNextPage() {
+	void nextPage() {
 		curPage++;
 	}
 
-	@Override
-	void getPrevPage() {
+	void prevPage() {
 		curPage--;
 		
+	}
+
+	public int getCurPage() {
+		return curPage;
+	}
+
+	public void setCurPage(int curPage) {
+		this.curPage = curPage;
 	}
 }
