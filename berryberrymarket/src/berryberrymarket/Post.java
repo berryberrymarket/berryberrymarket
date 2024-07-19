@@ -88,6 +88,6 @@ public class Post implements Serializable{
 	}
 
 	public void printSimpleInfo() {
-		System.out.println("\t"+title+"\t"+nickname+"\t"+date);
+		System.out.println("  "+title+"  "+nickname+"  "+date);
 	}
 }
