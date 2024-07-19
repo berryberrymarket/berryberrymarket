@@ -2,16 +2,18 @@ package userPackage.account;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
-import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
+import berryberrymarket.BerryBerrymarketApp;
 
 public class LogInPage {
 	private String id;
 	private String password;
 	
 	private List<User> userList;
-	private WhoAmI WhoAmI;
+//	public static List<User> logInUserList = new ArrayList<>(); -> 메인으로 옮김.
+	
 	Scanner sc = new Scanner(System.in);
 
 	public LogInPage(String id, String password) {
@@ -22,41 +24,26 @@ public class LogInPage {
 
 	// 로그인
 	public boolean LogIn() {
-//		while (true) {
-//			System.out.print("아이디를 입력하세요: ");
-//			String id = sc.nextLine();
-//			System.out.print("비밀번호를 입력하세요: ");
-//			String pw = sc.nextLine();
-//			boolean idPwExists = false;
-
-			for (User user : userList) {
-				if (user.getId().equals(id) && user.getPw().equals(this.password)) {
-					WhoAmI itsMe = new WhoAmI(user); // 로그인 유저 정보 저장.
-					user.setSelf(itsMe);
-					return true;
-//					break;
+		for (User user : userList) {
+			try {
+				if (user.getId().equals(id) && user.getPw().equals(password)) {
+//					logInUserList.add(user); // 로그인 유저 정보 저장.
+					BerryBerrymarketApp.logInUserList.add(id); // id 도 마찬가지로 고유값이므로 굳이 user 를 저장할 필요 없어보임.
+					Authentication authFile = Authentication.generateAuthFile(id, password); // 로그인 인증 관련 파일을 클라이언트측 저장소에 생성.
+					if (authFile != null) {						
+						user.setAuthFile(authFile);
+					} else {
+						System.out.println("인증 파일이 존재하지 않습니다.");
+						throw new Exception("인증 파일이 생성되지 않았습니다.\n인증 파일 생성 로직을 확인하세요.");
+					} return true;
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			return false;
-
-//			if (idPwExists) {
-//				// System.out.println("로그인 성공!");
-//				break; // 로그인 성공 시 무한 루프 종료
-//			} else {
-//				System.out.println("아이디 혹은 비밀번호가 틀렸습니다."); // 로그인 실패 시 메시지 출력
-//			}
-//		}
-		// 다음페이지 넘어가는 로직
-	}
-
-	//로그아웃
-	public void logOut() {
-		if (WhoAmI.getSelf() != null) {
-			WhoAmI.logOut();
-			System.out.println("로그아웃 되었습니다.");
+			
 		}
-//	        else {
-//	            System.out.println("로그인 상태가 아닙니다.");
-//	        }
+		return false;
+
 	}
+	
 }

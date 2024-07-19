@@ -1,21 +1,25 @@
 package berryberrymarket;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import userPackage.model.User;
 import userPackage.model.UserListManager;
+import userPackage.account.Authentication;
 
 public class BerryBerrymarketApp {
 
-	// 유저 리스트 초기화.
 	// 정적 영역에 생성하고 여기저기서 호출함.
-	public static UserListManager ulm = UserListManager.getUserListMagener();
-	public static List<User> ul = ulm.getUserList();
+	public static List<String> logInUserList = new ArrayList<>(); // 로그인중인 유저들 관리할 리스트 초기화.
+	public static UserListManager ulm = UserListManager.getUserListMagener(); // 유저 관리자 초기화.
+	public static List<User> ul = ulm.getUserList(); // 전체 유저 리스트 가져오기.
 	
 	public static void main(String[] args) {
 
+		Authentication.checkAuthFile();
+		
 		PrintPage pp = new PrintPage();
 		int pageCase = 2;
 		Scanner sc = new Scanner(System.in);
