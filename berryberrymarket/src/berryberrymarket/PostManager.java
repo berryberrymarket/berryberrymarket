@@ -97,7 +97,14 @@ public class PostManager {
 	}
 
 	public void removePost(String title) {
-		boolean removed = board.removeIf(post -> post.getTitle().equals(title));
+		boolean removed = false;
+		for(Post post:board) {
+			if(post.getTitle().equals(title)) {
+				board.remove(post);
+				removed=true;
+				break;
+			}
+		}
 		if (removed) {
 			
 		} else {
@@ -123,20 +130,6 @@ public class PostManager {
 		}
 	}
 
-	public void updatePost(Post updatedPost) {
-		for (Post post : board) {
-			if (post.getTitle().equals(updatedPost.getTitle())) {
-				// 예시로 제목을 기준으로 업데이트 처리
-				post.setContent(updatedPost.getContent());
-				post.setPrice(updatedPost.getPrice());
-				post.setPlace(updatedPost.getPlace());
-				post.setDate(updatedPost.getDate());
-				System.out.println("게시글 '" + updatedPost.getTitle() + "'이(가) 업데이트 되었습니다.");
-				return;
-			}
-		}
-		System.out.println("게시글 '" + updatedPost.getTitle() + "'이(가) 존재하지 않습니다.");
-	}
 
 	public void nextPage() {
 		boardPagination.nextPage();
