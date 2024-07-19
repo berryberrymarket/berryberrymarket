@@ -1,8 +1,8 @@
 package berryberrymarket;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
 
 import userPackage.model.User;
 import userPackage.model.UserListManager;
