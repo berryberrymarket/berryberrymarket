@@ -1,9 +1,9 @@
 package berryberrymarket;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 
 public class PostManager {
 	private List<Post> board = new ArrayList<>();
-	int opCount = 1;
+	private BoardPagination boardPagination = new BoardPagination();
 	
 	public void initGetBoard() {
 		try {
@@ -46,12 +46,17 @@ public class PostManager {
 	}
 
 	public void printBoard() { // 게시글 리스트 목록 쫙~
+		AtomicInteger index = new AtomicInteger(boardPagination.getCurPage()*10-9);
 		
 		if (board.isEmpty()) {
 			System.out.println("등록된 게시글이 없습니다.");
 		} else {
-			List<Post> subBoard = BoardPagination.currentPage(board);
-			subBoard.stream().forEach(n->n.printSimpleInfo());
+			List<Post> subBoard = boardPagination.currentPage(board);
+			subBoard.stream().forEach(n-> 
+			{int curIndex = index.getAndIncrement();
+			System.out.print(curIndex+".");
+			n.printSimpleInfo();
+			});
 		}
 	}
 
@@ -87,7 +92,6 @@ public class PostManager {
 			oos.flush();
 			oos.close();
 			os.close();
-			opCount++;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -118,11 +122,11 @@ public class PostManager {
 	}
 
 	public void nextPage() {
-		// 다음 페이지로 이동하는 기능 구현
+		boardPagination.nextPage();
 	}
 
 	public void prevPage() {
-		// 이전 페이지로 이동하는 기능 구현
+		boardPagination.prevPage();
 	}
 
 }

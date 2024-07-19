@@ -24,8 +24,10 @@ public class PrintPage {
 		case "o":
 			return 2;
 		case "<":
+			pm.prevPage();
 			return 1;
 		case ">":
+			pm.nextPage();
 			return 1;
 		case "s": // 앞에 " s" 공백 없앰//수현
 			return 9;
@@ -136,7 +138,7 @@ public class PrintPage {
 
 	public int printPostDetailPage(Scanner sc) {
 		printHead("게시글상세페이지");
-		
+		pm.printPost(null);
 		return 6;
 	}
 

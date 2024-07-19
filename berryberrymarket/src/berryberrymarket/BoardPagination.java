@@ -2,7 +2,7 @@ package berryberrymarket;
 
 import java.util.List;
 
-public class BoardPagination extends Pagination{
+public class BoardPagination{
 	
 	public BoardPagination() {
 		super();
