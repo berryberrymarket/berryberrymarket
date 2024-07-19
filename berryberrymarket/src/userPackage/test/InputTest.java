@@ -1,4 +1,4 @@
-package user.test;
+package userPackage.test;
 
 public class InputTest {
 

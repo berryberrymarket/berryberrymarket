@@ -1,4 +1,4 @@
-package user.model;
+package userPackage.model;
 
 
 // 자바 리스트 관련 import

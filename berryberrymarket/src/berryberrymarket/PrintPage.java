@@ -3,7 +3,8 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import user.account.*;
+import userPackage.account.LogInPage;
+import userPackage.account.SignUpPage;
 
 public class PrintPage {
 
@@ -107,14 +108,15 @@ public class PrintPage {
 		String in = sc.nextLine();
 		switch (in) {
 		case "1":
-
 			while (true) {
 				System.out.print("아이디를 입력하세요: ");
 				String id = sc.nextLine();
 				System.out.print("비밀번호를 입력하세요: ");
 				String password = sc.nextLine();
 //				아이디패스워드 확인 메소드
-				boolean loginEx = true;
+				LogInPage loginPage = new LogInPage(id, password);
+				
+				boolean loginEx = loginPage.LogIn();
 				if (loginEx) {
 					pm.initGetBoard();
 					return 1;
@@ -151,12 +153,14 @@ public class PrintPage {
 		printHead("게시글상세페이지");
 		pm.printPost(index);
 
-		System.out.println("   (H)홈으로   ");
+		System.out.println("(H)홈으로        (U)수정 (D)삭제");
 		printTail();
 		while(true) {
 			String in = sc.nextLine();
 			switch (in) {
-			case "h":
+			case "H":
+				return 1;
+			case "U":
 				return 1;
 			default:		
 				System.out.println("다시 입력하세요");
@@ -170,7 +174,6 @@ public class PrintPage {
 		String title = sc.nextLine();
 		System.out.print("내용을 입력하세요: ");
 		String content = sc.nextLine();
-		System.out.print("가격을 입력하세요: ");
 		boolean validInput = false;
 		int price = 0;
 	    while (!validInput) {
@@ -187,9 +190,6 @@ public class PrintPage {
 	            System.out.println(e.getMessage());
 	        }
 	    }
-
-
-		sc.nextLine();
 		System.out.print("거래 희망 장소를 입력하세요: ");
 		String place = sc.nextLine();
 

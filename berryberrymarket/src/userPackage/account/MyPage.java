@@ -1,10 +1,10 @@
-package user.account;
+package userPackage.account;
 
-import user.model.*;
 import java.util.List;
 import java.util.Scanner;
 
 import berryberrymarket.BerryBerrymarketApp;
+import userPackage.model.*;
 
 public class MyPage {
 	private List<User> userList;
