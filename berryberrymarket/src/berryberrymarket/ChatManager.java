@@ -22,6 +22,7 @@ public class ChatManager { //여러 ChatRoom을 관리하는 역할
 	            chatRoom.addChat(chat);
 	            System.out.println("메시지가 채팅방 '" + roomName + "'에 전송되었습니다.");
 	        } else {
+	        	
 	            System.out.println("채팅방 '" + roomName + "'이 존재하지 않습니다.");
 	        }
 	    }

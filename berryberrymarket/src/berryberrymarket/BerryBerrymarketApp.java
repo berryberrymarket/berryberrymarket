@@ -15,7 +15,17 @@ public class BerryBerrymarketApp {
 	public static List<User> ul = ulm.getUserList();
 	
 	public static void main(String[] args) {
-
+		
+		  // 서버 시작 (별도의 스레드에서 실행)////수현 추가/////수현 추가////수현 추가/////수현 추가////수현 추가/////수현 추가
+//        new Thread(() -> {
+//            try {
+//                ChatServer.start();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
+        /////////////////////////////////////////
+        
 		PrintPage pp = new PrintPage();
 		int pageCase = 2;
 		Scanner sc = new Scanner(System.in);
