@@ -41,7 +41,8 @@ public class PostManager {
 		}
 	}
 
-	public void printPost(Post post) { // 게시글 상세페이지
+	public void printPost(int index) { // 게시글 상세페이지
+		Post post = board.get(index-1);
 		post.printInfo();
 	}
 

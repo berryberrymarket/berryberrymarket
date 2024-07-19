@@ -8,14 +8,18 @@ import user.account.*;
 public class PrintPage {
 
 	PostManager pm = new PostManager();
+	int index = 0;
 
 	public int printMainPage(Scanner sc) {
 		printHead("메인페이지");
-		System.out.println("(m)마이페이지         (o)로그아웃");
+		
+		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
+		System.out.println("      (s)검색    (c)채팅목록   (p)등록");//수정 //수현
+		
 		printSmallHead("게시글");
+		
 		pm.printBoard();
-		System.out.println("(<)이전페이지         (>)다음페이지");
-		System.out.println("(s)검색   (c)채팅목록  (p)등록");
+		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
 		printTail();
 		String in = sc.nextLine();
 		switch (in) {
@@ -36,22 +40,27 @@ public class PrintPage {
 		case "p":
 			return 6;
 		default:
-			System.out.println("다시 입력하세요");
-			return 1;
+			try {
+				index = Integer.parseInt(in);
+				return 5;
+			} catch(NumberFormatException e) {
+				System.out.println("다시 입력하세요");
+				return 1;
+			}
+
 		}
 	}
 	
 	public int printFilteredPage(Scanner sc) {
-		printHead("검색");
-		System.out.println("검색할 내용을 입력하세요: ");
-		String category = sc.nextLine();
-
 		printHead("메인페이지");
-		System.out.println("(m)마이페이지         (o)로그아웃");
+		
+		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
+		System.out.println("      (s)검색    (c)채팅목록   (p)등록");//수정 //수현
+		
 		printSmallHead("게시글");
-		pm.printBoardByCategory(category);
-		System.out.println("(<)이전페이지         (>)다음페이지");
-		System.out.println("(s)검색   (c)채팅목록  (p)등록");
+		
+		pm.printBoard();
+		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
 		printTail();
 		String in = sc.nextLine();
 		switch (in) {
@@ -60,8 +69,10 @@ public class PrintPage {
 		case "o":
 			return 2;
 		case "<":
+			pm.prevPage();
 			return 1;
 		case ">":
+			pm.nextPage();
 			return 1;
 		case "s": // 앞에 " s" 공백 없앰//수현
 			return 9;
@@ -138,8 +149,19 @@ public class PrintPage {
 
 	public int printPostDetailPage(Scanner sc) {
 		printHead("게시글상세페이지");
-		pm.printPost(null);
-		return 6;
+		pm.printPost(index);
+
+		System.out.println("   (H)홈으로   ");
+		printTail();
+		while(true) {
+			String in = sc.nextLine();
+			switch (in) {
+			case "h":
+				return 1;
+			default:		
+				System.out.println("다시 입력하세요");
+			}
+		}
 	}
 
 	public int printAddPostPage(Scanner sc) throws FileNotFoundException {
@@ -149,7 +171,24 @@ public class PrintPage {
 		System.out.print("내용을 입력하세요: ");
 		String content = sc.nextLine();
 		System.out.print("가격을 입력하세요: ");
-		int price = sc.nextInt();
+		boolean validInput = false;
+		int price = 0;
+	    while (!validInput) {
+	        try {
+	            System.out.print("가격을 입력하세요: ");
+	            price = Integer.parseInt(sc.nextLine());
+	            if (price <= 0) {
+	                throw new IllegalArgumentException("가격은 양수여야 합니다.");
+	            }
+	            validInput = true; // 입력이 유효하면 반복문 종료
+	        } catch (NumberFormatException e) {
+	            System.out.println("유효하지 않은 입력입니다. 다시 시도하세요.");
+	        } catch (IllegalArgumentException e) {
+	            System.out.println(e.getMessage());
+	        }
+	    }
+
+
 		sc.nextLine();
 		System.out.print("거래 희망 장소를 입력하세요: ");
 		String place = sc.nextLine();
