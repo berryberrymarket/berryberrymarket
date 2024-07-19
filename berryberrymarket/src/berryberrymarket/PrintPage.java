@@ -27,8 +27,10 @@ public class PrintPage {
 		case "o":
 			return 2;
 		case "<":
+			pm.prevPage();
 			return 1;
 		case ">":
+			pm.nextPage();
 			return 1;
 		case "s": // 앞에 " s" 공백 없앰//수현
 			return 9;
@@ -165,6 +167,7 @@ public class PrintPage {
 
 	        return 6; // 상세 페이지를 보고 나서 이전 메뉴로 돌아가는 경우의 코드
 	    }
+
 
 	public int printAddPostPage(Scanner sc) throws FileNotFoundException {
 		printHead("게시글등록페이지");
