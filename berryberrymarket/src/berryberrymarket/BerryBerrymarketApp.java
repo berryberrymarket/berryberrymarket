@@ -24,7 +24,7 @@ public class BerryBerrymarketApp {
 //                e.printStackTrace();
 //            }
 //        }).start();
-        /////////////////////////////////////////
+       
         
 		PrintPage pp = new PrintPage();
 		int pageCase = 2;
