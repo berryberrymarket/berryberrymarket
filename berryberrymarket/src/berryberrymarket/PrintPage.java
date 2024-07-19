@@ -3,22 +3,19 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import user.account.SignUpPage;
+import user.account.*;
 
 public class PrintPage {
 
 	PostManager pm = new PostManager();
 
-	public int printMainPage(Scanner sc) { //메인페이지 = 게시글리스트화면= 인덱스 입력해서 화면에 출력하게 하기
+	public int printMainPage(Scanner sc) {
 		printHead("메인페이지");
-		
-		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
-		System.out.println("      (s)검색    (c)채팅목록   (p)등록");//수정 //수현
-		
+		System.out.println("(m)마이페이지         (o)로그아웃");
 		printSmallHead("게시글");
-		
 		pm.printBoard();
-		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
+		System.out.println("(<)이전페이지         (>)다음페이지");
+		System.out.println("(s)검색   (c)채팅목록  (p)등록");
 		printTail();
 		String in = sc.nextLine();
 		switch (in) {
@@ -37,15 +34,10 @@ public class PrintPage {
 		case "p":
 			return 6;
 		default:
-			   try {////////////////////////////////////////////수정
-                   int index = Integer.parseInt(in);
-                   return displayPostDetail(index, sc);
-               } catch (NumberFormatException e) {
-                   System.out.println("다시 입력하세요");
-                   return 1;
-               }
-       }
-   }
+			System.out.println("다시 입력하세요");
+			return 1;
+		}
+	}
 	
 	public int printFilteredPage(Scanner sc) {
 		printHead("검색");
@@ -53,11 +45,11 @@ public class PrintPage {
 		String category = sc.nextLine();
 
 		printHead("메인페이지");
-		System.out.println("(m)마이페이지                  (o)로그아웃");//수정 //수현
-		System.out.println("      (s)검색    (c)채팅목록   (p)등록");//수정 //수현
+		System.out.println("(m)마이페이지         (o)로그아웃");
 		printSmallHead("게시글");
 		pm.printBoardByCategory(category);
-		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
+		System.out.println("(<)이전페이지         (>)다음페이지");
+		System.out.println("(s)검색   (c)채팅목록  (p)등록");
 		printTail();
 		String in = sc.nextLine();
 		switch (in) {
@@ -69,7 +61,7 @@ public class PrintPage {
 			return 1;
 		case ">":
 			return 1;
-		case "s":
+		case "s": // 앞에 " s" 공백 없앰//수현
 			return 9;
 		case "c":
 			return 7;
@@ -81,7 +73,7 @@ public class PrintPage {
 		}
 	}
 
-	public int printLogInPage(Scanner sc) { ////수정 //수현
+	public int printLogInPage(Scanner sc) {
 		System.out.println("        |\\/|/|/|/|/|");
 		System.out.println("       !,*.-*-*-*,*!");
 		System.out.println("      ,' , ' , `,'.'\\");
@@ -124,8 +116,6 @@ public class PrintPage {
 		}
 	}
 
-   
-	
 	public int printSignUpPage(Scanner sc) {
 		printHead("회원가입페이지");
 		SignUpPage sp = new SignUpPage();
@@ -144,27 +134,11 @@ public class PrintPage {
 		return 5;
 	}
 
-	 public int printPostDetailPage(Scanner sc) {
-	        printHead("게시글상세페이지");
-
-	        // 게시글 인덱스 입력 받기
-	        System.out.print("확인할 게시글의 번호를 입력하세요: ");
-	        int postIndex = sc.nextInt();
-	        sc.nextLine(); // 버퍼 비우기
-
-	        // PostManager 객체 생성
-	        PostManager pm = new PostManager();
-
-	        // 게시글 정보 출력
-	        Post post = pm.getPostByIndex(postIndex);
-	        if (post != null) {
-	            post.printInfo(); // 게시글 상세 정보 출력
-	        } else {
-	            System.out.println("해당 번호의 게시글을 찾을 수 없습니다.");
-	        }
-
-	        return 6; // 상세 페이지를 보고 나서 이전 메뉴로 돌아가는 경우의 코드
-	    }
+	public int printPostDetailPage(Scanner sc) {
+		printHead("게시글상세페이지");
+		
+		return 6;
+	}
 
 	public int printAddPostPage(Scanner sc) throws FileNotFoundException {
 		printHead("게시글등록페이지");
@@ -172,22 +146,9 @@ public class PrintPage {
 		String title = sc.nextLine();
 		System.out.print("내용을 입력하세요: ");
 		String content = sc.nextLine();
-		  int price = 0;
-		    boolean validInput = false;
-		    while (!validInput) {
-		        try {
-		            System.out.print("가격을 입력하세요: ");
-		            price = Integer.parseInt(sc.nextLine());
-		            if (price <= 0) {
-		                throw new IllegalArgumentException("가격은 양수여야 합니다.");
-		            }
-		            validInput = true; // 입력이 유효하면 반복문 종료
-		        } catch (NumberFormatException e) {
-		            System.out.println("유효하지 않은 입력입니다. 다시 시도하세요.");
-		        } catch (IllegalArgumentException e) {
-		            System.out.println(e.getMessage());
-		        }
-		    }
+		System.out.print("가격을 입력하세요: ");
+		int price = sc.nextInt();
+		sc.nextLine();
 		System.out.print("거래 희망 장소를 입력하세요: ");
 		String place = sc.nextLine();
 
@@ -195,26 +156,7 @@ public class PrintPage {
 
 		return 1;
 	}
-	
 
-
-	//////////////////////////////////////////////////////////////////////////////////
-	private int displayPostDetail(int index, Scanner sc) {
-	    Post post = pm.getPostByIndex(index);
-	    if (post != null) {
-	        printHead("게시글 상세");
-	        post.printInfo();
-	        System.out.println("\n(b)뒤로가기");
-	        printTail();
-	        String input = sc.nextLine();
-	        if (input.equals("b")) {
-	            return 1; // 메인 페이지로 돌아가기
-	        }
-	    } else {
-	        System.out.println("해당 번호의 게시글을 찾을 수 없습니다.");
-	    }
-	    return 1; // 메인 페이지로 돌아가기
-	}
 	public int printChatListPage(Scanner sc) { ////////// 수현
 		printHead("채팅목록페이지");
 		// 여기에 채팅 목록을 출력하는 코드를 작성합니다.
@@ -261,15 +203,15 @@ public class PrintPage {
 	}
 
 	private void printHead(String str) {
-		System.out.println("=================" + str + "=================");
+		System.out.println("===========" + str + "===========");
 	}
 
 	private void printSmallHead(String str) {
-		System.out.println("------------------" + str + "------------------");
+		System.out.println("-----------" + str + "-----------");
 	}
 
 	private void printTail() {
-		System.out.println("============================================");
+		System.out.println("=============================");
 		System.out.print("입력하세요: ");
 	}
 
