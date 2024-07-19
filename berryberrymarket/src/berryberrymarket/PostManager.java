@@ -19,7 +19,7 @@ public class PostManager {
 	
 	public void initGetBoard() {
 		try {
-			// FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat"); -> 경로 관련 논의 필요
+//			FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat"); -> 경로 관련 논의 필요
 			String nowPath = System.getProperty("user.dir");
 			File postListFile = new File(nowPath, "/Post.dat");
 			if (!postListFile.exists()) {
