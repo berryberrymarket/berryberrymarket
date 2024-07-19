@@ -22,6 +22,7 @@ public class PrintPage {
 		
 		pm.printBoard(search);
 		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
+		System.out.println("(H)홈으로");
 		printTail();
 		String in = sc.nextLine();
 		switch (in) {
@@ -43,6 +44,9 @@ public class PrintPage {
 			return 7;
 		case "p":
 			return 6;
+		case "H":
+			search="";
+			return 1;
 		default:
 			try {
 				index = Integer.parseInt(in);
