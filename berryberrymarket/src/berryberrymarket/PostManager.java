@@ -1,5 +1,6 @@
 package berryberrymarket;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,27 +17,30 @@ import java.util.stream.Collectors;
 public class PostManager {
 	private List<Post> board = new ArrayList<>();
 	private BoardPagination boardPagination = new BoardPagination();
+	String nowPath = System.getProperty("user.dir");
+	File path = new File(nowPath, "post");
+	
 	
 	public void initGetBoard() {
 		try {
-//			FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat"); -> 경로 관련 논의 필요
-			String nowPath = System.getProperty("user.dir");
-			File postListFile = new File(nowPath, "/Post.dat");
-			if (!postListFile.exists()) {
-				System.out.println("등록된 게시글이 없습니다.");
+			if (!path.exists()) {
+				path.mkdirs();
 				return;
 			} else {
-				FileInputStream fis = new FileInputStream(postListFile);
+				FileInputStream fis = new FileInputStream(path+"/Post.dat");
 		        ObjectInputStream ois = new ObjectInputStream(fis);
 
-		        Post post = (Post) ois.readObject();
-
-		        board.add(post);
+		        while (true) {
+	                try {
+	                    // 객체를 읽어와 리스트에 추가합니다
+	                    Post post = (Post) ois.readObject();
+	                    board.add(post);
+	                } catch (EOFException e) {
+	                    break;
+	                }
+	            }
 
 		        ois.close(); fis.close();
-
-		        System.out.println("전체 게시글 목록:");
-		        board.stream().forEach(n->n.printSimpleInfo());
 			}
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,13 +52,17 @@ public class PostManager {
 		post.printInfo();
 	}
 
-	public void printBoard() { // 게시글 리스트 목록 쫙~
+	public void printBoard(String search) { // 게시글 리스트 목록 쫙~
 		AtomicInteger index = new AtomicInteger(boardPagination.getCurPage()*10-9);
+		
+		List<Post> filterdboard = board.stream()
+				.filter(post -> post.getTitle().contains(search) || post.getContent().contains(search))
+				.collect(Collectors.toList());
 		
 		if (board.isEmpty()) {
 			System.out.println("등록된 게시글이 없습니다.");
 		} else {
-			List<Post> subBoard = boardPagination.currentPage(board);
+			List<Post> subBoard = boardPagination.currentPage(filterdboard);
 			subBoard.stream().forEach(n-> 
 			{int curIndex = index.getAndIncrement();
 			System.out.print(curIndex+".");
@@ -81,12 +89,14 @@ public class PostManager {
 	public void addPost(Post post) throws FileNotFoundException {
 
 		try {
-			OutputStream os = new FileOutputStream("C:/Edu/Temp/Post.dat");
+			OutputStream os = new FileOutputStream(path+"/Post.dat");
 			ObjectOutputStream oos = new ObjectOutputStream(os);
 
 			board.add(post);
+			
 			board.stream().forEach(n->{
 				try {
+					n.printInfo();
 					oos.writeObject(n);
 				} catch (IOException e) {
 					e.printStackTrace();

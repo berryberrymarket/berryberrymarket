@@ -10,16 +10,17 @@ public class PrintPage {
 
 	PostManager pm = new PostManager();
 	int index = 0;
+	String search = "";
 
 	public int printMainPage(Scanner sc) {
 		printHead("메인페이지");
 		
 		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
-		System.out.println("      (s)검색    (c)채팅목록   (p)등록");//수정 //수현
+		System.out.println("      (S)검색    (c)채팅목록   (p)등록");//수정 //수현
 		
 		printSmallHead("게시글");
 		
-		pm.printBoard();
+		pm.printBoard(search);
 		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
 		printTail();
 		String in = sc.nextLine();
@@ -34,8 +35,10 @@ public class PrintPage {
 		case ">":
 			pm.nextPage();
 			return 1;
-		case "s": // 앞에 " s" 공백 없앰//수현
-			return 9;
+		case "S": // 앞에 " s" 공백 없앰//수현
+			System.out.println("검색할 내용을 입력하세요: ");
+			search = sc.nextLine();
+			return 1;
 		case "c":
 			return 7;
 		case "p":
@@ -52,40 +55,6 @@ public class PrintPage {
 		}
 	}
 	
-	public int printFilteredPage(Scanner sc) {
-		printHead("메인페이지");
-		
-		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
-		System.out.println("      (s)검색    (c)채팅목록   (p)등록");//수정 //수현
-		
-		printSmallHead("게시글");
-		
-		pm.printBoard();
-		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
-		printTail();
-		String in = sc.nextLine();
-		switch (in) {
-		case "m":
-			return 4;
-		case "o":
-			return 2;
-		case "<":
-			pm.prevPage();
-			return 1;
-		case ">":
-			pm.nextPage();
-			return 1;
-		case "s": // 앞에 " s" 공백 없앰//수현
-			return 9;
-		case "c":
-			return 7;
-		case "p":
-			return 6;
-		default:
-			System.out.println("다시 입력하세요");
-			return 1;
-		}
-	}
 
 	public int printLogInPage(Scanner sc) {
 		System.out.println("        |\\/|/|/|/|/|");
