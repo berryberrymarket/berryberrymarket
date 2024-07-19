@@ -5,15 +5,8 @@ import java.util.Scanner;
 
 public class ChatClient {
 
-    public static void main(String[] args) {
+	public void start(String serverAddress, int serverPort) {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("서버 IP 주소를 입력하세요: ");
-        String serverAddress = scanner.nextLine();
-
-        System.out.print("서버 포트를 입력하세요: ");
-        int serverPort = scanner.nextInt();
-        scanner.nextLine(); // 포트 입력 후 개행 문자 제거
 
         try {
             SocketManager socketManager = new SocketManager(serverAddress, serverPort);
@@ -46,7 +39,7 @@ public class ChatClient {
         } catch (IOException e) {
             System.err.println("서버 접속 오류: " + e.getMessage());
         } finally {
-            scanner.close(); // 스캐너 닫기
+            scanner.close();
         }
     }
 }
