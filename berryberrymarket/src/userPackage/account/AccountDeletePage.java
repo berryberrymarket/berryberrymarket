@@ -1,10 +1,10 @@
-package user.account;
+package userPackage.account;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import user.model.User;
+import userPackage.model.User;
 
 
 

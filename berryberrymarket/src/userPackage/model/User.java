@@ -1,12 +1,16 @@
-package user.model;
+package userPackage.model;
 
 import java.io.Serializable;
+
+import userPackage.account.WhoAmI;
 
 public class User implements UserInterface, Serializable {
 	/*
 	 * 유저 거래 횟수에 비례해서 친절 레벨을 올릴지 어떻게 할지 논의 필요
 	 */
 	private static final long serialVersionUID = -6712873772000735021L;
+	
+	private WhoAmI self;
 	
 	private String id;
 	private String pw1;
@@ -42,6 +46,14 @@ public class User implements UserInterface, Serializable {
 		this.phoneNumber = phoneNumber;
 	}
  	
+	public WhoAmI getSelf() {
+		return self;
+	}
+	
+	public void setSelf(WhoAmI self) {
+		this.self = self;
+	}
+	
 	public String getId() {
 		return id;
 	}

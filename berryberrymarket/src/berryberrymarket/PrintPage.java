@@ -3,7 +3,8 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import user.account.*;
+import userPackage.account.LogInPage;
+import userPackage.account.SignUpPage;
 
 public class PrintPage {
 
@@ -94,14 +95,15 @@ public class PrintPage {
 		String in = sc.nextLine();
 		switch (in) {
 		case "1":
-
 			while (true) {
 				System.out.print("아이디를 입력하세요: ");
 				String id = sc.nextLine();
 				System.out.print("비밀번호를 입력하세요: ");
 				String password = sc.nextLine();
 //				아이디패스워드 확인 메소드
-				boolean loginEx = true;
+				LogInPage loginPage = new LogInPage(id, password);
+				
+				boolean loginEx = loginPage.LogIn();
 				if (loginEx) {
 					pm.initGetBoard();
 					return 1;

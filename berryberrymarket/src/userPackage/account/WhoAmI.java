@@ -1,20 +1,22 @@
-package user.account;
+package userPackage.account;
 
 import java.util.List;
 
-import user.model.User;
+import userPackage.model.User;
 
-public class WhoIAm {
+public class WhoAmI {
 	private User self;
 	 private List<User> userList;
+
+//	public void setSelf(User self) {
+//		this.self = self;
+//	}
 	
-	public void setSelf(User self) {
-		this.self = self;
-	}
 	public User getSelf() {
 		return self;
 	}
-	public WhoIAm(User self) {
+	
+	public WhoAmI(User self) {
 		this.self = self; // 현재 로그인한 유저가 누구인지 알려줌
 	}
 	

@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-import user.model.User;
-import user.model.UserListManager;
+import userPackage.account.WhoAmI;
+import userPackage.model.User;
+import userPackage.model.UserListManager;
 
 public class BerryBerrymarketApp {
 
@@ -13,6 +14,7 @@ public class BerryBerrymarketApp {
 	// 정적 영역에 생성하고 여기저기서 호출함.
 	public static UserListManager ulm = UserListManager.getUserListMagener();
 	public static List<User> ul = ulm.getUserList();
+	public static WhoAmI wmi = null;
 	
 	public static void main(String[] args) {
 
