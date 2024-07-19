@@ -15,7 +15,9 @@ public class Post implements Serializable{
 	private int price;
 	private String place;
 	private LocalDateTime date;
-
+	private int index; // 인덱스 번호 추가
+	
+	
 	public Post() {
 
 	}
@@ -77,8 +79,16 @@ public class Post implements Serializable{
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
+	public int getIndex() {
+		return index;
+	}
+	
+	public void setIndex(int index) {
+		this.index = index;
+	}
 
 	public void printInfo() {
+		System.out.println("index: " + index);
 		System.out.println("Title: " + title);
 		System.out.println("Nickname: " + nickname);
 		System.out.println("Content: " + content);
