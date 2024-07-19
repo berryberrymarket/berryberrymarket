@@ -1,52 +1,51 @@
 package berryberrymarket;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatClient {
+    private static final String SERVER_ADDRESS = "192.168.1.119"; // 서버의 IP 주소
+    private static final int SERVER_PORT = 12345;
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 
-        System.out.print("서버 IP 주소를 입력하세요: ");
-        String serverAddress = scanner.nextLine();
+            Thread listenerThread = new Thread(new Listener(in));
+            listenerThread.start();
 
-        System.out.print("서버 포트를 입력하세요: ");
-        int serverPort = scanner.nextInt();
-        scanner.nextLine(); // 포트 입력 후 개행 문자 제거
-
-        try {
-            SocketManager socketManager = new SocketManager(serverAddress, serverPort);
-            System.out.println("서버에 연결되었습니다.");
-
-            Thread readerThread = new Thread(() -> {
-                try {
-                    String message;
-                    while ((message = socketManager.receiveMessage()) != null) {
-                        System.out.println("상대방: " + message);
-                    }
-                } catch (IOException e) {
-                    System.err.println("서버와의 연결이 끊겼습니다.");
-                }
-            });
-            readerThread.start();
-
+            Scanner scanner = new Scanner(System.in);
             while (true) {
-                System.out.print("나: ");
-                String myMessage = scanner.nextLine();
-                socketManager.sendMessage(myMessage);
-
-                if (myMessage.equalsIgnoreCase("exit")) {
-                    break;
-                }
+                System.out.print("Enter message: ");
+                String message = scanner.nextLine();
+                out.println(message);
             }
-
-            socketManager.close();
-
         } catch (IOException e) {
-            System.err.println("서버 접속 오류: " + e.getMessage());
-        } finally {
-            scanner.close(); // 스캐너 닫기
+            e.printStackTrace();
+        }
+    }
+
+    private static class Listener implements Runnable {
+        private BufferedReader in;
+
+        public Listener(BufferedReader in) {
+            this.in = in;
+        }
+
+        public void run() {
+            String message;
+            try {
+                while ((message = in.readLine()) != null) {
+                    System.out.println("Received: " + message);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

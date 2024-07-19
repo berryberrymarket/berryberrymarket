@@ -1,8 +1,8 @@
 package berryberrymarket;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
 
 import user.model.User;
 import user.model.UserListManager;
@@ -14,7 +14,7 @@ public class BerryBerrymarketApp {
 	public static UserListManager ulm = UserListManager.getUserListMagener();
 	public static List<User> ul = ulm.getUserList();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		PrintPage pp = new PrintPage();
 		int pageCase = 2;
