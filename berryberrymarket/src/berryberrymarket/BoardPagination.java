@@ -12,11 +12,12 @@ public class BoardPagination{
 	}
 
 	public List<Post> currentPage(List<Post> board){
+		
 		int startIndex = (curPage-1)*10;
 		int endIndex = curPage*10;
 		pageSize = board.size()/10+1;
 		if(endIndex>board.size()) {
-			return board.subList(startIndex, board.size());
+			return board.reversed().subList(startIndex, board.size());
 		}
 		return board.subList(startIndex, endIndex);
 	}

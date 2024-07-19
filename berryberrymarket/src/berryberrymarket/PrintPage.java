@@ -16,7 +16,7 @@ public class PrintPage {
 		printHead("메인페이지");
 		
 		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
-		System.out.println("      (S)검색    (c)채팅목록   (p)등록");//수정 //수현
+		System.out.println("      (S)검색    (c)채팅목록   (P)등록");//수정 //수현
 		
 		printSmallHead("게시글");
 		
@@ -42,7 +42,7 @@ public class PrintPage {
 			return 1;
 		case "c":
 			return 7;
-		case "p":
+		case "P":
 			return 6;
 		case "H":
 			search="";
@@ -124,7 +124,7 @@ public class PrintPage {
 
 	public int printPostDetailPage(Scanner sc) {
 		printHead("게시글상세페이지");
-		pm.printPost(index);
+		String title = pm.printPost(index);
 		System.out.println("(c)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
 		System.out.println("(H)홈으로        (U)수정 (D)삭제");
 		printTail();
@@ -132,6 +132,9 @@ public class PrintPage {
 			String in = sc.nextLine();
 			switch (in) {
 			case "H":
+				return 1;
+			case "D":
+				pm.removePost(title);
 				return 1;
 			case "U":
 				return 1;

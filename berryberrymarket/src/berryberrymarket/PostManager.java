@@ -47,9 +47,10 @@ public class PostManager {
         }
 	}
 
-	public void printPost(int index) { // 게시글 상세페이지
+	public String printPost(int index) { // 게시글 상세페이지
 		Post post = board.get(index-1);
 		post.printInfo();
+		return post.getTitle();
 	}
 
 	public void printBoard(String search) { // 게시글 리스트 목록 쫙~
@@ -67,21 +68,6 @@ public class PostManager {
 			{int curIndex = index.getAndIncrement();
 			System.out.print(curIndex+".");
 			n.printSimpleInfo();
-			});
-		}
-	}
-
-	public void printBoardByCategory(String category) {
-
-		List<Post> filteredPosts = board.stream()
-				.filter(post -> post.getTitle().contains(category) || post.getContent().contains(category))
-				.collect(Collectors.toList());
-
-		if (filteredPosts.isEmpty()) {
-			System.out.println("필터링된 결과가 없습니다.");
-		} else {
-			filteredPosts.forEach(post -> {
-				post.printSimpleInfo();
 			});
 		}
 	}
@@ -116,6 +102,18 @@ public class PostManager {
 			System.out.println("게시글 '" + title + "'이(가) 삭제되었습니다.");
 		} else {
 			System.out.println("게시글 '" + title + "'이(가) 존재하지 않습니다.");
+		}
+		
+		try {
+			OutputStream os = new FileOutputStream(path+"/Post.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(os);
+			
+			board.stream().forEach(n->n.printInfo());
+			oos.flush();
+			oos.close();
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
