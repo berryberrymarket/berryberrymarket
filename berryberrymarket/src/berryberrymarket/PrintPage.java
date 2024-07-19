@@ -152,7 +152,7 @@ public class PrintPage {
 	public int printPostDetailPage(Scanner sc) {
 		printHead("게시글상세페이지");
 		pm.printPost(index);
-
+		System.out.println("(c)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
 		System.out.println("(H)홈으로        (U)수정 (D)삭제");
 		printTail();
 		while(true) {
@@ -162,6 +162,8 @@ public class PrintPage {
 				return 1;
 			case "U":
 				return 1;
+			case "c"://///////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
+				return 8;// 
 			default:		
 				System.out.println("다시 입력하세요");
 			}
