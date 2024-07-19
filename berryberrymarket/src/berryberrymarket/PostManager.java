@@ -1,16 +1,17 @@
 package berryberrymarket;
 
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class PostManager {
 	private List<Post> board = new ArrayList<>();
@@ -18,27 +19,28 @@ public class PostManager {
 	
 	public void initGetBoard() {
 		try {
+			// FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat"); -> 경로 관련 논의 필요
+			String nowPath = System.getProperty("user.dir");
+			File postListFile = new File(nowPath, "/Post.dat");
+			if (!postListFile.exists()) {
+				System.out.println("등록된 게시글이 없습니다.");
+				return;
+			} else {
+				FileInputStream fis = new FileInputStream(postListFile);
+		        ObjectInputStream ois = new ObjectInputStream(fis);
 
-			FileInputStream fis = new FileInputStream("C:/Edu/Temp/Post.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			
-			while (true) {
-                try {
-                    Post post = (Post) ois.readObject();
-                    board.add(post);
-                } catch (IOException e) {
-                    // End of file reached
-                    break;
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
+		        Post post = (Post) ois.readObject();
 
-			ois.close();
-			fis.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		        board.add(post);
+
+		        ois.close(); fis.close();
+
+		        System.out.println("전체 게시글 목록:");
+		        board.stream().forEach(n->n.printSimpleInfo());
+			}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 	public void printPost(int index) { // 게시글 상세페이지
