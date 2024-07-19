@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-import user.model.User;
-import user.model.UserListManager;
+import userPackage.model.User;
+import userPackage.model.UserListManager;
 
 public class BerryBerrymarketApp {
 
@@ -41,6 +41,8 @@ public class BerryBerrymarketApp {
 					pageCase = pp.printChatListPage(sc);
 				} else if (pageCase==8) { //채팅방페이지 출력
 					pageCase = pp.printChatRoomPage(sc);
+				} else if (pageCase==9) {
+					pageCase = pp.printFilteredPage(sc);
 				}
 			}
 	    
