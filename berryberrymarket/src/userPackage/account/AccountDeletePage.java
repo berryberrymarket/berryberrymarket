@@ -14,7 +14,6 @@ import userPackage.model.User;
 
 public class AccountDeletePage {
 	private List<User> userList;
-	private List<File> fileList;
 
 	public String nowPath = System.getProperty("user.dir");
 	public File path = new File(nowPath, "user");

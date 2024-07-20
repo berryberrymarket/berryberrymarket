@@ -15,11 +15,15 @@ import java.util.Arrays;
 
 public class Authentication implements Serializable {
 
+	/*
+	 * 인증 파일이 일종의 `key`이자 프로그램 내에서 자기 자신이 누구인지를 식별하는 식별자로서 작동함.
+	 */
+	
 	private static final long serialVersionUID = 7098334274704476322L;
 	private String id;
 	private String password;
 	private static List<File> fileList;
-	private static Authentication authFile;
+	private static Authentication authObject;
 	
 	// 아래 두 줄은 static 으로 바꿀 필요가 있어보임.
 	public static String nowPath = System.getProperty("user.dir");
@@ -46,7 +50,7 @@ public class Authentication implements Serializable {
 		this.password = password;
 	}
 	
-	public static Authentication generateAuthFile(String id, String password) {
+	public static Authentication generateAuthObject(String id, String password) {
 
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
@@ -56,8 +60,8 @@ public class Authentication implements Serializable {
 			fos = new FileOutputStream(path+"/authentication.dat");
 			oos = new ObjectOutputStream(fos);
 			
-			authFile = new Authentication(id, password);
-			oos.writeObject(authFile);
+			authObject = new Authentication(id, password);
+			oos.writeObject(authObject);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -75,10 +79,10 @@ public class Authentication implements Serializable {
 			} 
 			
 		}
-		return authFile;
+		return authObject;
 	}
 	
-	public static Authentication getAuthFile() {
+	public static Authentication getAuthObject() {
 		
 		File[] fileArray = path.listFiles();
 		
@@ -92,7 +96,7 @@ public class Authentication implements Serializable {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
 					
-					authFile = (Authentication) ois.readObject();
+					authObject = (Authentication) ois.readObject();
 //					return authFile;
 				}
 			}
@@ -110,7 +114,7 @@ public class Authentication implements Serializable {
 				e.printStackTrace();
 			}	
 		}
-		return authFile;
+		return authObject;
 	}
 	
 	@SuppressWarnings("serial")

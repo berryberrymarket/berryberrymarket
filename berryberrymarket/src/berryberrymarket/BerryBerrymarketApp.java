@@ -12,8 +12,8 @@ import userPackage.account.Authentication;
 public class BerryBerrymarketApp {
 
 	// 정적 영역에 생성하고 여기저기서 호출함.
-	public static List<String> logInUserList = new ArrayList<>(); // 로그인중인 유저들 관리할 리스트 초기화.
 	public static UserListManager ulm = UserListManager.getUserListMagener(); // 유저 관리자 초기화.
+	public static List<User> logInUserList = new ArrayList<>(); // 로그인중인 유저들 관리할 리스트 초기화.
 	public static List<User> ul = ulm.getUserList(); // 전체 유저 리스트 가져오기.
 	
 	public static void main(String[] args) {
