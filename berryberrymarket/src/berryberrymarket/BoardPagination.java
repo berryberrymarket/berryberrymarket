@@ -19,7 +19,7 @@ public class BoardPagination{
 		if(endIndex>board.size()) {
 			return board.reversed().subList(startIndex, board.size());
 		}
-		return board.subList(startIndex, endIndex);
+		return board.reversed().subList(startIndex, endIndex);
 	}
 
 	void nextPage() {

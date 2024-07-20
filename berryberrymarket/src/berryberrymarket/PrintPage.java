@@ -144,7 +144,7 @@ public class PrintPage {
 		printHead("게시글상세페이지");
 		String title = pm.printPost(index);
 		System.out.println("(c)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
-		System.out.println("(H)홈으로        (U)수정 (D)삭제");
+		System.out.println("(B)뒤로가기        (U)수정 (D)삭제");
 		printTail();
 		while(true) {
 			String in = sc.nextLine();
