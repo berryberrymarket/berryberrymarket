@@ -16,7 +16,6 @@ public class BerryBerrymarketApp {
 
 	public static void main(String[] args) {
 
-
 		PrintPage pp = new PrintPage();
 		int pageCase = 2;
 		Scanner sc = new Scanner(System.in);
