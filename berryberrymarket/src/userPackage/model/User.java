@@ -1,8 +1,8 @@
 package userPackage.model;
 
 import java.io.Serializable;
+import userPackage.account.Authentication;
 
-import userPackage.account.WhoAmI;
 
 public class User implements UserInterface, Serializable {
 	/*
@@ -10,7 +10,7 @@ public class User implements UserInterface, Serializable {
 	 */
 	private static final long serialVersionUID = -6712873772000735021L;
 	
-	private WhoAmI self;
+	private Authentication authentication;
 	
 	private String id;
 	private String pw1;
@@ -46,12 +46,12 @@ public class User implements UserInterface, Serializable {
 		this.phoneNumber = phoneNumber;
 	}
  	
-	public WhoAmI getSelf() {
-		return self;
+	public Authentication getAuthFile() {
+		return authentication;
 	}
 	
-	public void setSelf(WhoAmI self) {
-		this.self = self;
+	public void setAuthFile(Authentication authentication) {
+		this.authentication = authentication;
 	}
 	
 	public String getId() {

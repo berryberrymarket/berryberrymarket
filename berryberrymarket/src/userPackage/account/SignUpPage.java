@@ -9,6 +9,13 @@ import userPackage.model.User;
 import userPackage.model.UserListManager;
 
 public class SignUpPage {
+	
+	/*
+	 * 가입:
+	 * 1. 유저가 (유효한)정보를 입력하고,
+	 * 2. 유저 파일을 만들어서 저장.
+	 */
+	
 //	화면
 //	System.out.println("----------회원가입----------");
 //	System.out.print("1.아이디를 입력하세요: ");

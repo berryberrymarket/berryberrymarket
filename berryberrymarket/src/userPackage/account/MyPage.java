@@ -7,45 +7,45 @@ import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.*;
 
 public class MyPage {
-	private List<User> userList;
+	private User user;
+	private List<User> logInUserList;
 	Scanner sc = new Scanner(System.in);
 
+	private User findUserFromLogInUserList() {
+		User findUser = null;
+		this.logInUserList = BerryBerrymarketApp.logInUserList;
+		for (User logInUser : logInUserList) { 
+			try {
+				Authentication authObject = Authentication.getAuthObject();
+				if (authObject != null) {						
+					if (logInUser.getId().equals(authObject.getId())) {
+						findUser = logInUser;
+					} else {
+						System.out.println("인증 파일을 확인할 수 없습니다.");
+						throw new Exception("인증 파일이 생성되지 않았습니다.\n인증 파일 생성 로직을 확인하세요.");
+					}
+				} return findUser;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return findUser;
+	}
+	
 	public MyPage() {
-		this.userList = BerryBerrymarketApp.ul;
+		this.user = this.findUserFromLogInUserList();
+	}
+	
+	public void printInfo() {
+		System.out.printf("ID=%s | 비밀번호=%s | 이름=%s | 닉네임=%s | 주소=%s | 전화번호=%s | 레벨=%d | 거래횟수=%d\n", user.getId(), user.getPw(), user.getName(), user.getNick(), user.getAddress(), user.getPhoneNumber(), user.getUserLevel(), user.getTransactionsCnt());
 	}
 	
 	public void updateInfo() {
 		
-		boolean found = false;
-		
-		for (User user : userList) {
-	        if (user.getId().equals(id)) {
-	            found = true;
-	                 
-	    		System.out.print("수정 이름을 입력하세요=>");
-	    		String name = sc.nextLine();
-	            if (!name.isEmpty()) {
-	                person.setName(name);
-	            }
-	            
-	            
-	            System.out.print("수정 나이를 입력하세요=>");
-	    		String age = sc.nextLine();
-	            if (!age.isEmpty()) {
-	                
-	                person.setAge(Integer.parseInt(age));
-	            }
-	            
-	            System.out.print("수정 성별을 입력하세요.값:F(여자)M(남자)=>");
-	    		String sex = sc.nextLine();
-	            if (!sex.isEmpty()) {
-	                person.setSex(sex);
-	            }
-	            
-	           
-	            break; // 수정이 완료되었으므로 반복문 종료
-	        }
-	    }
+		if (this.user != null) {
+			// 여기에 수정 로직...
+		}
 		
 	}
 }
