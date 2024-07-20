@@ -5,20 +5,21 @@ import java.util.List;
 public class BoardPagination{
 	
 	private int curPage = 1;
-	private int pageSize;
+	private int pageSize = 1;
 	
 	public BoardPagination() {
 		super();
 	}
 
 	public List<Post> currentPage(List<Post> board){
+		
 		int startIndex = (curPage-1)*10;
 		int endIndex = curPage*10;
-		pageSize = board.size()/10+1;
+		pageSize = (board.size()-1)/10+1;
 		if(endIndex>board.size()) {
-			return board.subList(startIndex, board.size());
+			return board.reversed().subList(startIndex, board.size());
 		}
-		return board.subList(startIndex, endIndex);
+		return board.reversed().subList(startIndex, endIndex);
 	}
 
 	void nextPage() {
@@ -31,7 +32,7 @@ public class BoardPagination{
 	void prevPage() {
 		curPage--;
 		if(curPage<=0) {
-			curPage=0;
+			curPage=1;
 		}
 		
 	}
@@ -42,5 +43,16 @@ public class BoardPagination{
 
 	public void setCurPage(int curPage) {
 		this.curPage = curPage;
+		
 	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	
+	
 }

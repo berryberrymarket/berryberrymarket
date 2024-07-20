@@ -2,6 +2,7 @@ package berryberrymarket;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Post implements Serializable{
 
@@ -84,10 +85,10 @@ public class Post implements Serializable{
 		System.out.println("Content: " + content);
 		System.out.println("Price: " + price);
 		System.out.println("Place: " + place);
-		System.out.println("Date: " + date);
+		System.out.println("Date: " + date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
 	}
 
 	public void printSimpleInfo() {
-		System.out.println("\t"+title+"\t"+nickname+"\t"+date);
+		System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
 	}
 }
