@@ -189,15 +189,8 @@ public class PrintPage {
 	    printHead("채팅방페이지");
 	    System.out.println("채팅을 시작합니다...printChatRoomPage()");
 
-	   
-
 	    Client.startChat();
 	   
-	    
-	    
-	    
-	    
-	    
 	    System.out.println("0. 채팅 나가기printChatRoomPage()");
 	    System.out.print("원하는 작업을 선택하세요: printChatRoomPage()");
 	    int choice = sc.nextInt();
