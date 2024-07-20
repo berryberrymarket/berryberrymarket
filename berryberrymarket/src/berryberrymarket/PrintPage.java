@@ -149,7 +149,7 @@ public class PrintPage {
 		while(true) {
 			String in = sc.nextLine();
 			switch (in) {
-			case "H":
+			case "B":
 				return 1;
 			case "D":
 				pm.removePost(title);
