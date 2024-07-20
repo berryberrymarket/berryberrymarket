@@ -15,8 +15,8 @@ public class PrintPage {
 	public int printMainPage(Scanner sc) {
 		printHead("메인페이지");
 		
-		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
-		System.out.println("      (S)검색    (c)채팅목록   (P)등록");//수정 //수현
+		System.out.println("(M)마이페이지                   (O)로그아웃"); //수정 //수현
+		System.out.println("      (S)검색    (C)채팅목록    (P)등록");//수정 //수현
 		
 		printSmallHead("게시글");
 		
@@ -34,7 +34,7 @@ public class PrintPage {
 		} 
 		System.out.println("(H)홈으로");
 		printTail();
-		String in = sc.nextLine();
+		String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
 		switch (in) {
 		case "m":
 			return 4;
@@ -46,15 +46,15 @@ public class PrintPage {
 		case ">":
 			pm.nextPage();
 			return 1;
-		case "S": // 앞에 " s" 공백 없앰//수현
+		case "s":
 			System.out.println("검색할 내용을 입력하세요: ");
 			search = sc.nextLine();
 			return 1;
 		case "c":
 			return 7;
-		case "P":
+		case "p":
 			return 6;
-		case "H":
+		case "h":
 			search="";
 			return 1;
 		default:
@@ -143,11 +143,11 @@ public class PrintPage {
 	public int printPostDetailPage(Scanner sc) throws FileNotFoundException {
 		printHead("게시글상세페이지");
 		String title = pm.printPost(index);
-		System.out.println("(c)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
-		System.out.println("(B)뒤로가기        (U)수정 (D)삭제");
+		System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
+		System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
 		printTail();
 		while(true) {
-			String in = sc.nextLine();
+			String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
 			switch (in) {
 			case "B":
 				return 1;
@@ -205,15 +205,15 @@ public class PrintPage {
 	}
 
 	private void printHead(String str) {
-		System.out.println("===========" + str + "===========");
+		System.out.println("=================" + str + "================");
 	}
 
 	private void printSmallHead(String str) {
-		System.out.println("-----------" + str + "-----------");
+		System.out.println("------------------" + str + "-----------------");
 	}
 
 	private void printTail() {
-		System.out.println("=============================");
+		System.out.println("============================================");
 		System.out.print("입력하세요: ");
 	}
 
