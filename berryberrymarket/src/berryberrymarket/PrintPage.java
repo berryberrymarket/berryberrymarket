@@ -185,33 +185,25 @@ public class PrintPage {
 
 	}
 
-	public int printChatRoomPage(Scanner sc) {////////// 수현
-		printHead("채팅방페이지");
-		// 여기에 채팅 방의 메시지를 출력하고 입력을 받는 코드를 작성합니다.
-		// 예를 들어, 채팅 메시지를 출력하고 사용자로부터 메시지를 입력받아 처리하는 코드를 작성할 수 있습니다.
-		System.out.println("채팅을 시작합니다...");
+	public int printChatRoomPage(Scanner sc) {
+	    printHead("채팅방페이지");
+	    System.out.println("채팅을 시작합니다...printChatRoomPage()");
 
-		while (true) {
-			// 사용자 입력을 받아 채팅 메시지 전송
-			System.out.print("나: ");
-			String myMessage = sc.nextLine();
+	   
 
-			// 채팅을 그만두기 버튼 확인
-			if (myMessage.equals("그만두기")) {
-				System.out.println("상대방과의 채팅을 종료합니다.");
-				break;
-			}
+	    Client.startChat();
+	   
+	    
+	    
+	    
+	    
+	    
+	    System.out.println("0. 채팅 나가기printChatRoomPage()");
+	    System.out.print("원하는 작업을 선택하세요: printChatRoomPage()");
+	    int choice = sc.nextInt();
+	    sc.nextLine(); // 버퍼 비우기
 
-			// 여기서는 상대방의 메시지를 대신하는 예시로 나의 메시지를 출력합니다.
-			System.out.println("상대방: " + myMessage);
-		}
-
-		System.out.println("0. 채팅 나가기");
-		System.out.print("원하는 작업을 선택하세요: ");
-		int choice = sc.nextInt();
-		sc.nextLine(); // 버퍼 비우기
-
-		return choice == 0 ? 7 : 8; // 채팅 나가기 선택 시 7 반환, 그 외에는 채팅 방 페이지로 남기
+	    return choice == 0 ? 7 : 8; // 채팅 나가기 선택 시 7 반환, 그 외에는 채팅 방 페이지로 남기
 	}
 
 	private void printHead(String str) {
