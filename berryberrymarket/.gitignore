@@ -1,1 +1,5 @@
 /bin/
+# 프로젝트 코드가 아닌 데이터 관련 ignore
+post/
+user/
+authentication/
