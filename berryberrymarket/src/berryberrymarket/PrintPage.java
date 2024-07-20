@@ -16,12 +16,23 @@ public class PrintPage {
 		printHead("메인페이지");
 		
 		System.out.println("(m)마이페이지                  (o)로그아웃"); //수정 //수현
-		System.out.println("      (S)검색    (c)채팅목록   (p)등록");//수정 //수현
+		System.out.println("      (S)검색    (c)채팅목록   (P)등록");//수정 //수현
 		
 		printSmallHead("게시글");
 		
 		pm.printBoard(search);
-		System.out.println("(<)이전페이지                다음페이지(>)");//수정 //수현
+		int curPage = pm.getCurPage();
+		int pageSize = pm.getPageSize();
+		if(curPage==1 && pageSize==curPage) {
+			System.out.println("                  "+pm.getCurPage()+"                  ");
+		}else if(curPage==1) {
+			System.out.println("                   "+pm.getCurPage()+"           다음페이지(>)");
+		}else if(curPage==pageSize) {
+			System.out.println("(<)이전페이지          "+pm.getCurPage()+"                  ");
+		}else {
+			System.out.println("(<)이전페이지          "+pm.getCurPage()+"          다음페이지(>)");//수정 //수현
+		} 
+		System.out.println("(H)홈으로");
 		printTail();
 		String in = sc.nextLine();
 		switch (in) {
@@ -41,14 +52,25 @@ public class PrintPage {
 			return 1;
 		case "c":
 			return 7;
-		case "p":
+		case "P":
 			return 6;
+		case "H":
+			search="";
+			return 1;
 		default:
 			try {
-				index = Integer.parseInt(in);
+				boolean compareIndex=false;
+				while(!compareIndex) {
+					index = Integer.parseInt(in);
+					compareIndex=pm.compareIndex(index);
+					if(compareIndex==false) {
+						in = sc.nextLine();
+					}
+				}
 				return 5;
+				
 			} catch(NumberFormatException e) {
-				System.out.println("다시 입력하세요");
+				System.out.println("다시 입력하세요: ");
 				return 1;
 			}
 
@@ -118,18 +140,24 @@ public class PrintPage {
 		return 5;
 	}
 
-	public int printPostDetailPage(Scanner sc) {
+	public int printPostDetailPage(Scanner sc) throws FileNotFoundException {
 		printHead("게시글상세페이지");
-		pm.printPost(index);
+		String title = pm.printPost(index);
 		System.out.println("(c)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
-		System.out.println("(H)홈으로        (U)수정 (D)삭제");
+		System.out.println("(B)뒤로가기        (U)수정 (D)삭제");
 		printTail();
 		while(true) {
 			String in = sc.nextLine();
 			switch (in) {
-			case "H":
+			case "B":
+				return 1;
+			case "D":
+				pm.removePost(title);
 				return 1;
 			case "U":
+				pm.removePost(title);
+				System.out.println("----수정----");
+				setPostInfo(sc);
 				return 1;
 			case "c"://///////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
 				return 8;// 
@@ -141,30 +169,7 @@ public class PrintPage {
 
 	public int printAddPostPage(Scanner sc) throws FileNotFoundException {
 		printHead("게시글등록페이지");
-		System.out.print("제목을 입력하세요: ");
-		String title = sc.nextLine();
-		System.out.print("내용을 입력하세요: ");
-		String content = sc.nextLine();
-		boolean validInput = false;
-		int price = 0;
-	    while (!validInput) {
-	        try {
-	            System.out.print("가격을 입력하세요: ");
-	            price = Integer.parseInt(sc.nextLine());
-	            if (price <= 0) {
-	                throw new IllegalArgumentException("가격은 양수여야 합니다.");
-	            }
-	            validInput = true; // 입력이 유효하면 반복문 종료
-	        } catch (NumberFormatException e) {
-	            System.out.println("유효하지 않은 입력입니다. 다시 시도하세요.");
-	        } catch (IllegalArgumentException e) {
-	            System.out.println(e.getMessage());
-	        }
-	    }
-		System.out.print("거래 희망 장소를 입력하세요: ");
-		String place = sc.nextLine();
-
-		pm.addPost(new Post(title, "user1", content, price, place));
+		setPostInfo(sc);
 
 		return 1;
 	}
@@ -212,4 +217,31 @@ public class PrintPage {
 		System.out.print("입력하세요: ");
 	}
 
+	private void setPostInfo(Scanner sc) throws FileNotFoundException {
+		
+		System.out.print("제목을 입력하세요: ");
+		String title = sc.nextLine();
+		System.out.print("내용을 입력하세요: ");
+		String content = sc.nextLine();
+		boolean validInput = false;
+		int price = 0;
+	    while (!validInput) {
+	        try {
+	            System.out.print("가격을 입력하세요: ");
+	            price = Integer.parseInt(sc.nextLine());
+	            if (price <= 0) {
+	                throw new IllegalArgumentException("가격은 양수여야 합니다.");
+	            }
+	            validInput = true; // 입력이 유효하면 반복문 종료
+	        } catch (NumberFormatException e) {
+	            System.out.println("유효하지 않은 입력입니다. 다시 시도하세요.");
+	        } catch (IllegalArgumentException e) {
+	            System.out.println(e.getMessage());
+	        }
+	    }
+		System.out.print("거래 희망 장소를 입력하세요: ");
+		String place = sc.nextLine();
+
+		pm.addPost(new Post(title, "user1", content, price, place));
+	}
 }
