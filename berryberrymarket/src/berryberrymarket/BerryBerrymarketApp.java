@@ -53,6 +53,10 @@ public class BerryBerrymarketApp {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Authentication.deleteAuthFile(); // 인증 파일은 프로그램 종료 시 반드시 지워줘야 함.
 		}
 
 	}

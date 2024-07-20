@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import userPackage.account.LogInPage;
+import userPackage.account.LogOutPage;
 import userPackage.account.SignUpPage;
 
 public class PrintPage {
@@ -39,6 +40,7 @@ public class PrintPage {
 		case "m":
 			return 4;
 		case "o":
+			LogOutPage.logOut(); // 유저를 로그아웃 시킴
 			return 2;
 		case "<":
 			pm.prevPage();
