@@ -20,9 +20,6 @@ public class BerryBerrymarketApp {
 		int pageCase = 2;
 		Scanner sc = new Scanner(System.in);
 
-	
-		/////////////////////////////////////////////////////////////////
-
 		try {
 			while (true) {
 				if (pageCase == 0) { // 시스템 종료
