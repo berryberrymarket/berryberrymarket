@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ServerEx {
+public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 server 클래스/
    public static void main(String[] args) {
       ServerSocket server = null;
       Socket socket = null;
