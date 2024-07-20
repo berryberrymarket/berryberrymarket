@@ -1,5 +1,5 @@
 /bin/
-# 프로젝트 코드가 아닌 데이터 관련 ignore
+# 프로젝트 파일 중 코드 관련 파일 제외하고 데이터 파일 관련 ignore
 post/
 user/
 authentication/
