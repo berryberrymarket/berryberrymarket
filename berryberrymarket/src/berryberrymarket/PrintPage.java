@@ -1,18 +1,28 @@
 package berryberrymarket;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 import userPackage.account.LogInPage;
 import userPackage.account.LogOutPage;
 import userPackage.account.SignUpPage;
+import userPackage.model.User;
+import userPackage.model.UserListManager;
 
 public class PrintPage {
 
 	PostManager pm = new PostManager();
+	LoginChecker loginChecker = new LoginChecker();
 	int index = 0;
 	String search = "";
 	Scanner sc = new Scanner(System.in);
+	UserListManager ulm = new UserListManager();
+
+	public PrintPage() {
+		pm.initGetBoard();
+	}
+
 
 	public int printMainPage() {
 		printHead("메인페이지");
@@ -41,6 +51,7 @@ public class PrintPage {
 		case "m":
 			return 4;
 		case "o":
+			loginChecker.setNick("");
 			LogOutPage.logOut(); // 유저를 로그아웃 시킴
 			return 2;
 		case "<":
@@ -117,7 +128,8 @@ public class PrintPage {
 				
 				boolean loginEx = loginPage.LogIn();
 				if (loginEx) {
-					pm.initGetBoard();
+					List<User> userList = ulm.getUserList();
+					userList.stream().filter(n->n.getId().equals(id)).forEach(n->loginChecker.setNick(n.getNick()));
 					return 1;
 				} else {
 					System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");
@@ -151,9 +163,14 @@ public class PrintPage {
 
 	public int printPostDetailPage() throws FileNotFoundException {
 		printHead("게시글상세페이지");
-		String title = pm.printPost(index);
+		String[] titleAndNick = pm.printPost(index);
 		System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
-		System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
+		if(loginChecker.getNick().equals(titleAndNick[1])) {
+			System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
+		}
+		else {
+			System.out.println("(B)뒤로가기");
+		}
 		printTail();
 		while(true) {
 			String in = setLowerCase(sc); // 입력을 소문자로 변환
@@ -161,10 +178,10 @@ public class PrintPage {
 			case "b":
 				return 1;
 			case "d":
-				pm.removePost(title);
+				pm.removePost(titleAndNick[0]);
 				return 1;
 			case "u":
-				pm.removePost(title);
+				pm.removePost(titleAndNick[0]);
 				System.out.println("----수정----");
 				setPostInfo(sc);
 				return 1;
@@ -251,7 +268,7 @@ public class PrintPage {
 		System.out.print("거래 희망 장소를 입력하세요: ");
 		String place = sc.nextLine();
 
-		pm.addPost(new Post(title, "user1", content, price, place));
+		pm.addPost(new Post(title, loginChecker.getNick(), content, price, place));
 	}
 	
 	private String setLowerCase(Scanner sc) {

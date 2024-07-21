@@ -31,7 +31,7 @@ public class UserListManager {
 	public String nowPath = System.getProperty("user.dir");
 	public File path = new File(nowPath, "user");
 	
-	private UserListManager() {
+	public UserListManager() {
 		// UserList 클래스의 객체 생성과 동시에 유저 리스트가 생성됨.
 		// 또한 UserList 객체는 프로그램이 실행될 때 가장 먼저 만들어져야 함.
 		initializeUserList();
