@@ -18,7 +18,7 @@ public class Client {
 	      Scanner scanner = new Scanner(System.in);
 
 	      
-	      String serverIpAddress = "192.168.240.5"; //192.345.1.133 // 학원노트북 학원 ip// 서버 학원컴 먼저 여기서 열기-> 상대방(내컴) 클라이언트 열기
+	      String serverIpAddress = "192.168.240.13"; //192.345.1.133 // 학원노트북 학원 ip// 서버 학원컴 먼저 여기서 열기-> 상대방(내컴) 클라이언트 열기
 	      int port = 8000;
 	      
 	      try {
@@ -30,12 +30,15 @@ public class Client {
 
 	         while (true) {
 	            
+	        	System.out.println("(O)나가기");
 	            System.out.print("보내기>>");
 	            String outMsg = scanner.nextLine();
 	            
-	            if (outMsg.equalsIgnoreCase("bye")) {
+	            if (outMsg.equalsIgnoreCase("O")) {
 	               out.write(outMsg + "\n");
 	               out.flush();
+	               out.close();
+	               in.close();
 	               break;
 	            }
 	            
@@ -45,14 +48,13 @@ public class Client {
 	            
 	            
 	            String inMsg = in.readLine();
-	            System.out.println("서버>> " + inMsg);
+	            System.out.println("상대방>> " + inMsg);
 	            
 	         }
 	      } catch (IOException e) {
 	         e.printStackTrace();
 	      } finally {
 	         try {
-	            scanner.close();
 	            out.close();
 	            in.close();
 	            socket.close();

@@ -90,14 +90,23 @@ public class Post implements Serializable{
 	}
 
 	public void printInfo() {
-		System.out.println("Title: " + title);
-		System.out.println("Hit: "+ hit);
-		System.out.println("Nickname: " + nickname);
-		System.out.println("Content: " + content);
-		System.out.println("Price: " + price);
-		System.out.println("Place: " + place);
-		System.out.println("Date: " + date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
-	}
+	      System.out.printf("%-12s: ","제목");
+	      System.out.println(title);	      
+	      System.out.printf("%-11s: ","작성자");
+	      System.out.println(title);	
+	      System.out.printf("%-11s: ","조회수");
+	      System.out.println(hit);	
+	      System.out.printf("%-12s: ","가격");
+	      System.out.println(price);	
+	      System.out.printf("%-8s: ","거래 희망 장소");
+	      System.out.println(place);	
+	      System.out.printf("%-10s: ","작성 날짜");
+	      System.out.println(date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));	
+//	      System.out.println("조회수: "+ hit);
+//	      System.out.println("가격           : " + price);
+//	      System.out.println("거래 희망 장소    : " + place);
+//	      System.out.println("작성 날짜        : " + date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
+	   }
 
 	public void printSimpleInfo() {
 		System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"))+"  "+hit);
