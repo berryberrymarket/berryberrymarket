@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import userPackage.account.Authentication;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
-import userPackage.account.Authentication;
 
 public class BerryBerrymarketApp {
 

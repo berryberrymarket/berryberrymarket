@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import userPackage.account.LogInPage;
 import userPackage.account.LogOutPage;
+import userPackage.account.MyPage;
 import userPackage.account.SignUpPage;
 
 public class PrintPage {
@@ -102,6 +103,7 @@ public class PrintPage {
 		switch (in) {
 		case "1":
 			while (true) {
+				System.out.println("");
 				System.out.print("아이디를 입력하세요: ");
 				String id = sc.nextLine();
 				System.out.print("비밀번호를 입력하세요: ");
@@ -139,29 +141,36 @@ public class PrintPage {
 
 	public int printMyPage(Scanner sc) {
 		printHead("마이페이지");
-		return 5;
+		
+		
+		
+		MyPage mp = new MyPage();///////////////////////아까 지연이랑 수정함
+		mp.printInfo();
+		
+		
+		 return 5;
 	}
 
 	public int printPostDetailPage(Scanner sc) throws FileNotFoundException {
 		printHead("게시글상세페이지");
 		String title = pm.printPost(index);
-		System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
+		System.out.println("(C)채팅하기");
 		System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
 		printTail();
 		while(true) {
 			String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
 			switch (in) {
-			case "B":
+			case "b":
 				return 1;
-			case "D":
+			case "d":
 				pm.removePost(title);
 				return 1;
-			case "U":
+			case "u":
 				pm.removePost(title);
 				System.out.println("----수정----");
 				setPostInfo(sc);
 				return 1;
-			case "c"://///////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
+			case "c":
 				return 8;// 
 			default:		
 				System.out.println("다시 입력하세요");
