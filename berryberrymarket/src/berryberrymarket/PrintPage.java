@@ -14,7 +14,7 @@ public class PrintPage {
 	int index = 0;
 	String search = "";
 	Scanner sc = new Scanner(System.in);
-	UserListManager ulm = new UserListManager();
+	UserListManager ulm = UserListManager.getUserListMagener();
 
 	public PrintPage() {
 		pm.initGetBoard();
@@ -162,17 +162,17 @@ public class PrintPage {
 			System.out.printf("입력하세요: ");
 			String keyPress = sc.nextLine();
 			switch (keyPress) {
-				case "q", "Q" -> {
-					return 1;
-				}
-				case "u", "U" -> {
-					UserUpdatePage uup = new UserUpdatePage();
-					uup.userUpdate();
-				}
+				case "a","A" -> {
+					return 9;
+					}
 				case "d", "D" -> {
 					UserDeletePage udp = new UserDeletePage();
-					udp.userDelete(sc);
+					int deleteResult = udp.userDelete(sc);
 					myPage = null;
+					return deleteResult;
+				}
+				case "b","B" -> {				
+					return 1;
 				}
 				default -> {
 					System.out.println("올바른 키를 입력하세요.");
@@ -249,6 +249,28 @@ public class PrintPage {
 	    sc.nextLine(); // 버퍼 비우기
 
 	    return choice == 0 ? 7 : 8; // 채팅 나가기 선택 시 7 반환, 그 외에는 채팅 방 페이지로 남기
+	}
+	
+	public int printUserUpdatePage() {
+		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
+		System.out.println("(1)비밀번호");
+		System.out.println("(2)이름");
+		System.out.println("(3)닉네임");
+		System.out.println("(4)전화번호");
+		System.out.println("(5)주소");
+		System.out.println("(6)마이페이지로 돌아가기");
+		String in = sc.nextLine();
+		switch(in) {
+		case "1","2","3","4","5":
+			UserUpdatePage uu = new UserUpdatePage();
+			uu.updateUserInfo(in);
+			return 9;	
+		
+		default:
+			return 4;
+		
+		}
+		 
 	}
 
 	private void printHead(String str) {
