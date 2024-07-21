@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Scanner;
 import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
+import userPackage.model.UserListManager;
 
 public class UserUpdatePage {
 	private List<User> userList = BerryBerrymarketApp.ul;
+	private UserListManager ulm = UserListManager.getUserListMagener();
+	
 	private User user;
 	
 	Scanner sc = new Scanner(System.in);
@@ -62,13 +65,13 @@ public class UserUpdatePage {
 						break;					
 					}
 				}
-				
+				break;
 			case"2":
 				System.out.print("이름을 입력하세요: ");
 				String newName = sc.nextLine();
 				user.setName(newName);
 				System.out.println("이름이 수정 되었습니다.");	
-				
+				break;
 			case"3":
 				String newNick;
 				while (true) {
@@ -92,7 +95,7 @@ public class UserUpdatePage {
 						break; // 루프 종료
 					}
 				}
-				
+				break;
 			case"4":	
 				String newPhoneNumber;
 				while (true) {
@@ -106,7 +109,7 @@ public class UserUpdatePage {
 						break;
 					}
 				}
-				
+				break;
 			case"5":	
 				 String newAddress;
 			     while (true) {
@@ -120,9 +123,11 @@ public class UserUpdatePage {
 			              break;
 			          }
 			     }
+			     break;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 			}
+			ulm.updateUserList();
 		} else {
 			System.out.println("userPackage.account.UserUpdatePage.java: 유저 정보를 찾을 수 없습니다.");
 		}

@@ -14,7 +14,7 @@ public class PrintPage {
 	int index = 0;
 	String search = "";
 	Scanner sc = new Scanner(System.in);
-	UserListManager ulm = new UserListManager();
+	UserListManager ulm = UserListManager.getUserListMagener();
 
 	public PrintPage() {
 		pm.initGetBoard();
@@ -157,11 +157,10 @@ public class PrintPage {
 	public int printMyPage() {
 		printHead("마이페이지");
 		UserMyInfoPage myPage = new UserMyInfoPage();
-		myPage.printInfo();
-		System.out.printf("입력하세요: ");
-		String keyPress = sc.nextLine();
 		while (true) {
 			myPage.printInfo();
+			System.out.printf("입력하세요: ");
+			String keyPress = sc.nextLine();
 			switch (keyPress) {
 				case "a","A" -> {
 					return 9;
