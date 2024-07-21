@@ -90,16 +90,36 @@ public class Post implements Serializable{
 	}
 
 	public void printInfo() {
-		System.out.println("Title: " + title);
-		System.out.println("Hit: "+ hit);
-		System.out.println("Nickname: " + nickname);
-		System.out.println("Content: " + content);
-		System.out.println("Price: " + price);
-		System.out.println("Place: " + place);
-		System.out.println("Date: " + date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
+		System.out.println("제목          : " + title);
+		System.out.println("조회수        : "+ hit);
+		System.out.println("작성자        : " + nickname);
+		System.out.println("내용          : " + content);
+		System.out.println("가격          : " + price);
+		System.out.println("거래 희망 장소: " + place);
+		System.out.println("등록 날짜     : " + date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
 	}
 
-	public void printSimpleInfo() {
-		System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"))+"  "+hit);
-	}
+	//public void printSimpleInfo() {
+	//	System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"))+"  "+hit);
+	//}
+	////////////////////////////////////////////////수현 수정 ////////////////////수현 수정//////////////수현 수정///////////////수현 수정///////
+	public String getFormattedTitle() {
+        final int MAX_LENGTH = 10; // 제목의 최대 길이 설정
+        if (title == null) {
+            title = "";
+        }
+        return String.format("%-10s", title.length() > MAX_LENGTH ? title.substring(0, MAX_LENGTH) : title);
+    }
+
+    public String getFormattedNickname() {
+        final int MAX_LENGTH = 10; // 닉네임의 최대 길이 설정
+        if (nickname == null) {
+            nickname = "";
+        }
+        return String.format("%-10s", nickname.length() > MAX_LENGTH ? nickname.substring(0, MAX_LENGTH) : nickname);
+    }
+ㅇ0oOli1Li
+    public void printSimpleInfo() {
+        System.out.printf("%-5s%-20s%-20s%s\n", "", getFormattedTitle(), getFormattedNickname(), date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
+    }
 }

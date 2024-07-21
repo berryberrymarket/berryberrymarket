@@ -3,7 +3,13 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
-import userPackage.account.*;
+
+import userPackage.account.UserDeletePage;
+import userPackage.account.UserLoginPage;
+import userPackage.account.UserLogoutPage;
+import userPackage.account.UserMyInfoPage;
+import userPackage.account.UserSignUpPage;
+import userPackage.account.UserUpdatePage;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
 
@@ -274,15 +280,15 @@ public class PrintPage {
 	}
 
 	private void printHead(String str) {
-		System.out.println("=================" + str + "================");
+		System.out.println("==========================" + str + "==========================");
 	}
 
 	private void printSmallHead(String str) {
-		System.out.println("------------------" + str + "-----------------");
+		System.out.println("--------------------------" + str + "-------------------------");
 	}
 
 	private void printTail() {
-		System.out.println("============================================");
+		System.out.println("==================================================================");
 		System.out.print("입력하세요: ");
 	}
 
