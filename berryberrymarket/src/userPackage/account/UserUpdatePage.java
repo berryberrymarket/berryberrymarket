@@ -26,16 +26,15 @@ public class UserUpdatePage {
 //		
 //	}
 	
-	public int updateUserInfo() {
-		while(true) {
-		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
-		System.out.println("(1)비밀번호");
-		System.out.println("(2)이름");
-		System.out.println("(3)닉네임");
-		System.out.println("(4)전화번호");
-		System.out.println("(5)주소");
-		System.out.println("(6)마이페이지로 돌아가기");
-		String in = sc.nextLine();
+	public int updateUserInfo(String in) {
+//		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
+//		System.out.println("(1)비밀번호");
+//		System.out.println("(2)이름");
+//		System.out.println("(3)닉네임");
+//		System.out.println("(4)전화번호");
+//		System.out.println("(5)주소");
+//		System.out.println("(6)마이페이지로 돌아가기");
+//		String in = sc.nextLine();
 
 		
 		switch(in) {
@@ -125,8 +124,6 @@ public class UserUpdatePage {
 		case"6":
 			return 4;
 	
-		}
-		
 		}
 		
 	}	

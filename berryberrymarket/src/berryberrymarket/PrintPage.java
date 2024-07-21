@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import userPackage.account.LogInPage;
 import userPackage.account.LogOutPage;
+import userPackage.account.MyPage;
 import userPackage.account.SignUpPage;
+import userPackage.account.UserUpdatePage;
 
 public class PrintPage {
 
@@ -146,7 +148,21 @@ public class PrintPage {
 
 	public int printMyPage() {
 		printHead("마이페이지");
-		return 5;
+		MyPage mp = new MyPage();
+		mp.printInfo();
+		System.out.print("\n(A)회원 정보 수정     (B)뒤로가기");		
+		String update = sc.nextLine();
+
+		switch (update) {
+		case "a","A":
+			return 9;
+		
+		case "b","B":
+			return 1;
+		default:
+			return 4;
+		}
+	
 	}
 
 	public int printPostDetailPage() throws FileNotFoundException {
@@ -211,6 +227,30 @@ public class PrintPage {
 	    sc.nextLine(); // 버퍼 비우기
 
 	    return choice == 0 ? 7 : 8; // 채팅 나가기 선택 시 7 반환, 그 외에는 채팅 방 페이지로 남기
+	}
+	
+	public int printUserUpdatePage() {
+		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
+		System.out.println("(1)비밀번호");
+		System.out.println("(2)이름");
+		System.out.println("(3)닉네임");
+		System.out.println("(4)전화번호");
+		System.out.println("(5)주소");
+		System.out.println("(6)마이페이지로 돌아가기");
+		String in = sc.nextLine();
+		switch(in) {
+		case "1","2","3","4","5":
+			UserUpdatePage uu = new UserUpdatePage();
+			uu.updateUserInfo(in);
+			return 9;	
+		
+		default:
+			return 4;
+		
+		}
+	
+		
+		 
 	}
 
 	private void printHead(String str) {

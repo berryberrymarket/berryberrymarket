@@ -39,6 +39,7 @@ public class MyPage {
 	
 	public void printInfo() {
 		System.out.printf("ID=%s | 비밀번호=%s | 이름=%s | 닉네임=%s | 주소=%s | 전화번호=%s | 레벨=%d | 거래횟수=%d\n", user.getId(), user.getPw(), user.getName(), user.getNick(), user.getAddress(), user.getPhoneNumber(), user.getUserLevel(), user.getTransactionsCnt());
+	
 	}
 	
 	public void updateInfo() {

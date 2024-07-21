@@ -44,6 +44,8 @@ public class BerryBerrymarketApp {
 					pageCase = pp.printChatListPage();
 				} else if (pageCase == 8) { // 채팅방페이지 출력
 					pageCase = pp.printChatRoomPage();
+				} else if (pageCase == 9) { // 회원정보수정페이지 출력
+					pageCase = pp.printUserUpdatePage();
 				}
 			}
 
