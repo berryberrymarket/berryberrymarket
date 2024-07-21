@@ -17,14 +17,19 @@ public class ValidationUtils {
 	    public static boolean isValidPassword(String password) {
 	        return password.matches(PASSWORD_REGEX);
 	    }
+	    
+	    public static boolean isValidNick(String nick) {
+	        // 닉네임이 6글자 이내인지 확인
+	        return nick.codePointCount(0, nick.length()) < 7;
+	    }	    
 
 	    public static boolean isValidPhoneNumber(String phoneNumber) {
 	        return phoneNumber.matches(PHONE_REGEX);
 	    }
 
-	    public static boolean isValidAddress(String address) {
-	        return address.contains("시") || address.contains("군") || address.contains("구");
-	    }
+//	    public static boolean isValidAddress(String address) {
+//	        return address.contains("시") || address.contains("군") || address.contains("구");
+//	    }
 	    
 	
 	    

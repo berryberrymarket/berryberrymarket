@@ -252,6 +252,8 @@ public class PrintPage {
 	}
 	
 	public int printUserUpdatePage() {
+		
+		printHead("회원정보수정페이지");
 		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
 		System.out.println("(1)비밀번호");
 		System.out.println("(2)이름");
@@ -259,6 +261,7 @@ public class PrintPage {
 		System.out.println("(4)전화번호");
 		System.out.println("(5)주소");
 		System.out.println("(6)마이페이지로 돌아가기");
+		printTail();
 		String in = sc.nextLine();
 		switch(in) {
 		case "1","2","3","4","5":
