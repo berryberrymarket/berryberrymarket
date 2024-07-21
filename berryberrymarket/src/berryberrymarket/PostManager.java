@@ -158,4 +158,10 @@ public class PostManager {
 			return true;
 		}
 	}
+
+	public void incHit(int index) {
+		Post post = filteredBoard.get(filteredBoard.size()-index);
+		post.setHit(post.getHit()+1);
+		
+	}
 }

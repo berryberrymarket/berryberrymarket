@@ -75,6 +75,7 @@ public class PrintPage {
 					index = Integer.parseInt(in);
 					compareIndex=pm.compareIndex(index);
 					if(compareIndex==false) {
+						System.out.print("검색한 인덱스의 게시글이 없습니다. 다시 입력하세요:");
 						in = sc.nextLine();
 					}
 				}
@@ -142,16 +143,15 @@ public class PrintPage {
 	public int printSignUpPage() {
 		printHead("회원가입페이지");
 
-		SignUpPage sp = new SignUpPage();
-		int isSignUp = 2;
+		UserSignUpPage sp = new UserSignUpPage();
 
 		try {
-			isSignUp = sp.SignUp();
+			sp.SignUp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return isSignUp;
+		return 2;
 	}
 
 	public int printMyPage() {
@@ -182,6 +182,7 @@ public class PrintPage {
 	}
 
 	public int printPostDetailPage() throws FileNotFoundException {
+		pm.incHit(index);
 		printHead("게시글상세페이지");
 		String[] titleAndNick = pm.printPost(index);
 		System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가

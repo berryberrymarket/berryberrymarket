@@ -15,6 +15,7 @@ public class Post implements Serializable{
 	private String content;
 	private int price;
 	private String place;
+	private int hit;
 	private LocalDateTime date;
 
 	public Post() {
@@ -28,6 +29,7 @@ public class Post implements Serializable{
 		this.content = content;
 		this.price = price;
 		this.place = place;
+		this.hit = 0;
 		this.date = LocalDateTime.now();
 	}
 
@@ -79,8 +81,17 @@ public class Post implements Serializable{
 		this.date = date;
 	}
 
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+
 	public void printInfo() {
 		System.out.println("Title: " + title);
+		System.out.println("Hit: "+ hit);
 		System.out.println("Nickname: " + nickname);
 		System.out.println("Content: " + content);
 		System.out.println("Price: " + price);
@@ -89,6 +100,6 @@ public class Post implements Serializable{
 	}
 
 	public void printSimpleInfo() {
-		System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
+		System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"))+"  "+hit);
 	}
 }
