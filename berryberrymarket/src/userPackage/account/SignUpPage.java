@@ -2,7 +2,6 @@ package userPackage.account;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
@@ -29,18 +28,20 @@ public class SignUpPage {
 //	System.out.println("        (r)가입하기         ");	
 	private List<User> userList;
 	Scanner sc = new Scanner(System.in);
+	ValidationUtils vu = new ValidationUtils();
 
 	public SignUpPage() {
 		this.userList = BerryBerrymarketApp.ul;
 	}
 
 	public void SignUp() {
+		
 		// 아이디 유효성 검사
 		String id;
 		while (true) {
 			System.out.print("가입하실 아이디를 입력하세요: ");
 			id = sc.nextLine();
-			if (!isValidId(id)) {
+			if (!ValidationUtils.isValidId(id)) {
 				System.out.println("아이디는 5~20자의 영문 소문자, 숫자, '-', '_' 만 사용 가능합니다.");
 				continue;
 			}
@@ -68,9 +69,11 @@ public class SignUpPage {
 		while (true) {
 			System.out.print("가입하실 비밀번호를 입력하세요: ");
 			pw1 = sc.nextLine();
-			if (!isValidPassword(pw1)) {
-				System.out.println("비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자만 사용 가능합니다.");
-			} else
+			
+			if (!ValidationUtils.isValidPassword(pw1)) {
+				System.out.println("비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자만 사용 가능합니다.");				
+			}
+			else
 				break;
 		}
 
@@ -80,12 +83,12 @@ public class SignUpPage {
 			if (!pw1.equals(pw2)) {
 				System.out.println("비밀번호가 일치하지 않습니다.");
 			} else {
-//				System.out.println("비밀번호가 일치합니다.");
+//						System.out.println("비밀번호가 일치합니다.");
 				break;
 			}
 		}
 
-		// 이름 입력
+		// 이름 입력	
 		System.out.print("이름을 입력하세요: ");
 		String name = sc.nextLine();
 
@@ -117,7 +120,7 @@ public class SignUpPage {
 		while (true) {
 			System.out.print("전화번호를 입력하세요: ");
 			phoneNumber = sc.nextLine();
-			if (!isValidPhoneNumber(phoneNumber)) {
+			if (!ValidationUtils.isValidPhoneNumber(phoneNumber)) {
 				System.out.println("형식이 올바르지 않습니다.");
 			} else {
 				break;
@@ -129,7 +132,7 @@ public class SignUpPage {
 	     while (true) {
 	          System.out.print("주소를 입력하세요: ");
 	          address = sc.nextLine();
-	          if (!isValidAddress(address)) {
+	          if (!ValidationUtils.isValidAddress(address)) {
 	              System.out.println("형식이 올바르지 않습니다.");
 	          } else {
 	              break;
@@ -145,34 +148,34 @@ public class SignUpPage {
 //		return 1;
 	}
 
-	public boolean isValidId(String id) {
-		if (id.equals("test")) {
-			return true;
-		}
-		return id.matches("[a-z0-9_-]{5,20}");
-	}
-
-	public boolean isValidPassword(String password) {
-		if (password.equals("test")) {
-			return true;
-		}
-	    String specialCharacters = "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~";
-	    String regex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[" + Pattern.quote(specialCharacters) + "])[a-zA-Z\\d" + Pattern.quote(specialCharacters) + "]{8,16}$";
-	    return password.matches(regex);
-	}
-
-	public boolean isValidPhoneNumber(String phoneNumber) {
-		if (phoneNumber.equals("test")) {
-			return true;
-		}
-		return phoneNumber.matches("^\\d{3}-\\d{4}-\\d{4}$");
-	}
-	
-	public boolean isValidAddress(String address) {
-		if (address.equals("test")) {
-			return true;
-		}
-	    return address.contains("시") && address.contains("구") && address.contains("동");
-	}
-	
+//	public boolean isValidId(String id) {
+//		if (id.equals("test")) {
+//			return true;
+//		}
+//		return id.matches("[a-z0-9_-]{5,20}");
+//	}
+//
+//	public boolean isValidPassword(String password) {
+//		if (password.equals("test")) {
+//			return true;
+//		}
+//	    String specialCharacters = "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~";
+//	    String regex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[" + Pattern.quote(specialCharacters) + "])[a-zA-Z\\d" + Pattern.quote(specialCharacters) + "]{8,16}$";
+//	    return password.matches(regex);
+//	}
+//
+//	public boolean isValidPhoneNumber(String phoneNumber) {
+//		if (phoneNumber.equals("test")) {
+//			return true;
+//		}
+//		return phoneNumber.matches("^\\d{3}-\\d{4}-\\d{4}$");
+//	}
+//	
+//	public boolean isValidAddress(String address) {
+//		if (address.equals("test")) {
+//			return true;
+//		}
+//	    return address.contains("시") && address.contains("구") && address.contains("동");
+//	}
+//	
 }
