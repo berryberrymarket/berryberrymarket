@@ -23,7 +23,7 @@ public class UserMyInfoPage {
 				+ "|레벨\t|%35d\t\t\t\t\t|\n"
 				+ "|거래횟수\t|%35d\t\t\t\t\t|\n", user.getId(), user.getName(), user.getNick(), user.getAddress(), user.getPhoneNumber(), user.getUserLevel(), user.getTransactionsCnt());
 		System.out.println("---------------------------------------------------------------------------------------------------");
-		System.out.print("(b)돌아가기\t\t\t(a)회원정보 수정\t\t\t(d)회원 탈퇴\n");
+		System.out.print("(b)돌아가기\t(a)회원정보 수정\t(d)회원 탈퇴\n");
 	}
 	
 }
