@@ -1,10 +1,8 @@
 package userPackage.account;
 
 
-import java.util.List;
-
-
 import java.io.File;
+import java.util.List;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,7 +11,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Authentication implements Serializable {
+
+public class UserAuthentication implements Serializable {
 
 	/*
 	 * 인증 파일이 일종의 `key`이자 프로그램 내에서 자기 자신이 누구인지를 식별하는 식별자로서 작동함.
@@ -23,7 +22,7 @@ public class Authentication implements Serializable {
 	private String id;
 	private String password;
 	private static List<File> fileList;
-	private static Authentication authObject;
+	private static UserAuthentication authObject;
 	
 	// 아래 두 줄은 static 으로 바꿀 필요가 있어보임.
 	public static String nowPath = System.getProperty("user.dir");
@@ -45,12 +44,12 @@ public class Authentication implements Serializable {
 //		this.password = password;
 //	}
 
-	private Authentication(String id, String password) {
+	private UserAuthentication(String id, String password) {
 		this.id = id;
 		this.password = password;
 	}
 	
-	public static Authentication generateAuthObject(String id, String password) {
+	public static UserAuthentication generateAuthObject(String id, String password) {
 
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
@@ -60,7 +59,7 @@ public class Authentication implements Serializable {
 			fos = new FileOutputStream(path+"/authentication.dat");
 			oos = new ObjectOutputStream(fos);
 			
-			authObject = new Authentication(id, password);
+			authObject = new UserAuthentication(id, password);
 			oos.writeObject(authObject);
 			
 		} catch (IOException e) {
@@ -82,7 +81,7 @@ public class Authentication implements Serializable {
 		return authObject;
 	}
 	
-	public static Authentication getAuthObject() {
+	public static UserAuthentication getAuthObject() {
 		
 		File[] fileArray = path.listFiles();
 		
@@ -96,7 +95,7 @@ public class Authentication implements Serializable {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
 					
-					authObject = (Authentication) ois.readObject();
+					authObject = (UserAuthentication) ois.readObject();
 //					return authFile;
 				}
 			}
@@ -123,6 +122,7 @@ public class Authentication implements Serializable {
 		try {
 			if (authFile.exists()) {
 				authFile.delete();
+				System.out.println("userPackage/account/UserAuthentication.java: 인증 파일이 잘 삭제되었습니다.");
 			} else {
 				throw new Exception("인증 파일이 존재하지 않습니다.\n"
 						+ "자세한 사항은 문현동에게 물어보세요.\n") {};
@@ -138,18 +138,18 @@ public class Authentication implements Serializable {
 		// 즉 프로그램 초기화 작업의 일부임.
 //		File path = new File(userFilePath);
         if (!path.exists()) {
-        	System.out.println("userPackage/account/Authentication.java: 인증 폴더를 생성합니다.");
+        	System.out.println("userPackage/account/UserAuthentication.java: 인증 폴더를 생성합니다.");
         	path.mkdirs();
         }
 //		File[] fileArray = UserList.path.listFiles();
 		File[] fileArray = path.listFiles();
 		try {
 			if (fileArray.length >= 1) {
-				System.out.printf("userPackage/account/Authentication.java: 인증 파일이 존재합니다 (%d 개 있음.)\n", fileArray.length);
-				throw new Exception("이 예외는 커스텀 예외입니다.\n"
-						+ "이것은 서버 시작시에 인증 파일이 존재하는 경우 발생하는 에러입니다.\n"
-						+ "보통 이 에러가 발생하는 경우는...\n"
-						+ "\t*** 로그아웃을 정상적으로 하지 않고 (다른 예외 등의 이유로)프로그램이 종료되는 경우입니다. ***\n"
+				System.out.printf("userPackage/account/UserAuthentication.java: 인증 파일이 존재합니다 (%d 개 있음.)\n", fileArray.length);
+				throw new Exception("\n이것은 서버 시작시에 인증 파일이 존재하는 경우 발생하는 에러입니다.\n"
+						+ "보통 이 에러가 발생하는 경우는 다음과 같습니다.\n"
+						+ "\t1. 로그아웃을 정상적으로 하지 않고 (다른 예외 등의 이유로)프로그램이 종료되거나,\n"
+						+ "\t2. 프로그램이 실행중일 때 콘솔의 빨간색 버튼을 눌러서 강제로 종료하는 경우입니다. ***\n"
 						+ "따라서 인증 파일이 저장되는 경로에 가서 기존 인증 파일을 수동으로 지워야 합니다.\n"
 						+ "자세한 사항은 문현동에게 물어보세요.\n") {};
 			}

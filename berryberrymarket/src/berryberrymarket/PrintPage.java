@@ -3,10 +3,7 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
-
-import userPackage.account.LogInPage;
-import userPackage.account.LogOutPage;
-import userPackage.account.SignUpPage;
+import userPackage.account.*;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
 
@@ -52,7 +49,7 @@ public class PrintPage {
 			return 4;
 		case "o":
 			loginChecker.setNick("");
-			LogOutPage.logOut(); // 유저를 로그아웃 시킴
+			UserLogoutPage.logOut(); // 유저를 로그아웃 시킴
 			return 2;
 		case "<":
 			pm.prevPage();
@@ -125,7 +122,7 @@ public class PrintPage {
 //				아이디패스워드 확인 메소드
 				if(password.equals("B")||id.equals("b"))
 					return 2;
-				LogInPage loginPage = new LogInPage(id, password);
+				UserLoginPage loginPage = new UserLoginPage(id, password);
 				
 				boolean loginEx = loginPage.LogIn();
 				if (loginEx) {
@@ -145,6 +142,7 @@ public class PrintPage {
 
 	public int printSignUpPage() {
 		printHead("회원가입페이지");
+
 		SignUpPage sp = new SignUpPage();
 
 		try {
@@ -158,7 +156,29 @@ public class PrintPage {
 
 	public int printMyPage() {
 		printHead("마이페이지");
-		return 5;
+		UserMyInfoPage myPage = new UserMyInfoPage();
+		while (true) {
+			myPage.printInfo();
+			System.out.printf("입력하세요: ");
+			String keyPress = sc.nextLine();
+			switch (keyPress) {
+				case "q", "Q" -> {
+					return 1;
+				}
+				case "u", "U" -> {
+					UserUpdatePage uup = new UserUpdatePage();
+					uup.userUpdate();
+				}
+				case "d", "D" -> {
+					UserDeletePage udp = new UserDeletePage();
+					udp.userDelete(sc);
+					myPage = null;
+				}
+				default -> {
+					System.out.println("올바른 키를 입력하세요.");
+				}
+			}
+		}
 	}
 
 	public int printPostDetailPage() throws FileNotFoundException {
@@ -245,7 +265,6 @@ public class PrintPage {
 	}
 
 	private void setPostInfo(Scanner sc) throws FileNotFoundException {
-		
 		System.out.print("제목을 입력하세요: ");
 		String title = sc.nextLine();
 		System.out.print("내용을 입력하세요: ");

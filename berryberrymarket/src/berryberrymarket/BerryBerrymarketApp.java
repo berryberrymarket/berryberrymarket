@@ -7,18 +7,18 @@ import java.util.Scanner;
 
 import userPackage.model.User;
 import userPackage.model.UserListManager;
-import userPackage.account.Authentication;
+import userPackage.account.UserAuthentication;
 
 public class BerryBerrymarketApp {
 
 	// 정적 영역에 생성하고 여기저기서 호출함.
 	public static UserListManager ulm = UserListManager.getUserListMagener(); // 유저 관리자 초기화.
-	public static List<User> logInUserList = new ArrayList<>(); // 로그인중인 유저들 관리할 리스트 초기화.
+	public static List<User> loginUserList = new ArrayList<>(); // 로그인중인 유저들 관리할 리스트 초기화.
 	public static List<User> ul = ulm.getUserList(); // 전체 유저 리스트 가져오기.
 
 	public static void main(String[] args) {
 
-		Authentication.checkAuthFile();
+		UserAuthentication.checkAuthFile();
 		
 		PrintPage pp = new PrintPage();
 		int pageCase = 2;
@@ -52,7 +52,7 @@ public class BerryBerrymarketApp {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			Authentication.deleteAuthFile(); // 인증 파일은 프로그램 종료 시 반드시 지워줘야 함.
+			UserAuthentication.deleteAuthFile(); // 인증 파일은 예외로 인한 프로그램 종료 시 반드시 지워줘야 함.
 		}
 
 	}
