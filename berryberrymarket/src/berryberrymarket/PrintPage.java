@@ -43,7 +43,7 @@ public class PrintPage {
 		} 
 		System.out.println("(H)홈으로");
 		printTail();
-		String in = setLowerCase(sc); // 입력을 소문자로 변환
+		String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
 		switch (in) {
 		case "m":
 			return 4;
@@ -194,7 +194,7 @@ public class PrintPage {
 		}
 		printTail();
 		while(true) {
-			String in = setLowerCase(sc); // 입력을 소문자로 변환
+			String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
 			switch (in) {
 			case "b":
 				return 1;
@@ -239,16 +239,11 @@ public class PrintPage {
 
 	public int printChatRoomPage() {
 	    printHead("채팅방페이지");
-	    System.out.println("채팅을 시작합니다...printChatRoomPage()");
+	    System.out.println("채팅을 시작합니다...");
 
 	    Client.startChat();
-	   
-	    System.out.println("0. 채팅 나가기printChatRoomPage()");
-	    System.out.print("원하는 작업을 선택하세요: printChatRoomPage()");
-	    int choice = sc.nextInt();
-	    sc.nextLine(); // 버퍼 비우기
-
-	    return choice == 0 ? 7 : 8; // 채팅 나가기 선택 시 7 반환, 그 외에는 채팅 방 페이지로 남기
+	    
+	    return 1;
 	}
 	
 	public int printUserUpdatePage() {

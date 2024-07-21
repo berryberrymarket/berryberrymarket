@@ -43,6 +43,8 @@ public class PostManager {
 
 		        ois.close(); fis.close();
 			}
+		} catch (FileNotFoundException e) {
+			System.out.println("게시글 파일이 없습니다.");
         } catch (Exception e) {
             e.printStackTrace();
         }
