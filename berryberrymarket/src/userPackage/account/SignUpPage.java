@@ -41,7 +41,7 @@ public class SignUpPage {
 		this.userList = BerryBerrymarketApp.ul;
 	}
 
-	public int SignUp() {
+	public void SignUp() {
 		// 아이디 유효성 검사
 		String id;
 		while (true) {
@@ -49,7 +49,7 @@ public class SignUpPage {
 			System.out.print("가입하실 아이디를 입력하세요: ");
 			id = sc.nextLine();
 			if(id.equals("B")||id.equals("b"))
-				return 2;
+				return;
 			if (!isValidId(id)) {
 				System.out.println("아이디는 5~20자의 영문 소문자, 숫자, '-', '_' 만 사용 가능합니다.");
 				continue;
@@ -79,7 +79,7 @@ public class SignUpPage {
 			System.out.print("가입하실 비밀번호를 입력하세요: ");
 			pw1 = sc.nextLine();
 			if(pw1.equals("B")||pw1.equals("b"))
-				return 2;
+				return;
 			if (!isValidPassword(pw1)) {
 				System.out.println("비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자만 사용 가능합니다.");
 			} else
@@ -90,7 +90,7 @@ public class SignUpPage {
 			System.out.print("비밀번호를 한번 더 입력하세요: ");
 			String pw2 = sc.nextLine();
 			if(pw2.equals("B")||pw2.equals("b"))
-				return 2;
+				return;
 			if (!pw1.equals(pw2)) {
 				System.out.println("비밀번호가 일치하지 않습니다.");
 			} else {
@@ -109,7 +109,7 @@ public class SignUpPage {
 			System.out.print("닉네임을 입력하세요: ");
 			nick = sc.nextLine();
 			if(nick.equals("B")||nick.equals("b"))
-				return 2;
+				return;
 			boolean nickExists = false;
 
 			if (!userList.isEmpty()) {
@@ -134,7 +134,7 @@ public class SignUpPage {
 			System.out.print("전화번호를 입력하세요: ");
 			phoneNumber = sc.nextLine();
 			if(phoneNumber.equals("B")||phoneNumber.equals("b"))
-				return 2;
+				return;
 			if (!isValidPhoneNumber(phoneNumber)) {
 				System.out.println("형식이 올바르지 않습니다.");
 			} else {
@@ -148,7 +148,7 @@ public class SignUpPage {
 	          System.out.print("주소를 입력하세요: ");
 	          address = sc.nextLine();
 	          if(address.equals("B")||address.equals("b"))
-					return 2;
+	        	  return;
 	          if (!isValidAddress(address)) {
 	              System.out.println("형식이 올바르지 않습니다.");
 	          } else {
@@ -159,7 +159,6 @@ public class SignUpPage {
 		UserListManager ulm = UserListManager.getUserListMagener();
 		ulm.addUserToUserList(id, pw1, name, nick, phoneNumber, address);
 
-		return 1;
 		// 코드 전체에서 콘솔을 통해 명령을 전달하고 있기 때문에 스캐너를 닫으면 에러납니다.
 //		sc.close();
 
