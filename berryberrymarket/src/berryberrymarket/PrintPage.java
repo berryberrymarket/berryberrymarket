@@ -1,17 +1,27 @@
 package berryberrymarket;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 import userPackage.account.*;
+import userPackage.model.User;
+import userPackage.model.UserListManager;
 
 public class PrintPage {
 
 	PostManager pm = new PostManager();
+	LoginChecker loginChecker = new LoginChecker();
 	int index = 0;
 	String search = "";
-	
+	Scanner sc = new Scanner(System.in);
+	UserListManager ulm = new UserListManager();
 
-	public int printMainPage(Scanner sc) {
+	public PrintPage() {
+		pm.initGetBoard();
+	}
+
+
+	public int printMainPage() {
 		printHead("메인페이지");
 		
 		System.out.println("(M)마이페이지                   (O)로그아웃"); //수정 //수현
@@ -33,11 +43,12 @@ public class PrintPage {
 		} 
 		System.out.println("(H)홈으로");
 		printTail();
-		String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
+		String in = setLowerCase(sc); // 입력을 소문자로 변환
 		switch (in) {
 		case "m":
 			return 4;
 		case "o":
+			loginChecker.setNick("");
 			UserLogoutPage.logOut(); // 유저를 로그아웃 시킴
 			return 2;
 		case "<":
@@ -78,7 +89,7 @@ public class PrintPage {
 	}
 	
 
-	public int printLogInPage(Scanner sc) {
+	public int printLogInPage() {
 		System.out.println("        |\\/|/|/|/|/|");
 		System.out.println("       !,*.-*-*-*,*!");
 		System.out.println("      ,' , ' , `,'.'\\");
@@ -99,17 +110,23 @@ public class PrintPage {
 		String in = sc.nextLine();
 		switch (in) {
 		case "1":
+			System.out.println("(B)뒤로가기");
 			while (true) {
 				System.out.print("아이디를 입력하세요: ");
 				String id = sc.nextLine();
+				if(id.equals("B")||id.equals("b"))
+					return 2;
 				System.out.print("비밀번호를 입력하세요: ");
 				String password = sc.nextLine();
 //				아이디패스워드 확인 메소드
+				if(password.equals("B")||id.equals("b"))
+					return 2;
 				UserLoginPage loginPage = new UserLoginPage(id, password);
 				
 				boolean loginEx = loginPage.LogIn();
 				if (loginEx) {
-					pm.initGetBoard();
+					List<User> userList = ulm.getUserList();
+					userList.stream().filter(n->n.getId().equals(id)).forEach(n->loginChecker.setNick(n.getNick()));
 					return 1;
 				} else {
 					System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");
@@ -122,21 +139,22 @@ public class PrintPage {
 		}
 	}
 
-	public int printSignUpPage(Scanner sc) {
+	public int printSignUpPage() {
 		printHead("회원가입페이지");
-		UserSignUpPage sp = new UserSignUpPage();
+
+		SignUpPage sp = new SignUpPage();
+		int isSignUp = 2;
 
 		try {
-			sp.SignUp();
+			isSignUp = sp.SignUp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return 2;
+		return isSignUp;
 	}
-	
-	// 현동 수정
-	public int printMyPage(Scanner sc) {
+
+	public int printMyPage() {
 		printHead("마이페이지");
 		UserMyInfoPage myPage = new UserMyInfoPage();
 		while (true) {
@@ -163,22 +181,27 @@ public class PrintPage {
 		}
 	}
 
-	public int printPostDetailPage(Scanner sc) throws FileNotFoundException {
+	public int printPostDetailPage() throws FileNotFoundException {
 		printHead("게시글상세페이지");
-		String title = pm.printPost(index);
+		String[] titleAndNick = pm.printPost(index);
 		System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
-		System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
+		if(loginChecker.getNick().equals(titleAndNick[1])) {
+			System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
+		}
+		else {
+			System.out.println("(B)뒤로가기");
+		}
 		printTail();
 		while(true) {
-			String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
+			String in = setLowerCase(sc); // 입력을 소문자로 변환
 			switch (in) {
-			case "B":
+			case "b":
 				return 1;
-			case "D":
-				pm.removePost(title);
+			case "d":
+				pm.removePost(titleAndNick[0]);
 				return 1;
-			case "U":
-				pm.removePost(title);
+			case "u":
+				pm.removePost(titleAndNick[0]);
 				System.out.println("----수정----");
 				setPostInfo(sc);
 				return 1;
@@ -190,14 +213,14 @@ public class PrintPage {
 		}
 	}
 
-	public int printAddPostPage(Scanner sc) throws FileNotFoundException {
+	public int printAddPostPage() throws FileNotFoundException {
 		printHead("게시글등록페이지");
 		setPostInfo(sc);
 
 		return 1;
 	}
 
-	public int printChatListPage(Scanner sc) { ////////// 수현
+	public int printChatListPage() { ////////// 수현
 		printHead("채팅목록페이지");
 		// 여기에 채팅 목록을 출력하는 코드를 작성합니다.
 		// 예를 들어, 채팅 목록을 가져오고 출력하는 코드를 작성할 수 있습니다.
@@ -213,7 +236,7 @@ public class PrintPage {
 
 	}
 
-	public int printChatRoomPage(Scanner sc) {
+	public int printChatRoomPage() {
 	    printHead("채팅방페이지");
 	    System.out.println("채팅을 시작합니다...printChatRoomPage()");
 
@@ -264,6 +287,11 @@ public class PrintPage {
 		System.out.print("거래 희망 장소를 입력하세요: ");
 		String place = sc.nextLine();
 
-		pm.addPost(new Post(title, "user1", content, price, place));
+		pm.addPost(new Post(title, loginChecker.getNick(), content, price, place));
+	}
+	
+	private String setLowerCase(Scanner sc) {
+		String in = sc.nextLine().trim().toLowerCase();
+		return in;
 	}
 }

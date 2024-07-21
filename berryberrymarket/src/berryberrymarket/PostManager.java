@@ -48,10 +48,13 @@ public class PostManager {
         }
 	}
 
-	public String printPost(int index) { // 게시글 상세페이지
+	public String[] printPost(int index) { // 게시글 상세페이지
 		Post post = filteredBoard.get(filteredBoard.size()-index);
 		post.printInfo();
-		return post.getTitle();
+		String[] titleAndNick = new String[2];
+		titleAndNick[0] = post.getTitle();
+		titleAndNick[1] = post.getNickname();
+		return titleAndNick;
 	}
 
 	public void printBoard(String search) { // 게시글 리스트 목록 쫙~
