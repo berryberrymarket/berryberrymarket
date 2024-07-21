@@ -143,7 +143,7 @@ public class PrintPage {
 	public int printSignUpPage() {
 		printHead("회원가입페이지");
 
-		SignUpPage sp = new SignUpPage();
+		UserSignUpPage sp = new UserSignUpPage();
 
 		try {
 			sp.SignUp();
