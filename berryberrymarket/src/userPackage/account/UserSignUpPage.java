@@ -2,7 +2,6 @@ package userPackage.account;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
@@ -50,7 +49,7 @@ public class UserSignUpPage {
 			id = sc.nextLine();
 			if(id.equals("B")||id.equals("b"))
 				return;
-			if (!isValidId(id)) {
+			if (!ValidationUtils.isValidId(id)) {
 				System.out.println("아이디는 5~20자의 영문 소문자, 숫자, '-', '_' 만 사용 가능합니다.");
 				continue;
 			}
@@ -80,8 +79,8 @@ public class UserSignUpPage {
 			pw1 = sc.nextLine();
 			if(pw1.equals("B")||pw1.equals("b"))
 				return;
-			if (!isValidPassword(pw1)) {
-				System.out.println("비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자만 사용 가능합니다.");
+			if (!ValidationUtils.isValidPassword(pw1)) {
+				System.out.println("비밀번호는 8~16자의 영문 대(소)문자+숫자+특수문자 조합으로 입력해주세요.");
 			} else
 				break;
 		}
@@ -102,6 +101,8 @@ public class UserSignUpPage {
 		// 이름 입력
 		System.out.print("이름을 입력하세요: ");
 		String name = sc.nextLine();
+		if(name.equals("B")||name.equals("b"))
+			return;
 
 		// 닉네임 유효성 검사
 		String nick;
@@ -110,6 +111,10 @@ public class UserSignUpPage {
 			nick = sc.nextLine();
 			if(nick.equals("B")||nick.equals("b"))
 				return;
+			if (!ValidationUtils.isValidNick(nick)) {
+				System.out.println("닉네임은 6글자 이내로 입력해주세요.");
+				continue;
+			}
 			boolean nickExists = false;
 
 			if (!userList.isEmpty()) {
@@ -127,6 +132,8 @@ public class UserSignUpPage {
 				break; // 루프 종료
 			}
 		}
+		
+			
 
 		// 전화번호 입력
 		String phoneNumber;
@@ -135,7 +142,7 @@ public class UserSignUpPage {
 			phoneNumber = sc.nextLine();
 			if(phoneNumber.equals("B")||phoneNumber.equals("b"))
 				return;
-			if (!isValidPhoneNumber(phoneNumber)) {
+			if (!ValidationUtils.isValidPhoneNumber(phoneNumber)) {
 				System.out.println("형식이 올바르지 않습니다.");
 			} else {
 				break;
@@ -144,17 +151,17 @@ public class UserSignUpPage {
 
 		// 주소 입력	
 		 String address;
-	     while (true) {
+	   //  while (true) {
 	          System.out.print("주소를 입력하세요: ");
 	          address = sc.nextLine();
 	          if(address.equals("B")||address.equals("b"))
 	        	  return;
-	          if (!isValidAddress(address)) {
-	              System.out.println("형식이 올바르지 않습니다.");
-	          } else {
-	              break;
-	          }
-	     }
+//	          if (!isValidAddress(address)) {
+//	              System.out.println("형식이 올바르지 않습니다.");
+//	          } else {
+//	              break;
+//	          }
+	    // }
 
 	     UserListManager ulm = UserListManager.getUserListMagener();
 		ulm.addUserToUserList(id, pw1, name, nick, phoneNumber, address);
@@ -165,34 +172,34 @@ public class UserSignUpPage {
 //		return 1;
 	}
 
-	public boolean isValidId(String id) {
-		if (id.equals("test")) {
-			return true;
-		}
-		return id.matches("[a-z0-9_-]{5,20}");
-	}
-
-	public boolean isValidPassword(String password) {
-		if (password.equals("test")) {
-			return true;
-		}
-	    String specialCharacters = "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~";
-	    String regex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[" + Pattern.quote(specialCharacters) + "])[a-zA-Z\\d" + Pattern.quote(specialCharacters) + "]{8,16}$";
-	    return password.matches(regex);
-	}
-
-	public boolean isValidPhoneNumber(String phoneNumber) {
-		if (phoneNumber.equals("test")) {
-			return true;
-		}
-		return phoneNumber.matches("^\\d{3}-\\d{4}-\\d{4}$");
-	}
-	
-	public boolean isValidAddress(String address) {
-		if (address.equals("test")) {
-			return true;
-		}
-	    return address.contains("시") && address.contains("구") && address.contains("동");
-	}
+//	public boolean isValidId(String id) {
+//		if (id.equals("test")) {
+//			return true;
+//		}
+//		return id.matches("[a-z0-9_-]{5,20}");
+//	}
+//
+//	public boolean isValidPassword(String password) {
+//		if (password.equals("test")) {
+//			return true;
+//		}
+//	    String specialCharacters = "!\"#$%&'()*+,-./:;?@[\\]^_`{|}~";
+//	    String regex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[" + Pattern.quote(specialCharacters) + "])[a-zA-Z\\d" + Pattern.quote(specialCharacters) + "]{8,16}$";
+//	    return password.matches(regex);
+//	}
+//
+//	public boolean isValidPhoneNumber(String phoneNumber) {
+//		if (phoneNumber.equals("test")) {
+//			return true;
+//		}
+//		return phoneNumber.matches("^\\d{3}-\\d{4}-\\d{4}$");
+//	}
+//	
+//	public boolean isValidAddress(String address) {
+//		if (address.equals("test")) {
+//			return true;
+//		}
+//	    return address.contains("시") && address.contains("구") && address.contains("동");
+//	}
 	
 }
