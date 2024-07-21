@@ -8,7 +8,7 @@ import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
 
-public class SignUpPage {
+public class UserSignUpPage {
 	
 	/*
 	 * 가입:
@@ -37,7 +37,7 @@ public class SignUpPage {
 	private List<User> userList;
 	Scanner sc = new Scanner(System.in);
 
-	public SignUpPage() {
+	public UserSignUpPage() {
 		this.userList = BerryBerrymarketApp.ul;
 	}
 
@@ -143,7 +143,7 @@ public class SignUpPage {
 	          }
 	     }
 
-		UserListManager ulm = UserListManager.getUserListMagener();
+	     UserListManager ulm = UserListManager.getUserListMagener();
 		ulm.addUserToUserList(id, pw1, name, nick, phoneNumber, address);
 
 		// 코드 전체에서 콘솔을 통해 명령을 전달하고 있기 때문에 스캐너를 닫으면 에러납니다.

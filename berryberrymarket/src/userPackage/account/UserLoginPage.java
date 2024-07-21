@@ -2,12 +2,11 @@ package userPackage.account;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 import userPackage.model.User;
 import berryberrymarket.BerryBerrymarketApp;
 
-public class LogInPage {
+public class UserLoginPage {
 	
 	/*
 	 * 로그인:
@@ -26,7 +25,7 @@ public class LogInPage {
 	
 	Scanner sc = new Scanner(System.in);
 
-	public LogInPage(String id, String password) {
+	public UserLoginPage(String id, String password) {
 		this.id = id;
 		this.password = password;
 		this.userList = BerryBerrymarketApp.ul;
@@ -36,12 +35,12 @@ public class LogInPage {
 	public boolean LogIn() {
 		for (User user : userList) { 
 			try {
-				if (user.getId().equals(id) && user.getPw().equals(password)) { // 2번 단계.
+				if (user.getId().equals(id) && user.getPw().equals(password)) { // 2단계.
 //					logInUserList.add(user); // 로그인 유저 정보 저장.
-					Authentication authFile = Authentication.generateAuthObject(id, password); // 3번 단계, 로그인 인증 관련 파일을 클라이언트측 저장소에 생성.
-					BerryBerrymarketApp.logInUserList.add(user); // 4번 단계.
+					UserAuthentication authFile = UserAuthentication.generateAuthObject(id, password); // 3단계, 로그인 인증 관련 파일을 클라이언트측 저장소에 생성.
+					BerryBerrymarketApp.loginUserList.add(user); // 4단계.
 					if (authFile != null) {						
-						user.setAuthFile(authFile); // 5번 단계.
+						user.setAuthFile(authFile); // 5단계.
 					} else { // 없는 경우 예외를 만들어서 던짐.
 						System.out.println("인증 파일이 존재하지 않습니다.");
 						throw new Exception("인증 파일이 생성되지 않았습니다.\n인증 파일 생성 로직을 확인하세요.");

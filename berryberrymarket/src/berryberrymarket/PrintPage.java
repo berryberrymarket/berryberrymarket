@@ -2,16 +2,14 @@ package berryberrymarket;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import userPackage.account.LogInPage;
-import userPackage.account.LogOutPage;
-import userPackage.account.SignUpPage;
+import userPackage.account.*;
 
 public class PrintPage {
 
 	PostManager pm = new PostManager();
 	int index = 0;
 	String search = "";
+	
 
 	public int printMainPage(Scanner sc) {
 		printHead("메인페이지");
@@ -40,7 +38,7 @@ public class PrintPage {
 		case "m":
 			return 4;
 		case "o":
-			LogOutPage.logOut(); // 유저를 로그아웃 시킴
+			UserLogoutPage.logOut(); // 유저를 로그아웃 시킴
 			return 2;
 		case "<":
 			pm.prevPage();
@@ -107,7 +105,7 @@ public class PrintPage {
 				System.out.print("비밀번호를 입력하세요: ");
 				String password = sc.nextLine();
 //				아이디패스워드 확인 메소드
-				LogInPage loginPage = new LogInPage(id, password);
+				UserLoginPage loginPage = new UserLoginPage(id, password);
 				
 				boolean loginEx = loginPage.LogIn();
 				if (loginEx) {
@@ -126,7 +124,7 @@ public class PrintPage {
 
 	public int printSignUpPage(Scanner sc) {
 		printHead("회원가입페이지");
-		SignUpPage sp = new SignUpPage();
+		UserSignUpPage sp = new UserSignUpPage();
 
 		try {
 			sp.SignUp();
@@ -136,10 +134,33 @@ public class PrintPage {
 		
 		return 2;
 	}
-
+	
+	// 현동 수정
 	public int printMyPage(Scanner sc) {
 		printHead("마이페이지");
-		return 5;
+		UserMyInfoPage myPage = new UserMyInfoPage();
+		while (true) {
+			myPage.printInfo();
+			System.out.printf("입력하세요: ");
+			String keyPress = sc.nextLine();
+			switch (keyPress) {
+				case "q", "Q" -> {
+					return 1;
+				}
+				case "u", "U" -> {
+					UserUpdatePage uup = new UserUpdatePage();
+					uup.userUpdate();
+				}
+				case "d", "D" -> {
+					UserDeletePage udp = new UserDeletePage();
+					udp.userDelete(sc);
+					myPage = null;
+				}
+				default -> {
+					System.out.println("올바른 키를 입력하세요.");
+				}
+			}
+		}
 	}
 
 	public int printPostDetailPage(Scanner sc) throws FileNotFoundException {
@@ -220,7 +241,6 @@ public class PrintPage {
 	}
 
 	private void setPostInfo(Scanner sc) throws FileNotFoundException {
-		
 		System.out.print("제목을 입력하세요: ");
 		String title = sc.nextLine();
 		System.out.print("내용을 입력하세요: ");
