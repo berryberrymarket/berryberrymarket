@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-import userPackage.model.User;
+import java.io.FileNotFoundException;
 
 // 파일 처리 관련 import
 import java.io.File;
@@ -121,22 +121,18 @@ public class UserListManager {
 			fis = new FileInputStream(path+"/userList.dat");
 			ois = new ObjectInputStream(fis);
 			
-			userList = (List<User>) ois.readObject();
-			if (!userList.isEmpty()) {
-				while (true) {
-					try {
-						User user = (User) ois.readObject();
-						userList.add(user);
-					} catch (EOFException e) {
-	                    break;
-	                }
-				} 
-			} else {
-				System.out.println("userPackage/model/UserListManager.java: 유저 리스트가 비어있습니다.");
-			}
+			while (true) {
+				try {
+					User user = (User) ois.readObject();
+					userList.add(user);
+				} catch (EOFException e) {
+                    break;
+                }
+			} 
 
+		} catch (FileNotFoundException e) {
+			System.out.println("userPackage/model/UserListManager.java: 파일이 존재하지 않습니다.");
 		} catch (IOException | ClassNotFoundException e) {
-			System.out.println("여기여기여기");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -157,32 +153,36 @@ public class UserListManager {
 
 		File userListFile = new File(path, "userList.dat");
 		if (!userListFile.exists()) { // 유저 리스트 파일이 경로에 없을 때,
-			try {
-				fos = new FileOutputStream(path+"/userList.dat");
-				oos = new ObjectOutputStream(fos);
-				oos.writeObject(userList); // 새로운 유저리스트 파일을 만듦.
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (oos != null) {
-						oos.flush();
-						oos.close();
-					}
-					if (fos != null) {
-						fos.close();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				} 
-			}
+//			System.out.println("userPackage/model/UserListManager.java: 파일이 없습니다.");
+//			try {
+//				fos = new FileOutputStream(path+"/userList.dat");
+//				oos = new ObjectOutputStream(fos);
+//				oos.writeObject(userList); // 새로운 유저리스트 파일을 만듦.
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} finally {
+//				try {
+//					if (oos != null) {
+//						oos.flush();
+//						oos.close();
+//					}
+//					if (fos != null) {
+//						fos.close();
+//					}
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				} 
+//			}
+			path.mkdirs(); // 경로만 만듦.
+		} else {
+			System.out.println("userPackage/model/UserListManager.java: 파일 발견.");
 		}
 	}
 	
 	private void initializeUserList() {
 		// 프로그램 초기화 시 수행할 단계들을 나열해놓았습니다.
-
         if (!path.exists()) {
+        	System.out.println("userPackage/model/UserListManager.java: 경로가 존재하지 않습니다.");
         	path.mkdirs();
         }
         
