@@ -40,34 +40,43 @@ public class UserSignUpPage {
 		this.userList = BerryBerrymarketApp.ul;
 	}
 
-	public void SignUp() {
+	public void signUp() {
 		// 아이디 유효성 검사
 		String id;
+		// 조건 만족 할때까지 무한반복
 		while (true) {
 			System.out.println("(B)뒤로가기");
-			System.out.print("가입하실 아이디를 입력하세요: ");
+			System.out.print("1.아이디를 입력하세요: ");
 			id = sc.nextLine();
+			//이전페이지로 이동
 			if(id.equals("B")||id.equals("b"))
 				return;
+			//입력받은 아이디가 제한 조건에 부합하는지 검사
 			if (!ValidationUtils.isValidId(id)) {
 				System.out.println("아이디는 5~20자의 영문 소문자, 숫자, '-', '_' 만 사용 가능합니다.");
+				//부합하면 출력하지 않고 다음으로 넘어감
 				continue;
 			}
+			//false로 초기화
 			boolean idExists = false;
 
+			// userList가 비어있지 않으면 코드 실행
 			if (!userList.isEmpty()) {
+				// userList 돌면서 기존의 id와 일치하는지 확인
 				for (User user : userList) {
 					if (user.getId().equals(id)) {
 						System.out.println("이미 사용중인 아이디 입니다 ");
+						//아이디 일치하면 true 반환
 						idExists = true;
-						break;
+						break; // for문 탈출
 					}
 				}
 			}
-
+			
+			// 일치하는 아이디가 없으면 
 			if (!idExists) {
-				// System.out.println("사용 가능한 아이디 입니다.");
-				break; // 루프 종료
+				System.out.println("사용 가능한 아이디 입니다.");
+				break; // while문 탈출
 			}
 
 		}
@@ -75,7 +84,7 @@ public class UserSignUpPage {
 		// 비번 유효성 검사
 		String pw1;
 		while (true) {
-			System.out.print("가입하실 비밀번호를 입력하세요: ");
+			System.out.print("2.비밀번호를 입력하세요: ");
 			pw1 = sc.nextLine();
 			if(pw1.equals("B")||pw1.equals("b"))
 				return;
@@ -92,14 +101,16 @@ public class UserSignUpPage {
 				return;
 			if (!pw1.equals(pw2)) {
 				System.out.println("비밀번호가 일치하지 않습니다.");
-			} else {
-//				System.out.println("비밀번호가 일치합니다.");
+			} 
+			// 일치하면 출력 후 while문 탈출
+			else {
+				System.out.println("비밀번호가 일치합니다.");
 				break;
 			}
 		}
 
 		// 이름 입력
-		System.out.print("이름을 입력하세요: ");
+		System.out.print("3.이름을 입력하세요: ");
 		String name = sc.nextLine();
 		if(name.equals("B")||name.equals("b"))
 			return;
@@ -107,7 +118,7 @@ public class UserSignUpPage {
 		// 닉네임 유효성 검사
 		String nick;
 		while (true) {
-			System.out.print("닉네임을 입력하세요: ");
+			System.out.print("4.닉네임을 입력하세요: ");
 			nick = sc.nextLine();
 			if(nick.equals("B")||nick.equals("b"))
 				return;
@@ -138,7 +149,7 @@ public class UserSignUpPage {
 		// 전화번호 입력
 		String phoneNumber;
 		while (true) {
-			System.out.print("전화번호를 입력하세요: ");
+			System.out.print("5.전화번호를 입력하세요: ");
 			phoneNumber = sc.nextLine();
 			if(phoneNumber.equals("B")||phoneNumber.equals("b"))
 				return;
@@ -152,10 +163,11 @@ public class UserSignUpPage {
 		// 주소 입력	
 		 String address;
 	   //  while (true) {
-	          System.out.print("주소를 입력하세요: ");
+	          System.out.print("6.주소를 입력하세요: ");
 	          address = sc.nextLine();
 	          if(address.equals("B")||address.equals("b"))
 	        	  return;
+        	  // 주소는 유효성 검사 없애기로 하여 주석처리
 //	          if (!isValidAddress(address)) {
 //	              System.out.println("형식이 올바르지 않습니다.");
 //	          } else {
@@ -163,7 +175,8 @@ public class UserSignUpPage {
 //	          }
 	    // }
 
-	     UserListManager ulm = UserListManager.getUserListMagener();
+	    UserListManager ulm = UserListManager.getUserListMagener();
+		// addUserToUserList에 유저 정보 추가
 		ulm.addUserToUserList(id, pw1, name, nick, phoneNumber, address);
 
 		// 코드 전체에서 콘솔을 통해 명령을 전달하고 있기 때문에 스캐너를 닫으면 에러납니다.
