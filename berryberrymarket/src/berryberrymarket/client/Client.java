@@ -21,27 +21,21 @@ import java.io.IOException;
 
 public class Client {
 
-	private static final String SERVER_IP = "192.168.240.5";
+	
+	private static final String SERVER_IP = "192.168.240.57";
 	private static final int SERVER_PORT = 8000;
 	private static User user = GetUser.findUserFromLoginUserList();
 	
 	public static boolean end = false;
-	
 	public static void startChat() {
 		
-		Socket socket = null;
-		
-		// 입력
-		InputStream is = null;
-		ObjectInputStream ois = null;
-		// 출력
-		OutputStream os = null;
-		ObjectOutputStream oos = null;
-		
-	    Scanner sc = new Scanner(System.in);
-	      
-	    try {
-	    	
+		try {
+			Socket socket = null;
+			
+			// 입력
+			InputStream is = null;
+			
+		    Scanner sc = new Scanner(System.in);
 	    	socket = new Socket(SERVER_IP, SERVER_PORT);
 			
 	        while (true) {
@@ -60,56 +54,18 @@ public class Client {
 	        	// 내가 대화 종료.
 	            if (clientMessage.equalsIgnoreCase("O")) {
 	            	System.out.println(clientMessage);
-	            	// 입력부 종료
-	            	is.close();
-	            	ois.close();
-	            	// 출력부 종료
-	            	os.flush();
-	            	oos.flush();
-	            	os.close();
-	            	oos.close();
 	                break;
 	            }
 	            // 상대가 대화 종료.
 	            if (end) {
 	            	System.out.println("상대가 떠났습니다.");
-	            	// 입력부 종료
-	            	is.close();
-	            	ois.close();
-	            	// 출력부 종료
-	            	os.flush();
-	            	oos.flush();
-	            	os.close();
-	            	oos.close();
 	                break;
-	            }
-	            // 대화를 지속합니다.
-	            
+	            } // 아니면 대화를 지속합니다.
 	        }
-        } catch (IOException | InterruptedException e) {
-        	e.printStackTrace();
-    	} finally {
-    		try {
-    			if (is != null) {
-    				is.close();
-    			}
-    			if (ois != null) {
-    				ois.close();
-    			}
-    			if (os != null) {
-    	            os.flush();
-    	            os.close();
-    			}
-    			if (oos != null) {
-    				oos.flush();
-    	            oos.close();
-    			}
-	            socket.close();
-            } catch (IOException e) {
-	            e.printStackTrace();
-            }
-    	}
-	}
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
 }
 
 class ServerHandler extends Thread {
@@ -162,7 +118,27 @@ class ServerHandler extends Thread {
 	    	}
 	    } catch (IOException | ClassNotFoundException e) {
 	    	e.printStackTrace();
-	    }
+	    } finally {
+    		try {
+    			if (is != null) {
+    				is.close();
+    			}
+    			if (ois != null) {
+    				ois.close();
+    			}
+    			if (os != null) {
+    	            os.flush();
+    	            os.close();
+    			}
+    			if (oos != null) {
+    				oos.flush();
+    	            oos.close();
+    			}
+    			serverSocket.close();
+            } catch (IOException e) {
+	            e.printStackTrace();
+            }
+    	}
 		
 	}
 }
