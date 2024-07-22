@@ -41,10 +41,6 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 	   
 		ServerSocket serverSocket = null;
 		Socket clientSocket = null;
-
-		
-		
-		
         
 		try {
 			serverSocket = new ServerSocket(SERVER_PORT);
@@ -67,7 +63,12 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 			e.printStackTrace();
 		} finally {
 			try {
-		        clientSocket.close();
+				if (serverSocket != null) {					
+					serverSocket.close();
+				}
+				if (clientSocket != null) {					
+			        clientSocket.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -80,15 +81,10 @@ class ClientHandler extends Thread {
 	// 서버로 들어오는 스트림
 	InputStream is = null;
 	ObjectInputStream ois = null;
-//	InputStreamReader isr = null;
-//	BufferedReader br = null;
-	
+
 	// 클라이언트 측으로 보내는 스트림
 	OutputStream os = null;
 	ObjectOutputStream oos = null;
-//	OutputStreamWriter osw = null;
-//	PrintWriter pw = null;
-	
 	
     private Socket clientSocket;
     private Queue<ClientDataWrapper> messageQueue;
@@ -105,15 +101,10 @@ class ClientHandler extends Thread {
         	// 입력
         	is = clientSocket.getInputStream();
         	ois = new ObjectInputStream(is);
-//            	br = new BufferedReader(isr);
         	// 출력
         	os = clientSocket.getOutputStream();
         	oos = new ObjectOutputStream(os);
-//            	osw = new OutputStreamWriter(os);
-//            	pw = new PrintWriter(osw);
 
-//            	String inMsg = br.readLine();
-        	
         	ClientDataWrapper clientDataWrapper = (ClientDataWrapper) ois.readObject();
         	messageQueue.add(clientDataWrapper);
         	if (messageQueue.size() != 0) {

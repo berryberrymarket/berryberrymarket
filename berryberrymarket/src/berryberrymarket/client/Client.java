@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Client {
-
 	
 	private static final String SERVER_IP = "192.168.240.57";
 	private static final int SERVER_PORT = 8000;
@@ -117,7 +116,6 @@ class InputHandler extends Thread {
 	            e.printStackTrace();
             }
     	}
-		
 	}
 }
 
