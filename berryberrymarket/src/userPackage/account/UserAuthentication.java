@@ -145,13 +145,13 @@ public class UserAuthentication implements Serializable {
 		File[] fileArray = path.listFiles();
 		try {
 			if (fileArray.length >= 1) {
-				System.out.printf("userPackage/account/UserAuthentication.java: 인증 파일이 존재합니다 (%d 개 있음.)\n", fileArray.length);
-				throw new Exception("\n이것은 서버 시작시에 인증 파일이 존재하는 경우 발생하는 에러입니다.\n"
-						+ "보통 이 에러가 발생하는 경우는 다음과 같습니다.\n"
-						+ "\t1. 로그아웃을 정상적으로 하지 않고 (다른 예외 등의 이유로)프로그램이 종료되거나,\n"
-						+ "\t2. 프로그램이 실행중일 때 콘솔의 빨간색 버튼을 눌러서 강제로 종료하는 경우입니다. ***\n"
-						+ "따라서 인증 파일이 저장되는 경로에 가서 기존 인증 파일을 수동으로 지워야 합니다.\n"
-						+ "자세한 사항은 문현동에게 물어보세요.\n") {};
+				System.out.printf("userPackage/account/UserAuthentication.java: 인증 파일이 존재합니다 (%d개 있음.)\n", fileArray.length);
+//				throw new Exception("\n이것은 서버 시작시에 인증 파일이 존재하는 경우 발생하는 에러입니다.\n"
+//						+ "보통 이 에러가 발생하는 경우는 다음과 같습니다.\n"
+//						+ "\t1. 로그아웃을 정상적으로 하지 않고 (다른 예외 등의 이유로)프로그램이 종료되거나,\n"
+//						+ "\t2. 프로그램이 실행중일 때 콘솔의 빨간색 버튼을 눌러서 강제로 종료하는 경우입니다. ***\n"
+//						+ "따라서 인증 파일이 저장되는 경로에 가서 기존 인증 파일을 수동으로 지워야 합니다.\n"
+//						+ "자세한 사항은 문현동에게 물어보세요.\n") {};
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

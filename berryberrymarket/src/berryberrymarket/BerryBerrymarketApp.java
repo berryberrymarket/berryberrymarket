@@ -3,11 +3,10 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
+import userPackage.account.UserAuthentication;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
-import userPackage.account.UserAuthentication;
 
 public class BerryBerrymarketApp {
 
@@ -25,6 +24,19 @@ public class BerryBerrymarketApp {
 
 		try {
 			while (true) {
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
 				if (pageCase == 0) { // 시스템 종료
 					System.out.println("시스템을 종료합니다.");
 					break;

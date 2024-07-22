@@ -2,6 +2,7 @@ package userPackage.account;
 
 import java.util.List;
 import java.util.Scanner;
+
 import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
@@ -44,18 +45,18 @@ public class UserUpdatePage {
 			case"1":
 				String newPw1;
 				while (true) {
-					System.out.print("비밀번호를 입력하세요: ");
+					System.out.print("수정하실 비밀번호를 입력하세요: ");
 					newPw1 = sc.nextLine();
 					
 					if (!ValidationUtils.isValidPassword(newPw1)) {
-						System.out.println("비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자만 사용 가능합니다.");				
+						System.out.println("비밀번호는 8~16자의 영문 대(소)문자+숫자+특수문자 조합으로 입력해주세요.");				
 					}
 					else
 						break;
 				}
 
 				while (true) {
-					System.out.print("비밀번호를 한번 더 입력하세요: ");
+					System.out.print("수정하실 비밀번호를 한번 더 입력하세요: ");
 					String newPw2 = sc.nextLine();
 					if (!newPw1.equals(newPw2)) {
 						System.out.println("비밀번호가 일치하지 않습니다.");
@@ -67,22 +68,26 @@ public class UserUpdatePage {
 				}
 				break;
 			case"2":
-				System.out.print("이름을 입력하세요: ");
+				System.out.print("수정하실 이름을 입력하세요: ");
 				String newName = sc.nextLine();
 				user.setName(newName);
 				System.out.println("이름이 수정 되었습니다.");	
-				break;
+				break;				
 			case"3":
 				String newNick;
 				while (true) {
-					System.out.print("닉네임을 입력하세요: ");
+					System.out.print("수정하실 닉네임을 입력하세요: ");
 					newNick = sc.nextLine();
+					if (!ValidationUtils.isValidNick(newNick)) {
+						System.out.println("닉네임은 6글자 이내로 입력해주세요.");
+						continue;
+					}
 					boolean nickExists = false;
 
 					if (!userList.isEmpty()) {
 						for (User user : userList) {
 							if (user.getNick().equals(newNick)) {
-								System.out.println("이미 사용중인 닉네임 입니다 ");
+								System.out.println("이미 사용중인 닉네임 입니다. ");
 								nickExists = true;
 								break;
 							}
@@ -94,12 +99,12 @@ public class UserUpdatePage {
 						System.out.println("닉네임이 수정되었습니다.");
 						break; // 루프 종료
 					}
-				}
+				}				
 				break;
 			case"4":	
 				String newPhoneNumber;
 				while (true) {
-					System.out.print("전화번호를 입력하세요: ");
+					System.out.print("수정하실 전화번호를 입력하세요: ");
 					newPhoneNumber = sc.nextLine();
 					if (!ValidationUtils.isValidPhoneNumber(newPhoneNumber)) {
 						System.out.println("형식이 올바르지 않습니다.");
@@ -112,17 +117,19 @@ public class UserUpdatePage {
 				break;
 			case"5":	
 				 String newAddress;
-			     while (true) {
+			     //while (true) {
 			          System.out.print("주소를 입력하세요: ");
 			          newAddress = sc.nextLine();
-			          if (!ValidationUtils.isValidAddress(newAddress)) {
-			              System.out.println("형식이 올바르지 않습니다.");
-			          } else {
+//			          if (!ValidationUtils.isValidAddress(newAddress)) {
+//			              System.out.println("형식이 올바르지 않습니다.");
+//			          } else {
+//			        	  System.out.println("주소가 수정되었습니다.");
+//			              break;
+//			          }
 							user.setAddress(newAddress);
-			        	  System.out.println("주소가 수정되었습니다.");
-			              break;
-			          }
-			     }
+			          System.out.println("주소가 수정되었습니다.");  
+			         // break;
+			     //}
 			     break;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
