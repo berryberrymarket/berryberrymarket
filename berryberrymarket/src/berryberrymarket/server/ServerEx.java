@@ -46,7 +46,6 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 			serverSocket = new ServerSocket(SERVER_PORT);
 			System.out.println("연결 대기중....");
 			clientSocket = serverSocket.accept();
-			System.out.println(clientSocket.getInputStream().read());
 			System.out.println("상대방과 연결되었습니다.");
 			
 			// 서버쪽 입력데이터 처리 스케줄러 생성.
@@ -101,11 +100,11 @@ class ClientHandler extends Thread {
         try {
         	// 입력
         	is = clientSocket.getInputStream();
-			System.out.println(clientSocket.getLocalAddress());
-			System.out.println(clientSocket.isInputShutdown());
-			System.out.println(clientSocket.isClosed());
-			System.out.println(clientSocket.isConnected());
-			System.out.println(clientSocket.isBound());
+			System.out.println("getRemoteSocketAddress()"+clientSocket.getRemoteSocketAddress());
+			System.out.println("isInputShutdown()"+clientSocket.isInputShutdown());
+			System.out.println("isClosed()"+clientSocket.isClosed());
+			System.out.println("isConnected()"+clientSocket.isConnected());
+			System.out.println("isBound()"+clientSocket.isBound());
         	ois = new ObjectInputStream(is);
         	// 출력
         	os = clientSocket.getOutputStream();
