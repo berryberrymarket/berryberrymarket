@@ -185,9 +185,9 @@ public class PrintPage {
 		pm.incHit(index);
 		printHead("게시글상세페이지");
 		String[] titleAndNick = pm.printPost(index);
-		System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
+		System.out.println("(C)채팅하기                    (T)거래완료");
 		if(loginChecker.getNick().equals(titleAndNick[1])) {
-			System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
+			System.out.println("(B)뒤로가기                    (U)수정 (D)삭제");
 		}
 		else {
 			System.out.println("(B)뒤로가기");
@@ -208,6 +208,8 @@ public class PrintPage {
 				return 1;
 			case "c"://///////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
 				return 8;// 
+			case "t":
+				return 7;
 			default:		
 				System.out.println("다시 입력하세요");
 			}
@@ -221,20 +223,10 @@ public class PrintPage {
 		return 1;
 	}
 
-	public int printChatListPage() { ////////// 수현
-		printHead("채팅목록페이지");
-		// 여기에 채팅 목록을 출력하는 코드를 작성합니다.
-		// 예를 들어, 채팅 목록을 가져오고 출력하는 코드를 작성할 수 있습니다.
-		// 사용자가 선택할 채팅 방 번호나 기타 작업을 처리하는 로직을 추가합니다.
+	public int printTransactionComplete() { ////////// 수현
+		
 
-		System.out.println("1. 채팅방 입장");
-		System.out.println("0. 메인 메뉴로 돌아가기");
-		System.out.print("원하는 작업을 선택하세요: ");
-		int choice = sc.nextInt();
-		sc.nextLine(); // 버퍼 비우기
-
-		return choice == 1 ? 8 : 1; // 채팅방 입장 선택 시 8 반환, 그 외에는 메인 페이지로 돌아가기
-
+		return 1;
 	}
 
 	public int printChatRoomPage() {
@@ -243,7 +235,7 @@ public class PrintPage {
 
 	    Client.startChat();
 	    
-	    return 1;
+	    return 5;
 	}
 	
 	public int printUserUpdatePage() {
@@ -280,7 +272,7 @@ public class PrintPage {
 	}
 
 	private void printTail() {
-		System.out.println("============================================");
+		System.out.println("=================================================");
 		System.out.print("입력하세요: ");
 	}
 

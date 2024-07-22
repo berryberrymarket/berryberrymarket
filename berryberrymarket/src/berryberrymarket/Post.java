@@ -93,7 +93,7 @@ public class Post implements Serializable{
 	      System.out.printf("%-12s: ","제목");
 	      System.out.println(title);	      
 	      System.out.printf("%-11s: ","작성자");
-	      System.out.println(title);	
+	      System.out.println(nickname);	
 	      System.out.printf("%-11s: ","조회수");
 	      System.out.println(hit);	
 	      System.out.printf("%-12s: ","가격");
@@ -102,6 +102,9 @@ public class Post implements Serializable{
 	      System.out.println(place);	
 	      System.out.printf("%-10s: ","작성 날짜");
 	      System.out.println(date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));	
+	      System.out.println("------------------------------------------------");
+	      System.out.printf("%-12s: ","내용");
+	      System.out.println(content);
 //	      System.out.println("조회수: "+ hit);
 //	      System.out.println("가격           : " + price);
 //	      System.out.println("거래 희망 장소    : " + place);
