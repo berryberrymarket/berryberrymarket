@@ -87,21 +87,23 @@ public class UserListManager {
 		updateUserList(); // 파일화 작업.
 	}
 	
+	// 회원 삭제 메서드.
 	public int deleteUserFromUserList(String logOutUID) {
 		/*
-		 * 로그아웃 시키기:
-		 * 1. 현재 로그인 리스트에서 빼고,
-		 * 2. 유저 객체의 Authentication = null 로 바꾸고,
-		 * 3. 인증 파일 지우기.
-		 * 
 		 * 회원 탈퇴 시키기:
 		 * 1. 로그아웃 시키고,
+		 *		1-1. 현재 로그인 리스트에서 빼고,
+		 * 		1-2. 유저 객체의 Authentication = null 로 바꾸고,
+		 * 		1-3. 인증 파일 지우기.
 		 * 2. 전체 유저 리스트에서 지우고,
 		 * 3. 유저가 지워진 유저리스트를 파일로 만들기.
 		 */
     	if (logOutUID != null) {
+    		// 전체 유저리스트를 반복해서 돌면서,
     		for (int i = 0; i < userList.size(); i ++) {
+    			// 아이디를 얻고,
     			String uid = userList.get(i).getId();
+    			// 로그아웃한 유저와 일치하는 순간,
     			if (uid.equals(logOutUID)) {
     				userList.remove(i); // 전체 유저 리스트에서 지우고,
     				updateUserList(); // 파일화 작업.
@@ -110,7 +112,7 @@ public class UserListManager {
     			}
     		}
     	} else {
-    		System.out.println("userPackage/model/UserListManager.java: 로그아웃 도중 에러가 발생했습니다.");
+//    		System.out.println("userPackage/model/UserListManager.java: 로그아웃 도중 에러가 발생했습니다.");
         }
     	return 4; // 실패시 마이페이지로 이동.
 	}
@@ -131,7 +133,7 @@ public class UserListManager {
 			} 
 
 		} catch (FileNotFoundException e) {
-			System.out.println("userPackage/model/UserListManager.java: 파일이 존재하지 않습니다.");
+//			System.out.println("userPackage/model/UserListManager.java: 파일이 존재하지 않습니다.");
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
@@ -153,43 +155,29 @@ public class UserListManager {
 
 		File userListFile = new File(path, "userList.dat");
 		if (!userListFile.exists()) { // 유저 리스트 파일이 경로에 없을 때,
-//			System.out.println("userPackage/model/UserListManager.java: 파일이 없습니다.");
-//			try {
-//				fos = new FileOutputStream(path+"/userList.dat");
-//				oos = new ObjectOutputStream(fos);
-//				oos.writeObject(userList); // 새로운 유저리스트 파일을 만듦.
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			} finally {
-//				try {
-//					if (oos != null) {
-//						oos.flush();
-//						oos.close();
-//					}
-//					if (fos != null) {
-//						fos.close();
-//					}
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				} 
-//			}
+			/*
+			 * 초기화 시 경로만 만드는 이유 :
+			 * 유저는 List<User> 에 저장되는데,
+			 * List<User>에 가입된 유저가 없는 경우, 즉 프로그램이 완전히 초기 상태인 경우는,
+			 * List<User>가 존재할 필요가 없기 때문입니다.
+			 */
 			path.mkdirs(); // 경로만 만듦.
 		} else {
-			System.out.println("userPackage/model/UserListManager.java: 파일 발견.");
+//			System.out.println("userPackage/model/UserListManager.java: 파일 발견.");
 		}
 	}
 	
 	private void initializeUserList() {
 		// 프로그램 초기화 시 수행할 단계들을 나열해놓았습니다.
         if (!path.exists()) {
-        	System.out.println("userPackage/model/UserListManager.java: 경로가 존재하지 않습니다.");
+//        	System.out.println("userPackage/model/UserListManager.java: 경로가 존재하지 않습니다.");
         	path.mkdirs();
         }
         
         generateUserListFile(); // 유저 리스트 파일이 경로에 이미 있으면 아무 작업도 하지 않음.
         getUserListFromUserListFile(); // 유저리스트 파일을 	불러와서 userList 초기화.
         
-		System.out.printf("userPackage/model/UserListManager.java: 현재 가입된 유저 수: %d\n", userList.size());
+//		System.out.printf("userPackage/model/UserListManager.java: 현재 가입된 유저 수: %d\n", userList.size());
 	}
 	
 }

@@ -17,7 +17,7 @@ public class UserLogoutPage {
 		String uid = null;
 		List<User> logInUserList = BerryBerrymarketApp.loginUserList;
 		UserAuthentication authObject = UserAuthentication.getAuthObject();
-		if (!BerryBerrymarketApp.loginUserList.isEmpty()) { // 로그인 유저가 한 명이라도 있으면,
+		if (!BerryBerrymarketApp.loginUserList.isEmpty()) { // 로그인 유저리스트에 유저가 한 명이라도 있으면 검사.
 			for (int i = 0; i < logInUserList.size(); i ++) {
 				uid = authObject.getId();
 				if (logInUserList.get(i).getId().equals(uid)) { // 로그인 유저 리스트에 인증 파일과 일치하는 유저가 있으면,
