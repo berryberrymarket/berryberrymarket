@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
+import berryberrymarket.client.Client;
 import userPackage.account.UserDeletePage;
 import userPackage.account.UserLoginPage;
 import userPackage.account.UserLogoutPage;

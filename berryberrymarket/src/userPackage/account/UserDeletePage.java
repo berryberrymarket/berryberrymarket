@@ -16,7 +16,7 @@ public class UserDeletePage {
 		System.out.print("정말로 회원 탈퇴를 하시겠습니까? (y/n): ");
         String confirm = sc.nextLine();
         if (confirm.equalsIgnoreCase("y")) { // 대소문자 구분하지 않습니다. Y == y ...
-        	String logOutUID = UserLogoutPage.logOut(); // 로그아웃 시키고,
+        	String logOutUID = UserLogoutPage.logOut();
         	deleteResult = ulm.deleteUserFromUserList(logOutUID);
         }
         return deleteResult;
