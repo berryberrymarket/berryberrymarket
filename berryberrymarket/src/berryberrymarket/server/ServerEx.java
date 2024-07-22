@@ -56,9 +56,9 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 	        scheduler.scheduleAtFixedRate(ch, 0, 500, TimeUnit.MILLISECONDS);
 	        
 			start = true;
-			if (!start) {
-				scheduler.shutdown();
-            }
+//			if (!start) {
+//				scheduler.shutdown();
+//            }
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
