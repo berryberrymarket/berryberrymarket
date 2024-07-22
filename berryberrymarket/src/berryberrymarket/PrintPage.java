@@ -100,19 +100,21 @@ public class PrintPage {
 	
 
 	public int printLogInPage() {
-		System.out.println("        |\\/|/|/|/|/|");
-		System.out.println("       !,*.-*-*-*,*!");
-		System.out.println("      ,' , ' , `,'.'\\");
-		System.out.println("     / ,  '  , ' , ',\\");
-		System.out.println("    |  ,0 ,' 0 ','.',|");
-		System.out.println("    | , '\\___/ .',',',/");
-		System.out.println("   ㅡ\\', ' , ,'.',','/ㅡ");
-		System.out.println("      \\',', ',',',',/");
-		System.out.println("       \\','.',',', /");
-		System.out.println("        \\ ,',',', /");
-		System.out.println("          \\'.', /");
-		System.out.println("            \"-\"");
-		System.out.println("           / (");
+		System.out.println("                           [ 딸기장터 ]");
+		System.out.println("                          |\\/|/|/|/|/|/|");
+		System.out.println("                          !,*.-*-*-*-*-!");
+		System.out.println("                         / ,' , ' ,`,'.'\\");
+		System.out.println("                        / ,  '  , ' , ','\\");
+		System.out.println("                       |  ,0 ,' 0 ','.',',|");
+		System.out.println("                       | , '\\___/ .',',',/");
+		System.out.println("                     oㅡ\\', ' , ,'.',','/ㅡo");
+		System.out.println("                         \\',', ',',',',/");
+		System.out.println("                          \\','.',',', /");
+		System.out.println("                           \\ ,',',', /");
+		System.out.println("                             \\'.', /");
+		System.out.println("                               \"-\"");
+		System.out.println("                               / (");
+		System.out.println("                              o   o");
 		//printHead("로그인페이지");
 		System.out.println("===========================로그인페이지==========================");
 		System.out.println("(1)로그인");
