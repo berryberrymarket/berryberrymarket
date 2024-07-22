@@ -30,9 +30,10 @@ public class PrintPage {
 
 	public int printMainPage() {
 		//printHead("메인페이지");
-		System.out.println("============================메인페이지===========================");
+		System.out.println("============================메인페이지============================");
 		System.out.println("(M)마이페이지                                         (O)로그아웃"); //수정 //수현
-		System.out.println("      (S)검색               (C)채팅목록               (P)등록");//수정 //수현
+		System.out.println("                     "+loginChecker.getUser().getNick()+"님. 반갑습니다!");//수정 //수현
+		System.out.println("      (S)검색                                         (P)등록");//수정 //수현
 		
 		//printSmallHead("게시글");
 		System.out.println("------------------------------게시글-----------------------------");

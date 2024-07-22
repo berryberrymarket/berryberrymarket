@@ -99,15 +99,13 @@ public class Post implements Serializable{
 	      System.out.println(user.getNick());
 	      System.out.printf("%-11s: ","조회수");
 	      System.out.println(hit);
-	      System.out.printf("%-12s: ","내용");
-	      System.out.println(content);
 	      System.out.printf("%-12s: ","가격");
 	      System.out.println(price);	
 	      System.out.printf("%-8s: ","거래 희망 장소");
 	      System.out.println(place);	
 	      System.out.printf("%-10s: ","작성 날짜");
 	      System.out.println(date.format(DateTimeFormatter.ofPattern("MM.dd E HH:mm")));
-	      System.out.println("------------------------------------------------");
+	      System.out.println("-----------------------------------------------------------------");
 	      System.out.printf("%-12s: ","내용");
 	      System.out.println(content);
 	   }

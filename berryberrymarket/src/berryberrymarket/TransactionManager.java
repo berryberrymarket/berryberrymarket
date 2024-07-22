@@ -14,9 +14,8 @@ public class TransactionManager {
 	
 	public void evaluateTransaciton(List<User> userList) {
 		User user = transaction.getPost().getUser();
-		System.out.println("ㅎㅇ");
 		userList.stream().filter(n->n.equals(user)).forEach(u->{
-			u.printInfo();
+			
 			u.setTransactionsCnt(u.getTransactionsCnt()+1);
 			u.setUserLevel(u.getUserLevel()+transaction.getStar());
 			});
