@@ -201,7 +201,7 @@ public class PrintPage {
 		//printHead("게시글상세페이지");
 		System.out.println("=========================게시글상세페이지========================");
 		Post post = pm.printPost(index);
-		if(loginChecker.getUser().equals(post.getUser())) {
+		if(loginChecker.getUser().getNick().equals(post.getUser().getNick())) {
 			System.out.println("(B)뒤로가기                    (U)수정 (D)삭제");
 		}
 		else {
@@ -266,6 +266,7 @@ public class PrintPage {
 			tm.createTransaction(star, post);
 			List<User> userList = ulm.getUserList();
 			tm.evaluateTransaciton(userList);
+			ulm.updateUserList();
 			
 		}
 		return 1;

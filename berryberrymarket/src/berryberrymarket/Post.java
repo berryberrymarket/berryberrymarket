@@ -95,8 +95,8 @@ public class Post implements Serializable{
 
 	      System.out.printf("%-12s: ","제목");
 	      System.out.println(title);	      
-	      System.out.printf("%-11s: ","작성자");
-	      System.out.println(user.getNick());
+	      System.out.printf("%-7s: ","작성자(점수)");
+	      System.out.println(user.getNick()+"("+user.getUserLevel()+")");
 	      System.out.printf("%-11s: ","조회수");
 	      System.out.println(hit);
 	      System.out.printf("%-12s: ","가격");
