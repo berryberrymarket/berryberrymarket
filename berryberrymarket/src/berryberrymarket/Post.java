@@ -145,16 +145,6 @@ public class Post implements Serializable{
         return paddedText.toString();
     }
     
-    private String padLeft(String text, int totalWidth) {
-        int currentWidth = calculateDisplayWidth(text);
-        StringBuilder paddedText = new StringBuilder();
-        while (currentWidth < totalWidth) {
-            paddedText.append(" ");
-            currentWidth++;
-        }
-        paddedText.append(text);
-        return paddedText.toString();
-    }
     
     public String getFormattedTitle() {
         final int MAX_WIDTH = 30; // 제목의 최대 폭 설정
