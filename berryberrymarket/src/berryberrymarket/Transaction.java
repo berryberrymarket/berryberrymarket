@@ -1,5 +1,7 @@
 package berryberrymarket;
 
+/* 거래 객체 클래스
+ * 필드: 거래 게시글 객체, 평점 */
 public class Transaction {
 
 	private int star;

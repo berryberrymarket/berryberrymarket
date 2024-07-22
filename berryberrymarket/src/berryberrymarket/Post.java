@@ -6,6 +6,11 @@ import java.time.format.DateTimeFormatter;
 
 import userPackage.model.User;
 
+
+/* 게시글 객체 클래스
+ * 필드: 제목, 작성 유저, 내용, 가격, 거래 장소, 조회수, 작성 날짜
+ * 메소드: printInfo() - 객체 정보출력
+ *         printSimpleInfo() - 게시판페이지에 쓰이는 객체 간단 출력 */
 public class Post implements Serializable{
 
 	/**
@@ -108,6 +113,9 @@ public class Post implements Serializable{
 	      System.out.println("-----------------------------------------------------------------");
 	      System.out.printf("%-12s: ","내용");
 	      System.out.println(content);
+	      System.out.println();
+	      System.out.println();
+	      
 	   }
 
 	
