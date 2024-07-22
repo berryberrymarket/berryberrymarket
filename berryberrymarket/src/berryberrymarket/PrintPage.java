@@ -26,30 +26,29 @@ public class PrintPage {
 		pm.initGetBoard();
 	}
 
-
 	public int printMainPage() {
-		//printHead("메인페이지");
+		// printHead("메인페이지");
 		System.out.println("============================메인페이지===========================");
-		System.out.println("(M)마이페이지                                         (O)로그아웃"); //수정 //수현
-		System.out.println("      (S)검색               (C)채팅목록               (P)등록");//수정 //수현
-		
-		//printSmallHead("게시글");
+		System.out.println("(M)마이페이지                                         (O)로그아웃"); // 수정 //수현
+		System.out.println("      (S)검색               (C)채팅목록               (P)등록");// 수정 //수현
+
+		// printSmallHead("게시글");
 		System.out.println("------------------------------게시글-----------------------------");
 		System.out.println("No.제목                              작성자              등록날짜");
 		System.out.println("-----------------------------------------------------------------");
-		
+
 		pm.printBoard(search);
 		int curPage = pm.getCurPage();
 		int pageSize = pm.getPageSize();
-		if(curPage==1 && pageSize==curPage) {
-			System.out.println("                             "+pm.getCurPage()+"                  ");
-		}else if(curPage==1) {
-			System.out.println("                             "+pm.getCurPage()+"                   다음페이지(>)");
-		}else if(curPage==pageSize) {
-			System.out.println("(<)이전페이지                "+pm.getCurPage()+"                  ");
-		}else {
-			System.out.println("(<)이전페이지                "+pm.getCurPage()+"                   다음페이지(>)");//수정 //수현
-		} 
+		if (curPage == 1 && pageSize == curPage) {
+			System.out.println("                             " + pm.getCurPage() + "                  ");
+		} else if (curPage == 1) {
+			System.out.println("                             " + pm.getCurPage() + "                   다음페이지(>)");
+		} else if (curPage == pageSize) {
+			System.out.println("(<)이전페이지                " + pm.getCurPage() + "                  ");
+		} else {
+			System.out.println("(<)이전페이지                " + pm.getCurPage() + "                   다음페이지(>)");// 수정 //수현
+		}
 		System.out.println("(H)홈으로");
 		printTail();
 		String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
@@ -75,29 +74,28 @@ public class PrintPage {
 		case "p":
 			return 6;
 		case "h":
-			search="";
+			search = "";
 			return 1;
 		default:
 			try {
-				boolean compareIndex=false;
-				while(!compareIndex) {
+				boolean compareIndex = false;
+				while (!compareIndex) {
 					index = Integer.parseInt(in);
-					compareIndex=pm.compareIndex(index);
-					if(compareIndex==false) {
+					compareIndex = pm.compareIndex(index);
+					if (compareIndex == false) {
 						System.out.print("검색한 인덱스의 게시글이 없습니다. 다시 입력하세요:");
 						in = sc.nextLine();
 					}
 				}
 				return 5;
-				
-			} catch(NumberFormatException e) {
+
+			} catch (NumberFormatException e) {
 				System.out.println("다시 입력하세요: ");
 				return 1;
 			}
 
 		}
 	}
-	
 
 	public int printLogInPage() {
 		System.out.println("                           [ 딸기장터 ]");
@@ -115,7 +113,7 @@ public class PrintPage {
 		System.out.println("                               \"-\"");
 		System.out.println("                               / (");
 		System.out.println("                              o   o");
-		//printHead("로그인페이지");
+		// printHead("로그인페이지");
 		System.out.println("===========================로그인페이지==========================");
 		System.out.println("(1)로그인");
 		System.out.println("(2)회원가입");
@@ -127,19 +125,19 @@ public class PrintPage {
 			while (true) {
 				System.out.print("아이디를 입력하세요: ");
 				String id = sc.nextLine();
-				if(id.equals("B")||id.equals("b"))
+				if (id.equals("B") || id.equals("b"))
 					return 2;
 				System.out.print("비밀번호를 입력하세요: ");
 				String password = sc.nextLine();
 //				아이디패스워드 확인 메소드
-				if(password.equals("B")||id.equals("b"))
+				if (password.equals("B") || id.equals("b"))
 					return 2;
 				UserLoginPage loginPage = new UserLoginPage(id, password);
-				
+
 				boolean loginEx = loginPage.LogIn();
 				if (loginEx) {
 					List<User> userList = ulm.getUserList();
-					userList.stream().filter(n->n.getId().equals(id)).forEach(n->loginChecker.setNick(n.getNick()));
+					userList.stream().filter(n -> n.getId().equals(id)).forEach(n -> loginChecker.setNick(n.getNick()));
 					return 1;
 				} else {
 					System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");
@@ -153,7 +151,7 @@ public class PrintPage {
 	}
 
 	public int printSignUpPage() {
-		//printHead("회원가입페이지");
+		// printHead("회원가입페이지");
 		System.out.println("==========================회원가입페이지=========================");
 		UserSignUpPage sp = new UserSignUpPage();
 
@@ -162,12 +160,12 @@ public class PrintPage {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return 2;
 	}
 
 	public int printMyPage() {
-		//printHead("마이페이지");
+		// printHead("마이페이지");
 		System.out.println("=============================마이페이지============================");
 		UserMyInfoPage myPage = new UserMyInfoPage();
 		while (true) {
@@ -175,39 +173,39 @@ public class PrintPage {
 			System.out.printf("원하는 메뉴키를 입력하세요: ");
 			String keyPress = sc.nextLine();
 			switch (keyPress) {
-				case "a","A" -> {
-					return 9;
-					}
-				case "d", "D" -> {
-					UserDeletePage udp = new UserDeletePage();
-					int deleteResult = udp.userDelete(sc);
-					myPage = null;
-					return deleteResult;
-				}
-				case "b","B" -> {				
-					return 1;
-				}
-				default -> {
-					System.out.println("올바른 키를 입력하세요.");
-				}
+			case "a", "A" -> {
+				return 9;
+			}
+			case "d", "D" -> {
+				UserDeletePage udp = new UserDeletePage();
+				int deleteResult = udp.userDelete(sc);
+				myPage = null;
+				return deleteResult;
+			}
+			case "b", "B" -> {
+				return 1;
+			}
+			default -> {
+				System.out.println("올바른 키를 입력하세요.");
+			}
 			}
 		}
 	}
 
 	public int printPostDetailPage() throws FileNotFoundException {
 		pm.incHit(index);
-		//printHead("게시글상세페이지");
+		// printHead("게시글상세페이지");
 		System.out.println("=========================게시글상세페이지========================");
 		String[] titleAndNick = pm.printPost(index);
-		if(loginChecker.getNick().equals(titleAndNick[1])) {
+		if (loginChecker.getNick().equals(titleAndNick[1])) {
 			System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
-		}
-		else {
-			System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
+		} else {
+			System.out.println("(C)채팅하기");/////////// 수현 추가//////////////////////수현 추가/////////수현
+											/////////// 추가//////////////////////수현 추가
 			System.out.println("(B)뒤로가기");
 		}
 		printTail();
-		while(true) {
+		while (true) {
 			String in = sc.nextLine().trim().toLowerCase(); // 입력을 소문자로 변환
 			switch (in) {
 			case "b":
@@ -221,15 +219,15 @@ public class PrintPage {
 				setPostInfo(sc);
 				return 1;
 			case "c":
-				return 8;// 
-			default:		
+				return 8;//
+			default:
 				System.out.println("다시 메뉴키를 입력하세요");
 			}
 		}
 	}
 
 	public int printAddPostPage() throws FileNotFoundException {
-		//printHead("게시글등록페이지");
+		// printHead("게시글등록페이지");
 		System.out.println("=========================게시글등록페이지========================");
 		setPostInfo(sc);
 
@@ -237,7 +235,7 @@ public class PrintPage {
 	}
 
 	public int printChatListPage() { ////////// 수현
-		//printHead("채팅목록페이지");
+		// printHead("채팅목록페이지");
 		System.out.println("==========================채팅목록페이지=========================");
 		// 여기에 채팅 목록을 출력하는 코드를 작성합니다.
 		// 예를 들어, 채팅 목록을 가져오고 출력하는 코드를 작성할 수 있습니다.
@@ -254,18 +252,18 @@ public class PrintPage {
 	}
 
 	public int printChatRoomPage() {
-	    //printHead("채팅방페이지");
+		// printHead("채팅방페이지");
 		System.out.println("==========================채팅방페이지==========================");
-	    System.out.println("채팅을 시작합니다...");
+		System.out.println("채팅을 시작합니다...");
 
-	    Client.startChat();
-	    
-	    return 1;
+		Client.startChat();
+
+		return 1;
 	}
-	
+
 	public int printUserUpdatePage() {
-		
-		//printHead("회원정보수정페이지");
+
+		// printHead("회원정보수정페이지");
 		System.out.println("========================회원정보수정페이지=======================");
 		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
 		System.out.println("(1)비밀번호");
@@ -276,26 +274,33 @@ public class PrintPage {
 		System.out.println("(6)마이페이지로 돌아가기");
 		printTail();
 		String in = sc.nextLine();
-		switch(in) {
-		case "1","2","3","4","5":
+		switch (in) {
+		//입력값이 1~5면 회원정보수정 페이지로 이동
+		case "1", "2", "3", "4", "5":
 			UserUpdatePage uu = new UserUpdatePage();
 			uu.updateUserInfo(in);
-			return 9;	
-		
-		default:
+			//다시 여기로 돌아와서 수정 계속 진행
+			return 9;
+		//6 입력하면 마이페이지로 이동
+		case "6":
 			return 4;
-		
+		//다른값 입력하면 다시 입력받음
+		default:
+			System.out.println("잘못 입력하셨습니다.");
+			return 9;
 		}
-		 
+
 	}
 
-	//private void printHead(String str) {
-	//	System.out.println("============================" + str + "============================");
-	//}
+	// private void printHead(String str) {
+	// System.out.println("============================" + str +
+	// "============================");
+	// }
 
-	//private void printSmallHead(String str) {
-	//	System.out.println("------------------------------" + str + "-----------------------------");
-	//}
+	// private void printSmallHead(String str) {
+	// System.out.println("------------------------------" + str +
+	// "-----------------------------");
+	// }
 
 	private void printTail() {
 		System.out.println("=================================================================");
@@ -309,26 +314,26 @@ public class PrintPage {
 		String content = sc.nextLine();
 		boolean validInput = false;
 		int price = 0;
-	    while (!validInput) {
-	        try {
-	            System.out.print("가격을 입력하세요: ");
-	            price = Integer.parseInt(sc.nextLine());
-	            if (price <= 0) {
-	                throw new IllegalArgumentException("가격은 양수여야 합니다.");
-	            }
-	            validInput = true; // 입력이 유효하면 반복문 종료
-	        } catch (NumberFormatException e) {
-	            System.out.println("유효하지 않은 입력입니다. 다시 시도하세요.");
-	        } catch (IllegalArgumentException e) {
-	            System.out.println(e.getMessage());
-	        }
-	    }
+		while (!validInput) {
+			try {
+				System.out.print("가격을 입력하세요: ");
+				price = Integer.parseInt(sc.nextLine());
+				if (price <= 0) {
+					throw new IllegalArgumentException("가격은 양수여야 합니다.");
+				}
+				validInput = true; // 입력이 유효하면 반복문 종료
+			} catch (NumberFormatException e) {
+				System.out.println("유효하지 않은 입력입니다. 다시 시도하세요.");
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
 		System.out.print("거래 희망 장소를 입력하세요: ");
 		String place = sc.nextLine();
 
 		pm.addPost(new Post(title, loginChecker.getNick(), content, price, place));
 	}
-	
+
 	private String setLowerCase(Scanner sc) {
 		String in = sc.nextLine().trim().toLowerCase();
 		return in;
