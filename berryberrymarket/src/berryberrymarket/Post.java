@@ -90,12 +90,15 @@ public class Post implements Serializable{
 	}
 
 	public void printInfo() {
+
 	      System.out.printf("%-12s: ","제목");
 	      System.out.println(title);	      
 	      System.out.printf("%-11s: ","작성자");
-	      System.out.println(title);	
+	      System.out.println(nickname);	////////////////////////수현 수정/////수현 수정////////////
 	      System.out.printf("%-11s: ","조회수");
-	      System.out.println(hit);	
+	      System.out.println(hit);
+	      System.out.printf("%-12s: ","내용");//////////////////////수현 수정/////수현 수정////////////
+	      System.out.println(content);//////////////////////수현 수정/////수현 수정////////////
 	      System.out.printf("%-12s: ","가격");
 	      System.out.println(price);	
 	      System.out.printf("%-8s: ","거래 희망 장소");
@@ -108,7 +111,28 @@ public class Post implements Serializable{
 //	      System.out.println("작성 날짜        : " + date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
 	   }
 
-	public void printSimpleInfo() {
-		System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"))+"  "+hit);
-	}
+	//public void printSimpleInfo() {
+	//	System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"))+"  "+hit);
+	//}
+	////////////////////////////////////////////////수현 수정 ////////////////////수현 수정//////////////수현 수정///////////////수현 수정///////
+	public String getFormattedTitle() {
+        final int MAX_LENGTH = 15; // 제목의 최대 길이 설정
+        if (title == null) {
+            title = "";
+        }
+        return String.format("%-10s", title.length() > MAX_LENGTH ? title.substring(0, MAX_LENGTH)+ "..." : title);
+    }
+
+    public String getFormattedNickname() {
+        final int MAX_LENGTH = 6; // 닉네임의 최대 길이 설정
+        if (nickname == null) {
+            nickname = "";
+        }
+        return String.format("%-10s", nickname.length() > MAX_LENGTH ? nickname.substring(0, MAX_LENGTH) : nickname);
+    }
+    public void printSimpleInfo() {
+        System.out.printf("%-1s%-20s%-10s%s\n", "", getFormattedTitle(), getFormattedNickname(), date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
+    }
+    
+    ////////////수정전/////
 }

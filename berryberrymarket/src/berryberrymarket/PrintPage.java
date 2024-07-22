@@ -3,7 +3,13 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
-import userPackage.account.*;
+
+import userPackage.account.UserDeletePage;
+import userPackage.account.UserLoginPage;
+import userPackage.account.UserLogoutPage;
+import userPackage.account.UserMyInfoPage;
+import userPackage.account.UserSignUpPage;
+import userPackage.account.UserUpdatePage;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
 
@@ -22,24 +28,27 @@ public class PrintPage {
 
 
 	public int printMainPage() {
-		printHead("메인페이지");
+		//printHead("메인페이지");
+		System.out.println("============================메인페이지===========================");
+		System.out.println("(M)마이페이지                                         (O)로그아웃"); //수정 //수현
+		System.out.println("      (S)검색               (C)채팅목록               (P)등록");//수정 //수현
 		
-		System.out.println("(M)마이페이지                   (O)로그아웃"); //수정 //수현
-		System.out.println("      (S)검색    (C)채팅목록    (P)등록");//수정 //수현
-		
-		printSmallHead("게시글");
+		//printSmallHead("게시글");
+		System.out.println("------------------------------게시글-----------------------------");
+		System.out.println("No.제목                              작성자              등록날짜");
+		System.out.println("-----------------------------------------------------------------");
 		
 		pm.printBoard(search);
 		int curPage = pm.getCurPage();
 		int pageSize = pm.getPageSize();
 		if(curPage==1 && pageSize==curPage) {
-			System.out.println("                  "+pm.getCurPage()+"                  ");
+			System.out.println("                             "+pm.getCurPage()+"                  ");
 		}else if(curPage==1) {
-			System.out.println("                   "+pm.getCurPage()+"           다음페이지(>)");
+			System.out.println("                             "+pm.getCurPage()+"                   다음페이지(>)");
 		}else if(curPage==pageSize) {
-			System.out.println("(<)이전페이지          "+pm.getCurPage()+"                  ");
+			System.out.println("(<)이전페이지                "+pm.getCurPage()+"                  ");
 		}else {
-			System.out.println("(<)이전페이지          "+pm.getCurPage()+"          다음페이지(>)");//수정 //수현
+			System.out.println("(<)이전페이지                "+pm.getCurPage()+"                   다음페이지(>)");//수정 //수현
 		} 
 		System.out.println("(H)홈으로");
 		printTail();
@@ -104,7 +113,8 @@ public class PrintPage {
 		System.out.println("          \\'.', /");
 		System.out.println("            \"-\"");
 		System.out.println("           / (");
-		printHead("로그인페이지");
+		//printHead("로그인페이지");
+		System.out.println("===========================로그인페이지==========================");
 		System.out.println("(1)로그인");
 		System.out.println("(2)회원가입");
 		printTail();
@@ -141,8 +151,8 @@ public class PrintPage {
 	}
 
 	public int printSignUpPage() {
-		printHead("회원가입페이지");
-
+		//printHead("회원가입페이지");
+		System.out.println("==========================회원가입페이지=========================");
 		UserSignUpPage sp = new UserSignUpPage();
 
 		try {
@@ -155,11 +165,12 @@ public class PrintPage {
 	}
 
 	public int printMyPage() {
-		printHead("마이페이지");
+		//printHead("마이페이지");
+		System.out.println("=============================마이페이지============================");
 		UserMyInfoPage myPage = new UserMyInfoPage();
 		while (true) {
 			myPage.printInfo();
-			System.out.printf("입력하세요: ");
+			System.out.printf("원하는 메뉴키를 입력하세요: ");
 			String keyPress = sc.nextLine();
 			switch (keyPress) {
 				case "a","A" -> {
@@ -183,13 +194,14 @@ public class PrintPage {
 
 	public int printPostDetailPage() throws FileNotFoundException {
 		pm.incHit(index);
-		printHead("게시글상세페이지");
+		//printHead("게시글상세페이지");
+		System.out.println("=========================게시글상세페이지========================");
 		String[] titleAndNick = pm.printPost(index);
-		System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
 		if(loginChecker.getNick().equals(titleAndNick[1])) {
 			System.out.println("(B)뒤로가기                (U)수정 (D)삭제");
 		}
 		else {
+			System.out.println("(C)채팅하기");///////////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
 			System.out.println("(B)뒤로가기");
 		}
 		printTail();
@@ -206,23 +218,25 @@ public class PrintPage {
 				System.out.println("----수정----");
 				setPostInfo(sc);
 				return 1;
-			case "c"://///////수현 추가//////////////////////수현 추가/////////수현 추가//////////////////////수현 추가
+			case "c":
 				return 8;// 
 			default:		
-				System.out.println("다시 입력하세요");
+				System.out.println("다시 메뉴키를 입력하세요");
 			}
 		}
 	}
 
 	public int printAddPostPage() throws FileNotFoundException {
-		printHead("게시글등록페이지");
+		//printHead("게시글등록페이지");
+		System.out.println("=========================게시글등록페이지========================");
 		setPostInfo(sc);
 
 		return 1;
 	}
 
 	public int printChatListPage() { ////////// 수현
-		printHead("채팅목록페이지");
+		//printHead("채팅목록페이지");
+		System.out.println("==========================채팅목록페이지=========================");
 		// 여기에 채팅 목록을 출력하는 코드를 작성합니다.
 		// 예를 들어, 채팅 목록을 가져오고 출력하는 코드를 작성할 수 있습니다.
 		// 사용자가 선택할 채팅 방 번호나 기타 작업을 처리하는 로직을 추가합니다.
@@ -238,7 +252,8 @@ public class PrintPage {
 	}
 
 	public int printChatRoomPage() {
-	    printHead("채팅방페이지");
+	    //printHead("채팅방페이지");
+		System.out.println("==========================채팅방페이지==========================");
 	    System.out.println("채팅을 시작합니다...");
 
 	    Client.startChat();
@@ -248,7 +263,8 @@ public class PrintPage {
 	
 	public int printUserUpdatePage() {
 		
-		printHead("회원정보수정페이지");
+		//printHead("회원정보수정페이지");
+		System.out.println("========================회원정보수정페이지=======================");
 		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
 		System.out.println("(1)비밀번호");
 		System.out.println("(2)이름");
@@ -271,17 +287,17 @@ public class PrintPage {
 		 
 	}
 
-	private void printHead(String str) {
-		System.out.println("=================" + str + "================");
-	}
+	//private void printHead(String str) {
+	//	System.out.println("============================" + str + "============================");
+	//}
 
-	private void printSmallHead(String str) {
-		System.out.println("------------------" + str + "-----------------");
-	}
+	//private void printSmallHead(String str) {
+	//	System.out.println("------------------------------" + str + "-----------------------------");
+	//}
 
 	private void printTail() {
-		System.out.println("============================================");
-		System.out.print("입력하세요: ");
+		System.out.println("=================================================================");
+		System.out.print("원하는 메뉴키를 입력하세요: ");
 	}
 
 	private void setPostInfo(Scanner sc) throws FileNotFoundException {
