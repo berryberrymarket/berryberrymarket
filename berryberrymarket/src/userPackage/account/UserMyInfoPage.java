@@ -11,6 +11,7 @@ public class UserMyInfoPage {
 		this.user = GetUser.findUserFromLoginUserList();
 	}
 	
+	// 자기 정보 출력
 	public void printInfo() {
 		System.out.printf("현재 로그인중인 유저 수: %d\n", BerryBerrymarketApp.loginUserList.size());
 		System.out.println("---------------------------------------------------------------------------------------------------");
