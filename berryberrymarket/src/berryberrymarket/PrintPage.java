@@ -1,7 +1,6 @@
 package berryberrymarket;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -101,23 +100,8 @@ public class PrintPage {
 	
 	/* pageCase=2, 로그인 페이지
 	 * 로그인 or 회원가입 가능*/
-	public int printLogInPage() {
-		System.out.println("                           [ 딸기장터 ]");
-		System.out.println("                          |\\/|/|/|/|/|/|");
-		System.out.println("                          !,*.-*-*-*-*-!");
-		System.out.println("                         / ,' , ' ,`,'.'\\");
-		System.out.println("                        / ,  '  , ' , ','\\");
-		System.out.println("                       |  ,0 ,' 0 ','.',',|");
-		System.out.println("                       | , '\\___/ .',',',/");
-		System.out.println("                     oㅡ\\', ' , ,'.',','/ㅡo");
-		System.out.println("                         \\',', ',',',',/");
-		System.out.println("                          \\','.',',', /");
-		System.out.println("                           \\ ,',',', /");
-		System.out.println("                             \\'.', /");
-		System.out.println("                               \"-\"");
-		System.out.println("                               / (");
-		System.out.println("                              o   o");
-		//printHead("로그인페이지");
+	public int printLogInPage() throws InterruptedException {
+		PrintAscii.printStrawberry();
 		System.out.println("===========================로그인페이지==========================");
 		System.out.println("(1)로그인");
 		System.out.println("(2)회원가입");
@@ -361,5 +345,5 @@ public class PrintPage {
 
 		pm.addPost(new Post(title, loginChecker.getUser(), content, price, place));
 	}
-	
 }
+
