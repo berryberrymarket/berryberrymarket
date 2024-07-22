@@ -2,6 +2,7 @@ package userPackage.account;
 
 import java.util.List;
 import java.util.Scanner;
+
 import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
@@ -122,10 +123,10 @@ public class UserUpdatePage {
 //			          if (!ValidationUtils.isValidAddress(newAddress)) {
 //			              System.out.println("형식이 올바르지 않습니다.");
 //			          } else {
-//							user.setAddress(newAddress);
 //			        	  System.out.println("주소가 수정되었습니다.");
 //			              break;
 //			          }
+							user.setAddress(newAddress);
 			          System.out.println("주소가 수정되었습니다.");  
 			         // break;
 			     //}

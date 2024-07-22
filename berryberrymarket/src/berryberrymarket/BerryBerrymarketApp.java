@@ -3,11 +3,10 @@ package berryberrymarket;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
+import userPackage.account.UserAuthentication;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
-import userPackage.account.UserAuthentication;
 
 public class BerryBerrymarketApp {
 
@@ -25,6 +24,10 @@ public class BerryBerrymarketApp {
 
 		try {
 			while (true) {
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
 				System.out.println();
 				System.out.println();
 				System.out.println();
