@@ -43,13 +43,7 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 		Socket clientSocket = null;
 
 		
-		// 서버쪽 입력데이터 처리 스케줄러 생성.
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        ClientHandler ch = new ClientHandler(clientSocket, messageQueue);
-
-        
-        // 0.5초 간격으로 run 메서드를 실행.
-        scheduler.scheduleAtFixedRate(ch, 0, 500, TimeUnit.MILLISECONDS);
+		
 		
         
 		try {
@@ -57,6 +51,14 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 			System.out.println("연결 대기중....");
 			clientSocket = serverSocket.accept();
 			System.out.println("상대방과 연결되었습니다.");
+			
+			// 서버쪽 입력데이터 처리 스케줄러 생성.
+	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	        ClientHandler ch = new ClientHandler(clientSocket, messageQueue);
+	        
+	        // 0.5초 간격으로 run 메서드를 실행.
+	        scheduler.scheduleAtFixedRate(ch, 0, 500, TimeUnit.MILLISECONDS);
+	        
 			start = true;
 			if (!start) {
 				scheduler.shutdown();
