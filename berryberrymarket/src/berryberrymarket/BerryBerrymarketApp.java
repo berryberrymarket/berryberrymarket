@@ -53,7 +53,7 @@ public class BerryBerrymarketApp {
 				} else if (pageCase == 6) { // 게시글등록페이지 출력
 					pageCase = pp.printAddPostPage();
 				} else if (pageCase == 7) { // 채팅목록페이지 출력
-					pageCase = pp.printChatListPage();
+					pageCase = pp.printTransactionComplete();
 				} else if (pageCase == 8) { // 채팅방페이지 출력
 					pageCase = pp.printChatRoomPage();
 				} else if (pageCase == 9) { // 회원정보수정페이지 출력
