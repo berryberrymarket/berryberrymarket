@@ -100,6 +100,25 @@ public class PrintPage {
 	
 
 	public int printLogInPage() {
+		for (int i = 0; i < 4; i++) {
+			
+		System.out.println("                           [ 딸기장터 ]");
+		System.out.println("                          |\\/|/|/|/|/|/|");
+		System.out.println("                          !,*.-*-*-*-*-!");
+		System.out.println("                         / ,' , ' ,`,'.'\\");
+		System.out.println("                        / ,  '  , ' , ','\\");
+		System.out.println("                       |  , - ,' - ','.',',|");
+		System.out.println("                       | , '\\___/ .',',',/");
+		System.out.println("                       \\', ' , ,'.',',' /");
+		System.out.println("                    oㅡ \\',', ',',',', /ㅡo");
+		System.out.println("                          \\','.',',', /");
+		System.out.println("                           \\ ,',',', /");
+		System.out.println("                             \\'.', /");
+		System.out.println("                               \"-\"");
+		System.out.println("                               / (");
+		System.out.println("                              o   o");
+		System.out.println();
+		System.out.println();
 		System.out.println("                           [ 딸기장터 ]");
 		System.out.println("                          |\\/|/|/|/|/|/|");
 		System.out.println("                          !,*.-*-*-*-*-!");
@@ -115,6 +134,11 @@ public class PrintPage {
 		System.out.println("                               \"-\"");
 		System.out.println("                               / (");
 		System.out.println("                              o   o");
+		}
+		
+		
+		
+		
 		//printHead("로그인페이지");
 		System.out.println("===========================로그인페이지==========================");
 		System.out.println("(1)로그인");
