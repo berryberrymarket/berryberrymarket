@@ -106,45 +106,14 @@ public class Post implements Serializable{
 	      System.out.printf("%-8s: ","거래 희망 장소");
 	      System.out.println(place);	
 	      System.out.printf("%-10s: ","작성 날짜");
-	      System.out.println(date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));	
+	      System.out.println(date.format(DateTimeFormatter.ofPattern("MM.dd E HH:mm")));
 	      System.out.println("------------------------------------------------");
 	      System.out.printf("%-12s: ","내용");
 	      System.out.println(content);
-//	      System.out.println("조회수: "+ hit);
-//	      System.out.println("가격           : " + price);
-//	      System.out.println("거래 희망 장소    : " + place);
-//	      System.out.println("작성 날짜        : " + date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
 	   }
 
-	//public void printSimpleInfo() {
-	//	System.out.println("  "+title+"  "+nickname+"  "+date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"))+"  "+hit);
-	//}
-	////////////////////////////////////////////////수현 수정 ////////////////////수현 수정//////////////수현 수정///////////////수현 수정///////
-	/* 1차 _ 깃완료/ 정돈 필요
-	 * public String getFormattedTitle() {
-	 
-        final int MAX_LENGTH = 15; // 제목의 최대 길이 설정
-        if (title == null) {
-            title = "";
-        }
-        return String.format("%-10s", title.length() > MAX_LENGTH ? title.substring(0, MAX_LENGTH)+ "..." : title);
-    }
-
-    public String getFormattedNickname() {
-        final int MAX_LENGTH = 6; // 닉네임의 최대 길이 설정
-        if (nickname == null) {
-            nickname = "";
-        }
-        return String.format("%-10s", nickname.length() > MAX_LENGTH ? nickname.substring(0, MAX_LENGTH) : nickname);
-    }
-    public void printSimpleInfo() {
-        System.out.printf("%-1s%-20s%-10s%s\n", "", getFormattedTitle(), getFormattedNickname(), date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm")));
-    }
-    */
-    
-    ////////////수정전///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// 수정 2 - 게시글 제목까지 맞음
-	private int calculateDisplayWidth(String text) {
+	
+	private int calculateDisplayWidth(String text) { //실제 폭을 계산합니다
         int width = 0;
         for (char c : text.toCharArray()) {
             if (isKorean(c)) {
@@ -206,29 +175,38 @@ public class Post implements Serializable{
     }
 
     public String getFormattedNickname() {
-        final int MAX_WIDTH = 10; // 닉네임의 최대 폭 설정
+        final int MAX_WIDTH = 15; // 닉네임의 최대 폭 설정
         if (user.getNick() == null) {
             user.setNick(" ");
         }
-        return padRight(user.getNick().length() > MAX_WIDTH ? user.getNick().substring(0, MAX_WIDTH) : user.getNick(), MAX_WIDTH);
+    	int width = calculateDisplayWidth(user.getNick());
+    	if (width > MAX_WIDTH) {
+    		// 폭이 넘으면 줄임표 추가
+    		StringBuilder truncatedNickname = new StringBuilder();
+    		int currentWidth = 0;
+    		for (char c : user.getNick().toCharArray()) {
+    			int charWidth = isKorean(c) ? 2 : 1;
+    			if (currentWidth + charWidth + 3 > MAX_WIDTH) { // 줄임표(...) 고려
+    			truncatedNickname.append(" ");
+    				break;
+    			}
+    			truncatedNickname.append(c);
+    			currentWidth += charWidth;
+    		}
+    		return padRight(truncatedNickname.toString(), MAX_WIDTH);
+    	}
+    	return padRight(user.getNick(), MAX_WIDTH);
     }
 
+    
     public void printSimpleInfo(int index) {
         String titleFormatted = getFormattedTitle();
         String nicknameFormatted = getFormattedNickname();
-        String dateFormatted = date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"));
+        String dateFormatted = date.format(DateTimeFormatter.ofPattern("MM.dd E HH:mm"));
         
-        System.out.printf("%-3d %-15s %-10s %s\n", index, titleFormatted, nicknameFormatted.trim(), dateFormatted);
+        System.out.printf("| %-3d|%-15s| %-7s %s\n", index, titleFormatted, nicknameFormatted.trim(), dateFormatted);
     }
-/*
-    public void printSimpleInfo(int index, int maxTitleWidth, int maxNicknameWidth) {
-        String titleFormatted = padRight(getFormattedTitle(), maxTitleWidth);
-        String nicknameFormatted = padRight(getFormattedNickname(), maxNicknameWidth);
-        String dateFormatted = date.format(DateTimeFormatter.ofPattern("yy.MM.dd E HH:mm"));
 
-        System.out.printf("%-3d %-"+maxTitleWidth+"s %-"+maxNicknameWidth+"s %s\n", index, titleFormatted, nicknameFormatted.trim(), dateFormatted);
-    }
-*/
 
 	
 	

@@ -36,7 +36,7 @@ public class PrintPage {
 		
 		//printSmallHead("게시글");
 		System.out.println("------------------------------게시글-----------------------------");
-		System.out.println("No.제목                              작성자              등록날짜");
+		System.out.println("| No |            제목              |    작성자   |    등록날짜  |");
 		System.out.println("-----------------------------------------------------------------");
 		
 		pm.printBoard(search);
@@ -45,11 +45,11 @@ public class PrintPage {
 		if(curPage==1 && pageSize==curPage) {
 			System.out.println("                             "+pm.getCurPage()+"                  ");
 		}else if(curPage==1) {
-			System.out.println("                             "+pm.getCurPage()+"                   다음페이지(>)");
+			System.out.println("                             "+pm.getCurPage()+"                     다음페이지(>)");
 		}else if(curPage==pageSize) {
 			System.out.println("(<)이전페이지                "+pm.getCurPage()+"                  ");
 		}else {
-			System.out.println("(<)이전페이지                "+pm.getCurPage()+"                   다음페이지(>)");//수정 //수현
+			System.out.println("(<)이전페이지                "+pm.getCurPage()+"                     다음페이지(>)");//수정 //수현
 		} 
 		System.out.println("(H)홈으로");
 		printTail();
@@ -290,7 +290,7 @@ public class PrintPage {
 		System.out.println("(3)닉네임");
 		System.out.println("(4)전화번호");
 		System.out.println("(5)주소");
-		System.out.println("(6)마이페이지로 돌아가기");
+		System.out.println("(0)마이페이지로 돌아가기");
 		printTail();
 		String in = sc.nextLine();
 		switch(in) {
