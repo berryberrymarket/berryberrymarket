@@ -58,7 +58,7 @@ public class PostManager {
 		titleAndNick[1] = post.getNickname();
 		return titleAndNick;
 	}
-
+///////////////////////////////2차 수정/////////////////////////////////////////////////////////////////////
 	public void printBoard(String search) { // 게시글 리스트 목록 쫙~
 		AtomicInteger index = new AtomicInteger(boardPagination.getCurPage()*10-9);
 		
@@ -66,17 +66,58 @@ public class PostManager {
 				.filter(post -> post.getTitle().contains(search) || post.getContent().contains(search))
 				.collect(Collectors.toList());
 		
-		if (board.isEmpty()) {
-			System.out.println("등록된 게시글이 없습니다.");
-		} else {
-			List<Post> subBoard = boardPagination.currentPage(filteredBoard);
-			subBoard.stream().forEach(n-> 
-			{int curIndex = index.getAndIncrement();
-			System.out.print(curIndex+".");
-			n.printSimpleInfo();
-			});
-		}
-	}
+		if (filteredBoard.isEmpty()) {
+            System.out.println("등록된 게시글이 없습니다.");
+        } else {
+            List<Post> subBoard = boardPagination.currentPage(filteredBoard);
+          // System.out.println("------------------------------게시글-----------------------------");
+          // System.out.printf("%-3s %-30s %-1s %s\n", "No.", "제목", "작성자", "등록날짜"); //게시판 헤더 출력
+           // System.out.println("-----------------------------------------------------------------");
+            subBoard.forEach(post -> post.printSimpleInfo(index.getAndIncrement()));
+            System.out.println("-----------------------------------------------------------------");
+        }
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/*
+	private int calculateMaxTitleWidth(List<Post> posts) {
+        return posts.stream().mapToInt(post -> post.getFormattedTitle().length()).max().orElse(30);
+    }
+
+    private int calculateMaxNicknameWidth(List<Post> posts) {
+        return posts.stream().mapToInt(post -> post.getFormattedNickname().length()).max().orElse(10);
+    }
+
+    public void printBoard(String search) {
+        AtomicInteger index = new AtomicInteger(boardPagination.getCurPage() * 10 - 9);
+
+        filteredBoard = board.stream()
+                .filter(post -> post.getTitle().contains(search) || post.getContent().contains(search))
+                .collect(Collectors.toList());
+
+        if (filteredBoard.isEmpty()) {
+            System.out.println("등록된 게시글이 없습니다.");
+        } else {
+            List<Post> subBoard = boardPagination.currentPage(filteredBoard);
+            int maxTitleWidth = calculateMaxTitleWidth(subBoard);
+            int maxNicknameWidth = calculateMaxNicknameWidth(subBoard);
+
+         
+            subBoard.forEach(post -> post.printSimpleInfo(index.getAndIncrement(), maxTitleWidth, maxNicknameWidth));
+            System.out.println("-----------------------------------------------------------------");
+        }
+    }
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public void addPost(Post post) throws FileNotFoundException {
 
@@ -111,7 +152,7 @@ public class PostManager {
 			}
 		}
 		if (removed) {
-			
+			System.out.println("해당 게시글이 삭제 되었습니다.");
 		} else {
 			System.out.println("게시글 '" + title + "'이(가) 존재하지 않습니다.");
 		}
