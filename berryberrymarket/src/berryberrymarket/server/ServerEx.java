@@ -76,6 +76,20 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 }
 
 class ClientHandler extends Thread {
+
+	// 서버로 들어오는 스트림
+	InputStream is = null;
+	ObjectInputStream ois = null;
+//	InputStreamReader isr = null;
+//	BufferedReader br = null;
+	
+	// 클라이언트 측으로 보내는 스트림
+	OutputStream os = null;
+	ObjectOutputStream oos = null;
+//	OutputStreamWriter osw = null;
+//	PrintWriter pw = null;
+	
+	
     private Socket clientSocket;
     private Queue<ClientDataWrapper> messageQueue;
 
@@ -86,21 +100,8 @@ class ClientHandler extends Thread {
 
     @Override
     public void run() {
-    	
-    	// 서버로 들어오는 스트림
-    	InputStream is = null;
-		ObjectInputStream ois = null;
-//		InputStreamReader isr = null;
-//		BufferedReader br = null;
-		
-		// 클라이언트 측으로 보내는 스트림
-		OutputStream os = null;
-		ObjectOutputStream oos = null;
-//		OutputStreamWriter osw = null;
-//		PrintWriter pw = null;
-		
+
         try {
-        
         	// 입력
         	is = clientSocket.getInputStream();
         	ois = new ObjectInputStream(is);
