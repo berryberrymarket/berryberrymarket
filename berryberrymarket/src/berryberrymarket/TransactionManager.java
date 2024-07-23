@@ -14,13 +14,18 @@ public class TransactionManager {
 		this.transaction = new Transaction(star,post);
 	}
 	
-	public void evaluateTransaciton(List<User> userList) {
+	public List<User> evaluateTransaciton(List<User> userList) {
 		User user = transaction.getPost().getUser();
-		userList.stream().filter(n->n.equals(user)).forEach(u->{
-			
-			u.setTransactionsCnt(u.getTransactionsCnt()+1);
-			u.setUserLevel(u.getUserLevel()+transaction.getStar());
-			});
+		System.out.println("작성자"+user.getNick());
+		for(User users:userList) {
+			if(users.getNick().equals(user.getNick())) {
+//				users.setTransactionsCnt(users.getTransactionsCnt()+1);
+//				users.setUserLevel(users.getUserLevel()+transaction.getStar());
+				transaction.getPost().getUser().setTransactionsCnt(users.getTransactionsCnt()+1);
+				transaction.getPost().getUser().setUserLevel(users.getUserLevel()+transaction.getStar());
+			}
+		}
 		
+		return userList;
 	}
 }
