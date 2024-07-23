@@ -2,7 +2,6 @@ package userPackage.account;
 
 
 import java.io.File;
-import java.util.List;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class UserAuthentication implements Serializable {
@@ -136,7 +136,7 @@ public class UserAuthentication implements Serializable {
 			// 지정된 경로에 인증 파일이 존재한다면,
 			if (authFile.exists()) {
 				authFile.delete(); // 삭제.
-				System.out.println("userPackage/account/UserAuthentication.java: 인증 파일이 잘 삭제되었습니다.");
+			//	System.out.println("userPackage/account/UserAuthentication.java: 인증 파일이 잘 삭제되었습니다.");
 			} else {
 				// 삭제하지 않았음에도 존재하지 않는다면 예외 발생.
 				throw new Exception("인증 파일이 존재하지 않습니다.\n"
