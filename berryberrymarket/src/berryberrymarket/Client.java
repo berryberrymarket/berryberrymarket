@@ -18,7 +18,7 @@ public class Client {
 	      Scanner scanner = new Scanner(System.in);
 
 	      
-	      String serverIpAddress = "192.168.240.5"; //192.345.1.133 // 학원노트북 학원 ip// 서버 학원컴 먼저 여기서 열기-> 상대방(내컴) 클라이언트 열기
+	      String serverIpAddress = "192.168.240.13"; //192.345.1.133 // 학원노트북 학원 ip// 서버 학원컴 먼저 여기서 열기-> 상대방(내컴) 클라이언트 열기
 	      int port = 8000;
 	      
 	      try {

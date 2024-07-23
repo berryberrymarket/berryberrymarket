@@ -20,7 +20,7 @@ public class UserMyInfoPage {
 				+ "|닉네임    |%1s\t\t\t\t\t\n"
 				+ "|주소      |%1s\t\t\t\t\t\n"
 				+ "|전화번호  |%1s\t\t\t\t\t\n"
-				+ "|레벨      |%1d\t\t\t\t\t\n"
+				+ "|점수      |%1d\t\t\t\t\t\n"
 				+ "|거래횟수  |%1d\t\t\t\t\t\n", user.getId(), user.getName(), user.getNick(), user.getAddress(), user.getPhoneNumber(), user.getUserLevel(), user.getTransactionsCnt());
 
 		System.out.println("-----------------------------------------------------------------");
