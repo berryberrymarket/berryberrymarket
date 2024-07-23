@@ -30,6 +30,8 @@ public class UserUpdatePage {
 //		
 //	}
 	
+	//PrintPage의 printUserUpdatePage()애서 updateUserInfo() 호출.
+	//매개값으로 입력값 주어짐.
 	public void updateUserInfo(String in) {
 //		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
 //		System.out.println("(1)비밀번호");
@@ -41,6 +43,7 @@ public class UserUpdatePage {
 //		String in = sc.nextLine();
 
 		if (this.user != null) {
+			//입력값에 따라 분기 나눠짐
 			switch(in) {
 			case"1":
 				String newPw1;
