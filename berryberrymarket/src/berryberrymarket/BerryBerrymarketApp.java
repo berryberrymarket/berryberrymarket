@@ -37,6 +37,15 @@ public class BerryBerrymarketApp {
 				System.out.println();
 				System.out.println();
 				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
+				System.out.println();
 				if (pageCase == 0) { // 시스템 종료
 					System.out.println("시스템을 종료합니다.");
 					break;
