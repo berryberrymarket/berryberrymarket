@@ -146,7 +146,7 @@ public class PrintPage {
 		UserSignUpPage sp = new UserSignUpPage();
 
 		try {
-			sp.SignUp();
+			sp.signUp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -305,9 +305,12 @@ public class PrintPage {
 			UserUpdatePage uu = new UserUpdatePage(); 
 			uu.updateUserInfo(in); //해당 정보 수정
 			return 9; //이 페이지로 다시 옴
-		
-		default: 
+		case "6":
 			return 4;
+
+		default: 
+			System.out.println("잘못 입력하셨습니다.");
+			return 9;
 		
 		}
 		 

@@ -92,21 +92,23 @@ public class UserListManager {
 		updateUserList(); // 파일화 작업.
 	}
 	
+	// 회원 삭제 메서드.
 	public int deleteUserFromUserList(String logOutUID) {
 		/*
-		 * 로그아웃 시키기:
-		 * 1. 현재 로그인 리스트에서 빼고,
-		 * 2. 유저 객체의 Authentication = null 로 바꾸고,
-		 * 3. 인증 파일 지우기.
-		 * 
 		 * 회원 탈퇴 시키기:
 		 * 1. 로그아웃 시키고,
+		 *		1-1. 현재 로그인 리스트에서 빼고,
+		 * 		1-2. 유저 객체의 Authentication = null 로 바꾸고,
+		 * 		1-3. 인증 파일 지우기.
 		 * 2. 전체 유저 리스트에서 지우고,
 		 * 3. 유저가 지워진 유저리스트를 파일로 만들기.
 		 */
     	if (logOutUID != null) {
+    		// 전체 유저리스트를 반복해서 돌면서,
     		for (int i = 0; i < userList.size(); i ++) {
+    			// 아이디를 얻고,
     			String uid = userList.get(i).getId();
+    			// 로그아웃한 유저와 일치하는 순간,
     			if (uid.equals(logOutUID)) {
     				userList.remove(i); // 전체 유저 리스트에서 지우고,
     				updateUserList(); // 파일화 작업.
@@ -158,6 +160,12 @@ public class UserListManager {
 
 		File userListFile = new File(path, "userList.dat");
 		if (!userListFile.exists()) { // 유저 리스트 파일이 경로에 없을 때,
+			/*
+			 * 초기화 시 경로만 만드는 이유 :
+			 * 유저는 List<User> 에 저장되는데,
+			 * List<User>에 가입된 유저가 없는 경우, 즉 프로그램이 완전히 초기 상태인 경우는,
+			 * List<User>가 존재할 필요가 없기 때문입니다.
+			 */
 			path.mkdirs(); // 경로만 만듦.
 		} else {
 //			System.out.println("userPackage/model/UserListManager.java: 파일 발견.");

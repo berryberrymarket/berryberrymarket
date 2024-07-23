@@ -31,7 +31,7 @@ public class UserLoginPage {
 		this.userList = BerryBerrymarketApp.ul;
 	}
 
-	// 로그인
+	// 로그인 -> 1단계 이후 호출됨.
 	public boolean LogIn() {
 		for (User user : userList) { 
 			try {
