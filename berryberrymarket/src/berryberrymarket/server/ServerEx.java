@@ -33,50 +33,57 @@ import java.util.concurrent.TimeUnit;
 
 public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 server 클래스/
 	
-	public static boolean start = false;
 	private static final int SERVER_PORT = 8000;
 	private static final Queue<ClientDataWrapper> messageQueue = new ConcurrentLinkedQueue<>();
+	public static boolean start = false;
+	
+	public static ServerSocket serverSocket = null;
+	public static Socket socket = null;
+	public static InputStream is;
+	public static ObjectInputStream ois;
+	public static OutputStream os;
+	public static ObjectOutputStream oos;
 	
 	public static void main(String[] args) {
 	   
-		ServerSocket serverSocket = null;
-		Socket clientSocket = null;
-        
 		try {
+			
 			serverSocket = new ServerSocket(SERVER_PORT);
 			System.out.println("연결 대기중....");
-			clientSocket = serverSocket.accept();
-			InputStream is = clientSocket.getInputStream();
-			ObjectInputStream ois = new ObjectInputStream(is);
-			while (true) {
-				ClientDataWrapper userData = (ClientDataWrapper) ois.readObject();
-				System.out.println(userData.getUserNick());
-				if (userData.getMessage() == "") {
-					break;
-				}
-			}
+			socket = serverSocket.accept();
 			System.out.println("상대방과 연결되었습니다.");
+			// 입력 스트림
+			is = socket.getInputStream();
+			ois = new ObjectInputStream(is);
+			// 출력 스트림
+			os = socket.getOutputStream();
+			oos = new ObjectOutputStream(os);
 			
-			// 서버쪽 입력데이터 처리 스케줄러 생성.
-	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	        ClientHandler ch = new ClientHandler(clientSocket, messageQueue);
-	        
-	        // 0.5초 간격으로 run 메서드를 실행.
-	        scheduler.scheduleAtFixedRate(ch, 0, 500, TimeUnit.MILLISECONDS);
-	        
-			start = true;
-//			if (!start) {
-//				scheduler.shutdown();
-//            }
-		} catch (IOException | ClassNotFoundException e) {
+			Thread.inputThread().start();
+			
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (serverSocket != null) {					
-					serverSocket.close();
+				if (ServerEx.serverSocket != null) {					
+					ServerEx.serverSocket.close();
 				}
-				if (clientSocket != null) {					
-			        clientSocket.close();
+				if (ServerEx.socket != null) {					
+					ServerEx.socket.close();
+				}
+				if (ServerEx.is != null) {						
+					ServerEx.is.close();
+				}
+				if (ServerEx.ois != null) {
+					ServerEx.ois.close();
+				}
+				if (ServerEx.os != null) {
+					ServerEx.os.flush();
+					ServerEx.os.close();
+				}
+				if (ServerEx.oos != null) {
+					ServerEx.oos.flush();
+					ServerEx.oos.close();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -85,74 +92,100 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
 	}
 }
 
-class ClientHandler extends Thread {
-
-	// 서버로 들어오는 스트림
-	InputStream is = null;
-	ObjectInputStream ois = null;
-
-	// 클라이언트 측으로 보내는 스트림
-	OutputStream os = null;
-	ObjectOutputStream oos = null;
+class inputThread extends Thread {
+	private Queue<ClientDataWrapper> sharedMessageQueue;
 	
-    private Socket clientSocket;
-    private Queue<ClientDataWrapper> messageQueue;
+	// inputStream을 읽어서 메세지큐에 저장하는 쓰레드.
+	public inputThread(Queue<ClientDataWrapper> sharedMessageQueue) {
+		this.sharedMessageQueue = sharedMessageQueue;
+	}
+	
+	@Override
+	public void run() {
+		while (ServerEx.start) {
+			try {
+				ClientDataWrapper clientDataWrapper = (ClientDataWrapper) ServerEx.ois.readObject();
+				sharedMessageQueue.add(clientDataWrapper);
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (ServerEx.serverSocket != null) {					
+						ServerEx.serverSocket.close();
+					}
+					if (ServerEx.socket != null) {					
+						ServerEx.socket.close();
+					}
+					if (ServerEx.is != null) {						
+						ServerEx.is.close();
+					}
+					if (ServerEx.ois != null) {
+						ServerEx.ois.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+}
 
-    public ClientHandler(Socket socket, Queue<ClientDataWrapper> messageQueue) {
-        this.clientSocket = socket;
-        this.messageQueue = messageQueue;
-    }
-
-    @Override
-    public void run() {
-
-        try {
-        	// 입력
-        	is = clientSocket.getInputStream();
-        	ois = new ObjectInputStream(is);
-        	// 출력
-        	os = clientSocket.getOutputStream();
-        	oos = new ObjectOutputStream(os);
-
-        	ClientDataWrapper clientDataWrapper = (ClientDataWrapper) ois.readObject();
-        	messageQueue.add(clientDataWrapper);
-        	if (messageQueue.size() != 0) {
-        		// 가장 먼저 입력된 메세지객체
-        		ClientDataWrapper msgObject = messageQueue.poll();
-        		// msgObject가 존재할 때,
-        		if (msgObject != null) {
-        			String msg = msgObject.getMessage();
-        			// msgObject를 까서 그 안의 메세지가 bye 인 경우...
-        			if (msg.equalsIgnoreCase("bye")) {
-        				msgObject.setMessage(msg+"\n상대방이 나갔습니다.");
-        				msgObject.setEnd(true);
-        				oos.writeObject(msgObject);
-        				// 입력부 종료
-    	            	is.close();
-    	            	ois.close();
-    	            	// 출력부 종료
-    	            	os.flush();
-    	            	oos.flush();
-    	            	os.close();
-    	            	oos.close();
-    	            	ServerEx.start = false;
-        			}
-        			// 일반 대화 메세지인 경우...
-        		} else {
-        			oos.writeObject(msgObject);
-        			os.flush();
-	            	oos.flush();
-        		}
-        	}
-			
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                clientSocket.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+class outputThread extends Thread {
+	private Queue<ClientDataWrapper> sharedMessageQueue;
+	
+	// 메세지큐에 있던 데이터들을 outputStream으로 내보내는 쓰레드.
+	public outputThread(Queue<ClientDataWrapper> sharedMessageQueue) {
+		this.sharedMessageQueue = sharedMessageQueue;
+	}
+	
+	@Override
+	public void run() {
+		while (ServerEx.start) {
+			try {
+				if (sharedMessageQueue.size() != 0) {
+	        		// 가장 먼저 입력된 메세지객체
+	        		ClientDataWrapper msgObject = sharedMessageQueue.poll();
+	        		// msgObject가 존재할 때,
+	        		if (msgObject != null) {
+	        			String msg = msgObject.getMessage();
+	        			// msgObject를 까서 그 안의 메세지가 bye 인 경우...
+	        			if (msg.equalsIgnoreCase("bye")) {
+	        				msgObject.setMessage(msg+"\n상대방이 나갔습니다.");
+	        				msgObject.setEnd(true);
+	        				ServerEx.oos.writeObject(msgObject);
+	    	            	// 출력부 종료
+	        				ServerEx.oos.flush();
+	        				ServerEx.oos.close();
+	        			}
+	        			// 일반 대화 메세지인 경우...
+	        		} else {
+	        			ServerEx.oos.writeObject(msgObject);
+	        			ServerEx.oos.flush();
+	        		}
+	        	}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (ServerEx.serverSocket != null) {					
+						ServerEx.serverSocket.close();
+					}
+					if (ServerEx.socket != null) {					
+						ServerEx.socket.close();
+					}
+					if (ServerEx.os != null) {
+						ServerEx.os.flush();
+						ServerEx.os.close();
+					}
+					if (ServerEx.oos != null) {
+						ServerEx.oos.flush();
+						ServerEx.oos.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
