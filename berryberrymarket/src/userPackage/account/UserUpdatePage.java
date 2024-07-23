@@ -2,6 +2,7 @@ package userPackage.account;
 
 import java.util.List;
 import java.util.Scanner;
+
 import berryberrymarket.BerryBerrymarketApp;
 import userPackage.model.User;
 import userPackage.model.UserListManager;
@@ -29,6 +30,8 @@ public class UserUpdatePage {
 //		
 //	}
 	
+	//PrintPage의 printUserUpdatePage()애서 updateUserInfo() 호출.
+	//매개값으로 입력값 주어짐.
 	public void updateUserInfo(String in) {
 //		System.out.println("수정하실 회원 정보 항목을 선택하세요: ");
 //		System.out.println("(1)비밀번호");
@@ -40,6 +43,7 @@ public class UserUpdatePage {
 //		String in = sc.nextLine();
 
 		if (this.user != null) {
+			//입력값에 따라 분기 나눠짐
 			switch(in) {
 			case"1":
 				String newPw1;
@@ -106,7 +110,7 @@ public class UserUpdatePage {
 					System.out.print("수정하실 전화번호를 입력하세요: ");
 					newPhoneNumber = sc.nextLine();
 					if (!ValidationUtils.isValidPhoneNumber(newPhoneNumber)) {
-						System.out.println("형식이 올바르지 않습니다.");
+						System.out.println("전화번호는 다음과 같은 형식으로 입력해주세요! ex.010-1234-5678");
 					} else {
 						user.setPhoneNumber(newPhoneNumber);
 						System.out.println("전화번호가 수정되었습니다.");
@@ -116,19 +120,10 @@ public class UserUpdatePage {
 				break;
 			case"5":	
 				 String newAddress;
-			     //while (true) {
-			          System.out.print("주소를 입력하세요: ");
-			          newAddress = sc.nextLine();
-//			          if (!ValidationUtils.isValidAddress(newAddress)) {
-//			              System.out.println("형식이 올바르지 않습니다.");
-//			          } else {
-//							user.setAddress(newAddress);
-//			        	  System.out.println("주소가 수정되었습니다.");
-//			              break;
-//			          }
-			          System.out.println("주소가 수정되었습니다.");  
-			         // break;
-			     //}
+		         System.out.print("주소를 입력하세요: ");
+		         newAddress = sc.nextLine();
+				 user.setAddress(newAddress);
+		         System.out.println("주소가 수정되었습니다.");  
 			     break;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
