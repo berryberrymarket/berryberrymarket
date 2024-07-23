@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/* post객체 관리 클래스
+ * post 추가, 삭제, 콘솔 출력, Post.dat 파일 입출력 기능 */
 public class PostManager {
 	private List<Post> board = new ArrayList<>();
 	private List<Post> filteredBoard = new ArrayList<>();
@@ -22,12 +24,12 @@ public class PostManager {
 	File path = new File(nowPath, "post");
 	
 	
-	public void initGetBoard() {
+	public void initGetBoard() { //프로그램 실행시 Post.dat 파일로부터 객체들을 읽어와 리스트 처리
 		try {
-			if (!path.exists()) {
+			if (!path.exists()) { //파일 경로에 폴더 없으면 폴더 생성
 				path.mkdirs();
 				return;
-			} else {
+			} else { 
 				FileInputStream fis = new FileInputStream(path+"/Post.dat");
 		        ObjectInputStream ois = new ObjectInputStream(fis);
 
@@ -50,76 +52,29 @@ public class PostManager {
         }
 	}
 
-	public String[] printPost(int index) { // 게시글 상세페이지
+	public Post printPost(int index) { //입력 index값의 post객체의 정보 콘솔 출력
 		Post post = filteredBoard.get(filteredBoard.size()-index);
 		post.printInfo();
-		String[] titleAndNick = new String[2];
-		titleAndNick[0] = post.getTitle();
-		titleAndNick[1] = post.getNickname();
-		return titleAndNick;
+		return post;
 	}
-///////////////////////////////2차 수정/////////////////////////////////////////////////////////////////////
-	public void printBoard(String search) { // 게시글 리스트 목록 쫙~
+	
+	public void printBoard(String search) { // 입력 search 값과 동일한 내용을 가진 post객체만 필터링하여 페이징 출력
 		AtomicInteger index = new AtomicInteger(boardPagination.getCurPage()*10-9);
 		
-		filteredBoard = board.stream()
+		filteredBoard = board.stream() //search와 동일한 키워드를 가진 board만 필터링
 				.filter(post -> post.getTitle().contains(search) || post.getContent().contains(search))
 				.collect(Collectors.toList());
 		
-		if (filteredBoard.isEmpty()) {
+		if (filteredBoard.isEmpty()) { //필터링된 값이 없으면
             System.out.println("등록된 게시글이 없습니다.");
         } else {
-            List<Post> subBoard = boardPagination.currentPage(filteredBoard);
-          // System.out.println("------------------------------게시글-----------------------------");
-          // System.out.printf("%-3s %-30s %-1s %s\n", "No.", "제목", "작성자", "등록날짜"); //게시판 헤더 출력
-           // System.out.println("-----------------------------------------------------------------");
-            subBoard.forEach(post -> post.printSimpleInfo(index.getAndIncrement()));
-            System.out.println("-----------------------------------------------------------------");
-        }
-    }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	/*
-	private int calculateMaxTitleWidth(List<Post> posts) {
-        return posts.stream().mapToInt(post -> post.getFormattedTitle().length()).max().orElse(30);
-    }
-
-    private int calculateMaxNicknameWidth(List<Post> posts) {
-        return posts.stream().mapToInt(post -> post.getFormattedNickname().length()).max().orElse(10);
-    }
-
-    public void printBoard(String search) {
-        AtomicInteger index = new AtomicInteger(boardPagination.getCurPage() * 10 - 9);
-
-        filteredBoard = board.stream()
-                .filter(post -> post.getTitle().contains(search) || post.getContent().contains(search))
-                .collect(Collectors.toList());
-
-        if (filteredBoard.isEmpty()) {
-            System.out.println("등록된 게시글이 없습니다.");
-        } else {
-            List<Post> subBoard = boardPagination.currentPage(filteredBoard);
-            int maxTitleWidth = calculateMaxTitleWidth(subBoard);
-            int maxNicknameWidth = calculateMaxNicknameWidth(subBoard);
-
-         
-            subBoard.forEach(post -> post.printSimpleInfo(index.getAndIncrement(), maxTitleWidth, maxNicknameWidth));
+            List<Post> subBoard = boardPagination.currentPage(filteredBoard); //필터링 board의 페이지를 나눔. 
+            subBoard.forEach(post -> post.printSimpleInfo(index.getAndIncrement())); //해당 post객체의 간단한 정보와 index 출력
             System.out.println("-----------------------------------------------------------------");
         }
     }
 	
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	public void addPost(Post post) throws FileNotFoundException {
+	public void addPost(Post post) throws FileNotFoundException { //board에 객체 추가 후 파일에 출력
 
 		try {
 			OutputStream os = new FileOutputStream(path+"/Post.dat");
@@ -142,10 +97,10 @@ public class PostManager {
 		}
 	}
 
-	public void removePost(String title) {
+	public void removePost(Post post) { //board에서 해당 객체 삭제
 		boolean removed = false;
-		for(Post post:board) {
-			if(post.getTitle().equals(title)) {
+		for(Post post2:board) {
+			if(post2.equals(post)) {
 				board.remove(post);
 				removed=true;
 				break;
@@ -154,7 +109,7 @@ public class PostManager {
 		if (removed) {
 			System.out.println("해당 게시글이 삭제 되었습니다.");
 		} else {
-			System.out.println("게시글 '" + title + "'이(가) 존재하지 않습니다.");
+			System.out.println("게시글 '" + post.getTitle() + "'이(가) 존재하지 않습니다.");
 		}
 		
 		try {
@@ -206,5 +161,10 @@ public class PostManager {
 		Post post = filteredBoard.get(filteredBoard.size()-index);
 		post.setHit(post.getHit()+1);
 		
+	}
+	
+	public Post getPost(int index) {
+		Post post = filteredBoard.get(filteredBoard.size()-index);
+		return post;
 	}
 }

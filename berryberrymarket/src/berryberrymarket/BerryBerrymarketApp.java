@@ -22,8 +22,8 @@ public class BerryBerrymarketApp {
 		PrintPage pp = new PrintPage();
 		int pageCase = 2;
 
-		try {
-			while (true) {
+		try { 
+			while (true) { //페이지 이동을 위해 while 무한 반복문을 넣어줌.
 				System.out.println();
 				System.out.println();
 				System.out.println();
@@ -52,8 +52,8 @@ public class BerryBerrymarketApp {
 					pageCase = pp.printPostDetailPage();
 				} else if (pageCase == 6) { // 게시글등록페이지 출력
 					pageCase = pp.printAddPostPage();
-				} else if (pageCase == 7) { // 채팅목록페이지 출력
-					pageCase = pp.printChatListPage();
+				} else if (pageCase == 7) { // 거래완료페이지 출력
+					pageCase = pp.printTransactionComplete();
 				} else if (pageCase == 8) { // 채팅방페이지 출력
 					pageCase = pp.printChatRoomPage();
 				} else if (pageCase == 9) { // 회원정보수정페이지 출력
