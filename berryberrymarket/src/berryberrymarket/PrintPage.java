@@ -306,7 +306,7 @@ public class PrintPage {
 			UserUpdatePage uu = new UserUpdatePage(); 
 			uu.updateUserInfo(in); //해당 정보 수정
 			return 9; //이 페이지로 다시 옴
-		case "6":
+		case "0":
 			return 4;
 
 		default: 
