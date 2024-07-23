@@ -107,7 +107,7 @@ public class PostManager {
 			}
 		}
 		if (removed) {
-			System.out.println("해당 게시글이 삭제 되었습니다.");
+//			System.out.println("해당 게시글이 삭제 되었습니다.");
 		} else {
 			System.out.println("게시글 '" + post.getTitle() + "'이(가) 존재하지 않습니다.");
 		}

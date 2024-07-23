@@ -52,6 +52,11 @@ public class UserListManager {
 		return userList;
 	}
 	
+	
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+
 	public void updateUserList() { // 유저 리스트가 변동될 때마다 호출되는 유틸 메서드.
 		try {
 			fos = new FileOutputStream(path+"/userList.dat");

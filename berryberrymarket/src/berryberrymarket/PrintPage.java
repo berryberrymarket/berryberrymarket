@@ -212,8 +212,8 @@ public class PrintPage {
 				return 1;
 			case "u": //수정(기존 post 객체 삭제 후, 수정된 post 객체 추가
 				pm.removePost(post);
-				System.out.println("----수정되었습니다----");
 				setPostInfo(sc);
+				System.out.println("----수정되었습니다----");
 				return 1;
 			case "c": //채팅페이지로 이동
 				return 8;
@@ -263,7 +263,8 @@ public class PrintPage {
 			TransactionManager tm = new TransactionManager(); 
 			tm.createTransaction(star, post); //Transaction 인스턴스에는 별점과 게시글 인스턴스가 담김
 			List<User> userList = ulm.getUserList(); 
-			tm.evaluateTransaciton(userList); //상대방 평가
+			userList = tm.evaluateTransaciton(userList); //상대방 평가
+			ulm.setUserList(userList);
 			ulm.updateUserList(); //별점과 거래횟수 수정 -> 유저리스트 업데이트
 			
 		}
