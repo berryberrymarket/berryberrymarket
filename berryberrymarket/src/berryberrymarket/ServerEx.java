@@ -44,11 +44,21 @@ public class ServerEx { //// 시현 할 때 상대방 채팅할 사람 킬 serve
          e.printStackTrace();
       } finally {
          try {
-            scanner.close();
-            out.close();
-            in.close();
-            socket.close();
-            server.close();
+        	if(scanner != null) {
+        		scanner.close();
+        	}
+            if (out != null) {
+                out.close();
+            }
+            if (in != null) {
+               in.close();
+            }
+            if (socket != null) {
+               socket.close();
+            }
+            if (server != null) {
+            	server.close();
+            }
          } catch (IOException e) {
             e.printStackTrace();
          }

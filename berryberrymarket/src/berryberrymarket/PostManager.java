@@ -74,7 +74,7 @@ public class PostManager {
         }
     }
 	
-	public void addPost(Post post) throws FileNotFoundException { //board에 객체 추가 후 파일에 출력
+	public void addPost(Post post){ //board에 객체 추가 후 파일에 출력
 
 		try {
 			OutputStream os = new FileOutputStream(path+"/Post.dat");
@@ -92,7 +92,9 @@ public class PostManager {
 			oos.flush();
 			oos.close();
 			os.close();
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

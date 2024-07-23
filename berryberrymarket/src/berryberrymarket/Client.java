@@ -55,9 +55,15 @@ public class Client {
 	         e.printStackTrace();
 	      } finally {
 	         try {
-	            out.close();
-	            in.close();
-	            socket.close();
+	        	if (out != null) {
+	                 out.close();
+	            }
+	        	if (in != null) {
+	                in.close();
+	            }
+	        	if (socket != null) {
+	                socket.close();
+	            }
 	         } catch (IOException e) {
 	            e.printStackTrace();
 	         }

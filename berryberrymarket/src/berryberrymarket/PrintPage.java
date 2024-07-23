@@ -189,7 +189,7 @@ public class PrintPage {
 	/* pageCase=5, 게시글 상세 페이지 
 	 * 내가 작성한 글이면, 게시글 수정 삭제 가능
 	 * 내가 작성한 글이 아니면, 채팅하기 가능*/
-	public int printPostDetailPage() throws FileNotFoundException {
+	public int printPostDetailPage() {
 		pm.incHit(index);
 		//printHead("게시글상세페이지");
 		System.out.println("=========================게시글상세페이지========================");
@@ -209,6 +209,7 @@ public class PrintPage {
 				return 1;
 			case "d": //삭제
 				pm.removePost(post);
+				System.out.println("----삭제되었습니다----");
 				return 1;
 			case "u": //수정(기존 post 객체 삭제 후, 수정된 post 객체 추가
 				pm.removePost(post);
@@ -227,7 +228,7 @@ public class PrintPage {
 
 	
 	/* pageCase=6, 게시글 등록 페이지 */
-	public int printAddPostPage() throws FileNotFoundException {
+	public int printAddPostPage() {
 		//printHead("게시글등록페이지");
 		System.out.println("=========================게시글등록페이지========================");
 		setPostInfo(sc);
@@ -323,7 +324,7 @@ public class PrintPage {
 		System.out.print("원하는 메뉴키를 입력하세요: ");
 	}
 
-	private void setPostInfo(Scanner sc) throws FileNotFoundException { //post객체 등록 메소드
+	private void setPostInfo(Scanner sc) { //post객체 등록 메소드
 		System.out.print("제목을 입력하세요: ");
 		String title = sc.nextLine();
 		System.out.print("내용을 입력하세요: ");
